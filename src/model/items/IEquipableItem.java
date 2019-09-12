@@ -47,15 +47,62 @@ public interface IEquipableItem {
    */
   int getMaxRange();
   void equipedAlpaca(Alpaca alpaca);
+  /*/*
+  @author Clemente Henriquez
+  gives an item to an Alpaca, in the future it wont do anything
+   */
+
   void equipedHero(Hero hero);
+  /*/*
+  @author Clemente Henriquez
+  equips an Item to a Hero Unit
+   */
   void equipedArcher(Archer archer);
+  /*/*
+  @author Clemente Henriquez
+  equips an Item to an Archer
+   */
   void equipedCleric(Cleric cleric);
+  /*/*
+  @author Clemente Henriquez
+  equips an item to a cleric
+   */
+
+
   void equipedFighter(Fighter fighter);
+  /*/*
+  @author Clemente Henriquez
+ equips an item to a Fighter
+   */
   void equipedSorcerer(Sorcerer sorcerer);
+  /*/*
+  @author Clemente Henriquez
+ equips an item to a Sorcerer
+   */
   void equipedSwordMaster(SwordMaster swordMaster);
+  /*/*
+  @author Clemente Henriquez
+ equips an item to a SwordMaster
+   */
   void weakAttackTo(IUnit unit);
+  /*
+  @author Clemente Henriquez
+
+      makes the power of the item minus 20 points of damage to other Unit
+          */
   void strongAttackTo(IUnit unit);
+  /*
+  @author Clemente Henriquez
+   makes 1.5 times the damage of the item to an Unit
+
+   */
+
   void normalAttackTo(IUnit unit);
+  /*/*
+  @author Clemente Henriquez
+  this attack makes the damage of the weapon's power to an Unit.
+   */
+
 
   /**void swordAttack(Sword sword);
   void animaMagicBookAttack(AnimaMagicBook animaMagicBook);
@@ -68,12 +115,50 @@ public interface IEquipableItem {
   void alpacaAttack(Alpaca alpaca);
    **/
   void getAttackedByAxe(IEquipableItem item);
+  /*/*
+  @author Clemente Henriquez
+  An unit is attacked by an axe
+   */
+
   void getAttackedBySword(IEquipableItem item);
+  /*/*
+  @author Clemente Henriquez
+  An unit is attacked by a sword
+   */
+
   void getAttackedByBow(IEquipableItem item);
+  /*/*
+  @author Clemente Henriquez
+  An unit is attacked by a bow
+   */
   void getAttackedBySpear(IEquipableItem item);
+  /*/*
+  @author Clemente Henriquez
+  An unit is attacked by a spear
+   */
   void getAttackedByStaff(IEquipableItem item);
+  /*/*
+  @author Clemente Henriquez
+  does nothing
+   */
   void getAttackedByMagicBook(IEquipableItem item);
+  /*/*
+  @author Clemente Henriquez
+  An unit is attacked by a magicbook
+   */
   void getAttackedByDarknessMagicBook(IEquipableItem item);
+  /*/*
+  @author Clemente Henriquez
+  An unit is attacked by a darkmagicbook
+   */
   void getAttackedByLightMagicBook(IEquipableItem item);
+  /*/*
+  @author Clemente Henriquez
+  An unit is attacked by a lighmagicbook
+   */
   void getAttackedByAnimaMagicBook(IEquipableItem item);
+  /*/*
+  @author Clemente Henriquez
+  An unit is attacked by an animaMagibook
+   */
 }

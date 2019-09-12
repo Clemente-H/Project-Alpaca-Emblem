@@ -66,19 +66,54 @@ public interface IUnit {
    * @return the number of cells this unit can move
    */
   int getMovement();
-  int getMaxItems();
   /**
    * Moves this unit to another location.
    * <p>
    * If the other location is out of this unit's movement range, the unit doesn't move.
    */
+  int getMaxItems();
+  /**@author Clemente Henriquez Muñoz
+   * @return number of maxItems that an Unit can have
+   */
+
   void moveTo(Location targetLocation);
+  /**
+   * @return the final location of the unit
+   */
   void setCurrentHitPoints(int hitPoints);
+  /**
+   * @author Clemente Henriquez
+   * sets the current hitpoints
+   */
   void Combat(IUnit unit1,IUnit unit2);
+  /*
+    @author Clemente Henriquez
+    combat is a method that given 2 units, sets the conditions for the combat to begin,
+    after this, it activates the attacks of the units(in case that each unit CAN attack)
+
+     */
   void heal(IUnit unit);
+  /*
+  @author Clemente Henriquez
+   * Heal, is a method that given a unit restores hitpoints
+   *
+   * */
   void exchange(IEquipableItem item, IUnit unit2);
+  /*
+ @author Clemente Henriquez
+ exchange is a method that given an units and a item, sets the conditions for an exchange of items to be accomplished.
+
+  */
   void attack(IUnit unit);
+ /*@author Clemente Henriquez
+  attack is an abstract method that given a units, activates an attack in other unit.
+  this is to make sure that the unit accomplishes the condition of its weapon.
+
+
+
+*/
   void setItems(IEquipableItem item);
+  /*adds an item to the list of items from an Unit*/
 
 
 }

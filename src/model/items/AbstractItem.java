@@ -124,14 +124,9 @@ public abstract class AbstractItem implements IEquipableItem {
   @Override
   public void getAttackedByAnimaMagicBook(IEquipableItem item){item.strongAttackTo(this.getOwner());}
 
-  /*
-  /*
-  @author Clemente Henriquez
-  here, the attacks are described. There are three of them
-  The first one in weakAttackto. As its name says, it's a weak attack to a unit
-  (makes the power of the item minus 20 points of damage)
-   */
 
+
+  @Override
   public void weakAttackTo(IUnit unit){
     if((this.getPower()-20)<0){
     }
@@ -144,13 +139,8 @@ public abstract class AbstractItem implements IEquipableItem {
       }
     }
   }
-  /*
-  @author Clemente Henriquez
-  The second attack is strongAttackto, it bassicly the same that the previous attack, but this time
-  it's a strong attack(makes 1.5 times the damage of the item)
 
-   */
-
+  @Override
   public void strongAttackTo(IUnit unit){
     if((this.getPower())<0){
     }
@@ -164,11 +154,8 @@ public abstract class AbstractItem implements IEquipableItem {
     }
   }
 
-  /*/*
-  @author Clemente Henriquez
-  And finally the third attack is normal attack, this attack makes the damage of the weapon's power to an Unit.
-   */
 
+  @Override
   public void normalAttackTo(IUnit unit){
     if((this.getPower())<0){
   }

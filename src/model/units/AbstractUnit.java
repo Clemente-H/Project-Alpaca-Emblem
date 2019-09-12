@@ -16,7 +16,7 @@ import model.map.Location;
  * units.
  *
  * @author Ignacio Slater Muñoz
- * @Subauthor Clemente Henriquez Muñoz
+
  * @since 1.0
  */
 public abstract class AbstractUnit implements IUnit {
@@ -108,21 +108,9 @@ public abstract class AbstractUnit implements IUnit {
       setLocation(targetLocation);
     }
   }
-
+@Override
   public abstract void attack(IUnit unit);
-  /*
-  @author Clemente Henriquez
-  setCurrentHitPoints, change the hitpoints of an Unit, this is done so that when 2 units are fighting, the hitpoints
-  change and don't get stucked in time
-
-   */
-
-  /*
-    @author Clemente Henriquez
-    combat is a method that given 2 units, sets the conditions for the combat to begin,
-    after this, it activates the attacks of the units(in case that each unit CAN attack)
-
-     */
+  @Override
   public void Combat(IUnit unit1,IUnit unit2) {
     if(unit2.getLocation().distanceTo(unit1.getLocation()) <=unit1.getEquippedItem().getMaxRange() && unit2.getLocation().distanceTo(unit1.getLocation())>=unit1.getEquippedItem().getMinRange()) {
         if(unit1.getCurrentHitPoints()>0 && unit2.getCurrentHitPoints()>0) {
@@ -140,12 +128,7 @@ public abstract class AbstractUnit implements IUnit {
 
   }
 
-  /*
-  @author Clemente Henriquez
-  exchange is a method that given 2 units, sets the conditions for an exchange of items to be accomplished.
-
-   */
-
+@Override
   public void exchange(IEquipableItem item, IUnit unit2){
     if(this.items.contains(item)){
       if(unit2.getLocation().distanceTo(item.getOwner().getLocation())==1){
@@ -159,12 +142,8 @@ public abstract class AbstractUnit implements IUnit {
       }
     }
   }
-  /*
-  @author Clemente Henriquez
-  attack is an abstract method that given a units, activates an attack in other unit.
-  this is to make sure that the unit accomplishes the condition of its weapon.
 
-   */
+  @Override
   public void heal(IUnit unit){
 
   }

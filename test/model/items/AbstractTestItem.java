@@ -116,4 +116,7 @@ public abstract class AbstractTestItem {
    * @return a unit that can equip the item being tested
    */
   public abstract IUnit getTestUnit();
+
+  @test
+  public void Fight(IUnit unit1,IUnit unit2)
 }
