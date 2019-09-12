@@ -1,11 +1,14 @@
 package model.items;
 
+import model.units.SwordMaster;
+
 /**
  * This class represents a sword type item.
  * <p>
  * Swords are strong against axes and weak against spears.
  *
  * @author Ignacio Slater Muñoz
+ * @author Clemente Henriquez Muñoz
  * @since 1.0
  */
 public class Sword extends AbstractItem {
@@ -25,4 +28,10 @@ public class Sword extends AbstractItem {
   public Sword(final String name, final int power, final int minRange, final int maxRange) {
     super(name, power, minRange, maxRange);
   }
+  public void equipedSwordMaster(SwordMaster swordMaster){this.equipTo(swordMaster);}
+
+
+
+  public void getAttackedByAxe(IEquipableItem item){item.weakAttackTo(this.getOwner());}
+  public void getAttackedBySpear(IEquipableItem item){item.strongAttackTo(this.getOwner());}
 }

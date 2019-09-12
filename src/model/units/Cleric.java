@@ -9,6 +9,7 @@ import model.map.Location;
  * that it can receive attacks but can't counter attack any of those.
  *
  * @author Ignacio Slater Muñoz
+ * @subauthor Clemente Henriquez Muñoz
  * @since 1.0
  */
 public class Cleric extends AbstractUnit {
@@ -34,8 +35,23 @@ public class Cleric extends AbstractUnit {
    */
   @Override
   public void equipItem(final IEquipableItem item) {
-    if (item instanceof Staff) {
-      equippedItem = item;
+    if(this.items.contains(item)){
+      item.equipedCleric(this);
     }
+
+  }
+  public void heal(IUnit unit){
+    if(this.getEquippedItem()!=null){
+      if(this.getLocation().distanceTo(unit.getLocation())>=this.getEquippedItem().getMinRange() && this.getLocation().distanceTo(unit.getLocation())>=this.getEquippedItem().getMaxRange()){
+        if(unit.getMaxHitPoints()<unit.getCurrentHitPoints()+this.getEquippedItem().getPower()){
+          unit.setCurrentHitPoints(unit.getCurrentHitPoints());
+        }
+        else{
+          unit.setCurrentHitPoints(unit.getCurrentHitPoints()+ this.getEquippedItem().getPower());
+        }
+      }
+    }
+  }
+  public void attack(IUnit unit){
   }
 }

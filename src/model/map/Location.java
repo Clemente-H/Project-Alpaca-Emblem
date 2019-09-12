@@ -17,6 +17,7 @@ import model.units.IUnit;
  * neighbours will be always 1.
  *
  * @author Ignacio Slater Muñoz
+ * @subauthor Clemente Henriquez Muñoz
  * @since 1.0
  */
 public class Location {

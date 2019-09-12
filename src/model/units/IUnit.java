@@ -11,6 +11,7 @@ import model.map.Location;
  * except some special ones can carry at most 3 weapons.
  *
  * @author Ignacio Slater Muñoz
+ * @Subautor Clemente Henriquez Muñoz
  * @since 1.0
  */
 public interface IUnit {
@@ -31,6 +32,13 @@ public interface IUnit {
   /**
    * @return the items carried by this unit
    */
+
+  int getMaxHitPoints();
+  /**
+   * @return the maxHitpoints of this unit
+   */
+
+
   List<IEquipableItem> getItems();
 
   /**
@@ -58,11 +66,19 @@ public interface IUnit {
    * @return the number of cells this unit can move
    */
   int getMovement();
-
+  int getMaxItems();
   /**
    * Moves this unit to another location.
    * <p>
    * If the other location is out of this unit's movement range, the unit doesn't move.
    */
   void moveTo(Location targetLocation);
+  void setCurrentHitPoints(int hitPoints);
+  void Combat(IUnit unit1,IUnit unit2);
+  void heal(IUnit unit);
+  void exchange(IEquipableItem item, IUnit unit2);
+  void attack(IUnit unit);
+  void setItems(IEquipableItem item);
+
+
 }

@@ -1,11 +1,14 @@
 package model.items;
 
+import model.units.Fighter;
+
 /**
  * This class represents an Axe.
  * <p>
  * Axes are strong against spears but weak agains swords.
  *
  * @author Ignacio Slater Muñoz
+ *
  * @since 1.0
  */
 public class Axe extends AbstractItem {
@@ -25,4 +28,13 @@ public class Axe extends AbstractItem {
   public Axe(final String name, final int power, final int minRange, final int maxRange) {
     super(name, power, minRange, maxRange);
   }
+  public void equipedFighter(Fighter fighter){this.equipTo(fighter);}
+  /*
+  public void spearAttack(Spear spear){this.strongAttackTo(spear.getOwner());}
+  public void swordAttack(Sword sword){this.weakAttackTo(sword.getOwner());}
+
+*/
+  public void getAttackedBySword(IEquipableItem item){item.strongAttackTo(this.getOwner());}
+  public void getAttackedBySpear(IEquipableItem item){item.weakAttackTo(this.getOwner());}
+
 }

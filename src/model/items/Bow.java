@@ -1,8 +1,11 @@
 package model.items;
 
+import model.units.Archer;
+
 /**
  * @author Ignacio Slater Muñoz
- * @since
+ * @subauthor Clemente Henriquez Muñoz
+ * @since 1.0
  */
 public class Bow extends AbstractItem {
 
@@ -26,4 +29,6 @@ public class Bow extends AbstractItem {
     this.minRange = Math.max(minRange, 2);
     this.maxRange = Math.max(maxRange, this.minRange);
   }
+  public void equipedArcher(Archer archer){this.equipTo(archer);}
+
 }
