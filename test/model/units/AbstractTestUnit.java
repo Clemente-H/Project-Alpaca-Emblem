@@ -3,8 +3,10 @@ package model.units;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
 
 import model.items.*;
+
 import model.map.Field;
 import model.map.Location;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,12 +19,14 @@ import org.junit.jupiter.api.Test;
 public abstract class AbstractTestUnit implements ITestUnit {
 
   protected Alpaca targetAlpaca;
+  protected SwordMaster Artorias;
   protected Bow bow;
   protected Field field;
   protected Axe axe;
   protected Sword sword;
   protected Staff staff;
   protected Spear spear;
+  protected Sorcerer sorcerer;
 
   @Override
   public void setTargetAlpaca() {
@@ -32,13 +36,9 @@ public abstract class AbstractTestUnit implements ITestUnit {
   /**
    * Sets up the units and weapons to be tested
    */
-  @BeforeEach
-  public void setUp() {
-    setField();
-    setTestUnit();
-    setTargetAlpaca();
-    setWeapons();
-  }
+
+
+
 
   /**
    * Set up the game field
@@ -205,5 +205,66 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   public Alpaca getTargetAlpaca() {
     return targetAlpaca;
+  }
+
+
+
+
+  @BeforeEach
+  void setUp(){
+    setTestUnit();
+    setTargetAlpaca();
+    setWeapons();
+   /*
+   * BigGameField*/
+
+    Location local1 = new Location(1,1);
+    Location local2 = new Location(1,2);
+    Location local3 = new Location(1,3);
+    Location local4 = new Location(1,4);
+    Location local5 = new Location(2,2);
+    Location local6 = new Location(2,1);
+    Location local7 = new Location(2,3);
+    Location local8 = new Location(2,4);
+    Location local9 = new Location(3,1);
+    Location local10 = new Location(3,2);
+    Location local11 = new Location(3,3);
+    Location local12 = new Location(3,4);
+
+    local1.addNeighbour(local2);
+    local2.addNeighbour(local3);
+    local3.addNeighbour(local4);
+    local4.addNeighbour(local8);
+    local1.addNeighbour(local5);
+    local2.addNeighbour(local6);
+    local3.addNeighbour(local7);
+    local4.addNeighbour(local8);
+    local5.addNeighbour(local6);
+    local6.addNeighbour(local7);
+    local7.addNeighbour(local8);
+    local5.addNeighbour(local9);
+    local6.addNeighbour(local10);
+    local7.addNeighbour(local11);
+    local8.addNeighbour(local12);
+    local9.addNeighbour(local10);
+    local10.addNeighbour(local11);
+    local11.addNeighbour(local12);
+
+
+    axe=new Axe("Hacha de luna Creciente", 40, 1,2);
+    Alpaca alpaca= new Alpaca(1000,1,local7,null);
+    sword=new Sword("Espada de Artorias", 40,1,2);
+    spear = new Spear("Lanza Negra", 40,1,2);
+    Fighter fighter = new Fighter(1000,1,local1,axe);
+
+    Hero hero = new Hero(1000,1,local2,spear);
+    SwordMaster swordMaster = new SwordMaster(1000,1, local6, spear);
+
+  }
+  @Test
+  public void testExchange() {
+    Sword sable =new Sword("Espada de Artorias", 40,1,2);
+    Artorias.exchange(sable, targetAlpaca);
+    assertTrue(targetAlpaca.items.contains(sable));
   }
 }

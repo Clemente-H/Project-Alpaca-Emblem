@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.BeforeEach;
+
 /**
  * @author Ignacio Slater Muñoz
  */
@@ -17,7 +19,7 @@ public class HeroTest extends AbstractTestUnit {
    */
   @Override
   public void setTestUnit() {
-    hero = new Hero(50, 2, field.getCell(0, 0));
+    Hero hero = new Hero(50, 2, field.getCell(0, 0));
   }
 
   /**

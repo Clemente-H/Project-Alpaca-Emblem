@@ -4,6 +4,16 @@
  * @author Clemente Henriquez Muñoz
  * @since 1.0
  */
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import model.units.AbstractTestUnit;
+import model.units.IUnit;
+import model.units.Sorcerer;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 public class SorcererTest extends AbstractTestUnit {
 
     private Sorcerer sorcerer;
@@ -12,13 +22,28 @@ public class SorcererTest extends AbstractTestUnit {
      * Set up the main unit that's going to be tested in the test set
      */
     @Override
-    public void setTestUnit() {
-        sorcerer = new sorcerer(50, 2, field.getCell(0, 0));
+    public void setTestUnit() {sorcerer = new Sorcerer(50, 2, field.getCell(0, 0));    }
+
+    @Override
+    public IUnit getTestUnit() {
+        return null;
+    }
+/*
+    @override
+    public void equipItemtestUnit() {sorcerer = new sorcerer(50, 2, field.getCell(0, 0));
+    lightMagicBook = new LightMagicBook("SoulArrow", 40, 1,2);
+    sword = new Sword("Espada de Artorias", 40,1,2);
+    sorecerer.setItems(lightmagicBook);
+    assertTrue(sorcerer.items.contains(lighMagicBook));
+    assertNull(sorcerer.items.contains(sword));
+    sorcerer.setEquipedItem(lightMagicBook);
+    assertEquals(sorcerer.getEquipedItem());
     }
 
     /**
      * @return the current unit being tested
      */
+/*
     @Override
     public IUnit getTestUnit() {
         return sorcerer;
@@ -27,6 +52,7 @@ public class SorcererTest extends AbstractTestUnit {
     /**
      * Checks if the bow is equipped correctly to the unit
      */
+/*
     @Test
     @Override
     public void equipLightMagicBookTest() {
@@ -34,4 +60,5 @@ public class SorcererTest extends AbstractTestUnit {
         sorcerer.equipItem(lightmagicBook);
         assertEquals(lightMagicBook, sorcerer.getEquippedItem());
     }
+    */
 }

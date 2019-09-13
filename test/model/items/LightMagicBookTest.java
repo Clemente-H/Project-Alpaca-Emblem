@@ -22,7 +22,7 @@ class LightMagicBookTest extends AbstractTestItem {
         expectedPower = 10;
         expectedMinRange = 1;
         expectedMaxRange = 2;
-        LightMagicBook = new LightMagicBook(expectedName, expectedPower, expectedMinRange, expectedMaxRange);
+        LightMagicBook  lightMagicBook= new LightMagicBook(expectedName, expectedPower, expectedMinRange, expectedMaxRange);
     }
 
     /**
@@ -38,7 +38,7 @@ class LightMagicBookTest extends AbstractTestItem {
      */
     @Override
     public void setTestUnit() {
-        Sorcerer = new Sorcerer(10, 5, new Location(0, 0));
+        Sorcerer sorcerer = new Sorcerer(10, 5, new Location(0, 0));
     }
 
     @Override
@@ -48,7 +48,7 @@ class LightMagicBookTest extends AbstractTestItem {
 
     @Override
     public IEquipableItem getTestItem() {
-        return LightMagicBook;
+        return lightMagicBook;
     }
 
     /**
@@ -56,6 +56,6 @@ class LightMagicBookTest extends AbstractTestItem {
      */
     @Override
     public IUnit getTestUnit() {
-        return Sorcerer;
+        return sorcerer ;
     }
 }

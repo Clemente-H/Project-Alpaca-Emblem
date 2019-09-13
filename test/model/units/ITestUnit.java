@@ -5,6 +5,7 @@ import model.items.*;
 import model.map.Field;
 import org.junit.jupiter.api.Test;
 
+
 /**
  * Interface that defines the common behaviour of all the test for the units classes
  *
@@ -107,4 +108,7 @@ public interface ITestUnit {
    * @return the target Alpaca
    */
   Alpaca getTargetAlpaca();
+
+
+  void testExchange();
 }

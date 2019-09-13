@@ -117,6 +117,12 @@ public abstract class AbstractTestItem {
    */
   public abstract IUnit getTestUnit();
 
-  @test
-  public void Fight(IUnit unit1,IUnit unit2)
+  /*
+    @test
+    public void Fight(IUnit unit1,IUnit unit2);
+    */
+  public void getUnitTest() {
+
+  }
+
 }
