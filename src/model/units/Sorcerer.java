@@ -36,10 +36,7 @@ public class Sorcerer  extends AbstractUnit {
      */
     @Override
     public void equipItem(final IEquipableItem item) {
-        if(this.items.contains(item)){
-            item.equipedSorcerer(this);
-        }
-
+            item.equippedSorcerer(this);
     }
 
     /* sets the attack of the unit to other unit.

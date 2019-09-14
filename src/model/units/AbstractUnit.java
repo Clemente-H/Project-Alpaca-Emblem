@@ -73,7 +73,7 @@ public abstract class AbstractUnit implements IUnit {
 
   @Override
   public void setCurrentHitPoints(int hitPoints){
-    this.currentHitPoints= hitPoints;
+    this.currentHitPoints = hitPoints;
   }
 
   @Override
@@ -109,43 +109,41 @@ public abstract class AbstractUnit implements IUnit {
     }
   }
 @Override
-  public abstract void attack(IUnit unit);
+  public void attack(IUnit unit){};
   @Override
-  public void Combat(IUnit unit1,IUnit unit2) {
-    if(unit2.getLocation().distanceTo(unit1.getLocation()) <=unit1.getEquippedItem().getMaxRange() && unit2.getLocation().distanceTo(unit1.getLocation())>=unit1.getEquippedItem().getMinRange()) {
-        if(unit1.getCurrentHitPoints()>0 && unit2.getCurrentHitPoints()>0) {
-          if(unit1.getEquippedItem()!= null) {
-            unit1.attack(unit2);
-            if(unit2.getCurrentHitPoints()> 0 && unit2.getEquippedItem()!=null){
-              if(unit2.getLocation().distanceTo(unit1.getLocation()) <=unit2.getEquippedItem().getMaxRange() && unit2.getLocation().distanceTo(unit1.getLocation())>=unit2.getEquippedItem().getMinRange()) {
+  public void attackedAlpaca(IUnit unit){};
+
+  public void Combat(IUnit unit2) {
+    if(unit2.getLocation().distanceTo(this.getLocation()) <=this.getEquippedItem().getMaxRange() && unit2.getLocation().distanceTo(this.getLocation())>=this.getEquippedItem().getMinRange()) {
+        if(this.getCurrentHitPoints()>0 && unit2.getCurrentHitPoints()>0) {
+          this.attack(unit2);
+          unit2.attackedAlpaca(this);
+          if(unit2.getCurrentHitPoints()> 0 && unit2.getEquippedItem()!=null){
+            if(unit2.getLocation().distanceTo(this.getLocation()) <=unit2.getEquippedItem().getMaxRange() && unit2.getLocation().distanceTo(this.getLocation())>=unit2.getEquippedItem().getMinRange()) {
              /*counter*/
-              unit2.attack(unit1);
+              unit2.attack(this);
             }
             }
             }
         }
     }
 
-  }
+
 
 @Override
   public void exchange(IEquipableItem item, IUnit unit2){
-    if(this.items.contains(item)){
       if(unit2.getLocation().distanceTo(item.getOwner().getLocation())==1){
         if(unit2.getItems().size()<unit2.getMaxItems()){
-          if(this.equippedItem.equals(item)){
-            this.equippedItem.equals(null);
-          }
+
           unit2.setItems(item);
           this.items.remove(item);
         }
       }
     }
-  }
+
 
   @Override
   public void heal(IUnit unit){
-
   }
 
 }

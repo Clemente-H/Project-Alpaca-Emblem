@@ -46,40 +46,39 @@ public interface IEquipableItem {
    * @return the maximum range of the item
    */
   int getMaxRange();
-  void equipedAlpaca(Alpaca alpaca);
   /*/*
   @author Clemente Henriquez
   gives an item to an Alpaca, in the future it wont do anything
    */
 
-  void equipedHero(Hero hero);
+  void equippedHero(Hero hero);
   /*/*
   @author Clemente Henriquez
   equips an Item to a Hero Unit
    */
-  void equipedArcher(Archer archer);
+  void equippedArcher(Archer archer);
   /*/*
   @author Clemente Henriquez
   equips an Item to an Archer
    */
-  void equipedCleric(Cleric cleric);
+  void equippedCleric(Cleric cleric);
   /*/*
   @author Clemente Henriquez
   equips an item to a cleric
    */
 
 
-  void equipedFighter(Fighter fighter);
+  void equippedFighter(Fighter fighter);
   /*/*
   @author Clemente Henriquez
  equips an item to a Fighter
    */
-  void equipedSorcerer(Sorcerer sorcerer);
+  void equippedSorcerer(Sorcerer sorcerer);
   /*/*
   @author Clemente Henriquez
  equips an item to a Sorcerer
    */
-  void equipedSwordMaster(SwordMaster swordMaster);
+  void equippedSwordMaster(SwordMaster swordMaster);
   /*/*
   @author Clemente Henriquez
  equips an item to a SwordMaster
@@ -104,14 +103,7 @@ public interface IEquipableItem {
    */
 
 
-  /**void swordAttack(Sword sword);
-  void animaMagicBookAttack(AnimaMagicBook animaMagicBook);
-  void axeAttack(Axe axe);
-  void bowAttack(Bow bow);
-  void darknessMagicBookAttack(DarknessMagicBook darknessMagicBook);
-  void lightMagicBookAttack(LightMagicBook lightMagicBook);
-  void spearAttack(Spear spear);
-  void staffAttack(Staff staff);
+  /**
   void alpacaAttack(Alpaca alpaca);
    **/
   void getAttackedByAxe(IEquipableItem item);
@@ -161,4 +153,5 @@ public interface IEquipableItem {
   @author Clemente Henriquez
   An unit is attacked by an animaMagibook
    */
+  void attackAlpaca(Alpaca alpaca);
 }

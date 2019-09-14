@@ -16,6 +16,8 @@ import org.junit.jupiter.api.BeforeEach;
 public class FighterTest extends AbstractTestUnit {
 
   private Fighter fighter;
+  private Archer archer;
+
 
   /**
    * Set up the main unit that's going to be tested in the test set

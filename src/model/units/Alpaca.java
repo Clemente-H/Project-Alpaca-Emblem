@@ -39,6 +39,8 @@ public class Alpaca extends AbstractUnit {
   public void equipItem(final IEquipableItem item) {
     // Method body intentionally left empty
   }
- public void attack(IUnit unit){
- }
+
+  public void attackedAlpaca(IUnit unit){
+    unit.getEquippedItem().attackAlpaca(this);
+  }
 }

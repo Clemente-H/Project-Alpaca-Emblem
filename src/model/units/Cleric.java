@@ -35,23 +35,20 @@ public class Cleric extends AbstractUnit {
    */
   @Override
   public void equipItem(final IEquipableItem item) {
-    if(this.items.contains(item)){
-      item.equipedCleric(this);
-    }
-
+      item.equippedCleric(this);
   }
+
   public void heal(IUnit unit){
-    if(this.getEquippedItem()!=null){
       if(this.getLocation().distanceTo(unit.getLocation())>=this.getEquippedItem().getMinRange() && this.getLocation().distanceTo(unit.getLocation())>=this.getEquippedItem().getMaxRange()){
         if(unit.getMaxHitPoints()<unit.getCurrentHitPoints()+this.getEquippedItem().getPower()){
-          unit.setCurrentHitPoints(unit.getCurrentHitPoints());
+          unit.setCurrentHitPoints(unit.getMaxHitPoints());
         }
         else{
           unit.setCurrentHitPoints(unit.getCurrentHitPoints()+ this.getEquippedItem().getPower());
         }
       }
     }
-  }
+
   public void attack(IUnit unit){
   }
 }

@@ -36,9 +36,7 @@ public class Hero extends AbstractUnit {
    */
   @Override
   public void equipItem(final IEquipableItem item) {
-    if(this.items.contains(item)){
-      item.equipedHero(this);
-    }
+      item.equippedHero(this);
   }
   public void attack(IUnit unit){
     unit.getEquippedItem().getAttackedBySpear(this.getEquippedItem());

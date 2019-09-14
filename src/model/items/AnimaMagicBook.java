@@ -19,12 +19,6 @@ public class AnimaMagicBook extends AbstractMagicBook {
         super(name, power, minRange, maxRange);
     }
 
-/*
-    public void lightMagicBook(LightMagicBook lightMagicBook){lightMagicBook.weakAttackTo(this.getOwner());}
-
-    public void darknessMagicBook(DarknessMagicBook darknessMagicBook){darknessMagicBook.strongAttackTo(this.getOwner());}
-*/
-
     public void getAttackedByDarknessMagicBook(IEquipableItem item){item.strongAttackTo(this.getOwner());}
     public void getAttackedByLightMagicBook(IEquipableItem item){item.weakAttackTo(this.getOwner());}
 

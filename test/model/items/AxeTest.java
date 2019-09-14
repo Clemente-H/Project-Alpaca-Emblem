@@ -1,14 +1,12 @@
 package model.items;
 
 import model.map.Location;
-import model.units.Fighter;
-import model.units.IUnit;
+import model.units.*;
 
-import model.units.Hero;
-import model.units.ArcherTest;
-import model.units.SwordMaster;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 /*
 import org.junit.jupiter.api.Assertions.assertEqual;
 Location local1, local2, local3;
@@ -23,10 +21,26 @@ IEquipableItem axe, sword, spear;
  * @since 1.0
  */
 class AxeTest extends AbstractTestItem {
-
+  private AnimaMagicBook animaMagicBook;
+  private AnimaMagicBook wrongAnimaMagicBook;
+  private Sorcerer sorcerer;
+  private LightMagicBook lightMagicBook;
+  private DarknessMagicBook darknessMagicBook;
+  private Sorcerer lightSorcerer;
+  private Sorcerer darkSorcerer;
+  private Spear spear;
+  private Hero hero;
   private Axe axe;
-  private Axe wrongAxe;
   private Fighter fighter;
+  private Archer archer;
+  private Bow bow;
+  private Staff staff;
+  private Cleric cleric;
+  private SwordMaster swordMaster;
+  private Sword sword;
+  private Alpaca alpaca;
+  private Axe wrongAxe;
+
 
   @Override
   public void setTestItem() {
@@ -35,6 +49,22 @@ class AxeTest extends AbstractTestItem {
     expectedMinRange = 1;
     expectedMaxRange = 2;
     axe = new Axe(expectedName, expectedPower, expectedMinRange, expectedMaxRange);
+    animaMagicBook = new AnimaMagicBook("common animaBook",expectedPower,expectedMinRange,expectedMaxRange);
+    lightMagicBook = new LightMagicBook("spellsfordummies",40,1,2);
+    darknessMagicBook = new DarknessMagicBook("howToActColdAsSasuke",40,1,2);
+    sorcerer= new Sorcerer(100,4,new Location(0,0));
+    spear = new Spear("",40,1,2);
+    hero = new Hero(100,4,new Location(1,0));
+    fighter = new Fighter(100,4,new Location(1,0));
+    archer = new Archer(100,4,new Location(1,0));
+    cleric = new Cleric(100,4,new Location(1,0));
+    alpaca = new Alpaca(100,4,new Location(1,0));
+    swordMaster = new SwordMaster(100,4,new Location(1,0));
+    sword = new Sword("",40,1,2);
+    bow = new Bow("",40,2,4);
+    archer = new Archer(100,4,new Location(1,0));
+    lightSorcerer = new Sorcerer(100, 4,new Location(1,0));
+    darkSorcerer = new Sorcerer(100,1,new Location(1,0));
   }
 /*
   @BeforeEach
@@ -87,7 +117,7 @@ class AxeTest extends AbstractTestItem {
    */
   @Override
   public void setTestUnit() {
-    fighter = new Fighter(10, 5, new Location(0, 0));
+    fighter = new Fighter(100, 5, new Location(0, 0));
   }
 
   @Override
@@ -106,6 +136,49 @@ class AxeTest extends AbstractTestItem {
   @Override
   public IUnit getTestUnit() {
     return fighter;
+  }
+
+  @Test
+  public void equipAxeTest(){
+    axe.equippedFighter(fighter);
+    assertEquals(fighter.getEquippedItem(),axe);
+  }
+  @Test
+  public void attack(){
+    swordMaster = new SwordMaster(100, 5, new Location(1, 0));
+    swordMaster.getLocation().addNeighbour(fighter.getLocation());
+    hero = new Hero(100,5,new Location(0,1));
+    hero.getLocation().addNeighbour(fighter.getLocation());
+    swordMaster.getItems().add(sword);
+    swordMaster.equipItem(sword);
+    hero.getItems().add(spear);
+    hero.equipItem(spear);
+    fighter.equipItem(axe);
+
+    axe.getAttackedBySword(sword);
+    //sword makes an strongAttack to an axe
+    assertEquals(fighter.getCurrentHitPoints(),85);
+    fighter.Combat(hero);
+    assertEquals(hero.getCurrentHitPoints(),80);
+    axe.getAttackedBySpear(spear);
+    assertEquals(fighter.getCurrentHitPoints(),75);
+
+
+
+
+  }
+
+  @Test
+  public void hittinFighters(){
+    axe.getAttackedByDarknessMagicBook(darknessMagicBook);
+    axe.getAttackedByLightMagicBook(lightMagicBook);
+    axe.getAttackedByAnimaMagicBook(animaMagicBook);
+    axe.getAttackedByBow(bow);
+    axe.getAttackedBySpear(spear);
+    axe.getAttackedByStaff(staff);
+    axe.getAttackedBySword(sword);
+
+
   }
 
 }

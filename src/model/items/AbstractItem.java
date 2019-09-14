@@ -73,38 +73,19 @@ public abstract class AbstractItem implements IEquipableItem {
 
 
   @Override
-  public void equipedAlpaca(Alpaca alpaca) {}
+  public void equippedHero(Hero hero){};
   @Override
-  public void equipedHero(Hero hero) {}
+  public void equippedArcher(Archer archer){}
   @Override
-  public void equipedArcher(Archer archer){}
+  public void equippedCleric(Cleric cleric){}
   @Override
-  public void equipedCleric(Cleric cleric){}
+  public void equippedFighter(Fighter fighter){};
   @Override
-  public void equipedFighter(Fighter fighter){}
+  public void equippedSorcerer(Sorcerer sorcerer){};
   @Override
-  public void equipedSorcerer(Sorcerer sorcerer){}
-  @Override
-  public void equipedSwordMaster(SwordMaster swordMaster){}
-  @Override
-  /**public void swordAttack(Sword sword){sword.normalAttackTo(this.owner);}
-  @Override
-  public void animaMagicBookAttack(AnimaMagicBook animaMagicBook){animaMagicBook.strongAttackTo(this.getOwner());}
-  @Override
-  public void axeAttack(Axe axe){this.normalAttackTo(axe.getOwner());}
-  @Override
-  public void bowAttack(Bow bow){this.normalAttackTo(bow.getOwner());}
-  @Override
-  public void darknessMagicBookAttack(DarknessMagicBook darknessMagicBook){darknessMagicBook.strongAttackTo(this.getOwner());}
-  @Override
-  public void lightMagicBookAttack(LightMagicBook lightMagicBook){lightMagicBook.strongAttackTo(this.getOwner());}
-  @Override
-  public void spearAttack(Spear spear){this.normalAttackTo(spear.getOwner());}
-  @Override
-  public void staffAttack(Staff staff){this.normalAttackTo(staff.getOwner());}
-  @Override
-  public void alpacaAttack(Alpaca alpaca){this.normalAttackTo(alpaca);}
-   **/
+  public void equippedSwordMaster(SwordMaster swordMaster){};
+
+  public void attackAlpaca(Alpaca alpaca){this.normalAttackTo(alpaca);}
 
   public void getAttackedByAxe(IEquipableItem item){item.normalAttackTo(this.getOwner());}
   @Override
@@ -114,7 +95,7 @@ public abstract class AbstractItem implements IEquipableItem {
   @Override
   public void getAttackedBySpear(IEquipableItem item){item.normalAttackTo(this.getOwner());};
   @Override
-  public void getAttackedByStaff(IEquipableItem item){item.normalAttackTo(this.getOwner());};
+  public void getAttackedByStaff(IEquipableItem item){};
   @Override
   public void getAttackedByDarknessMagicBook(IEquipableItem item){item.strongAttackTo(this.getOwner());}
   @Override
@@ -123,49 +104,15 @@ public abstract class AbstractItem implements IEquipableItem {
   public void getAttackedByLightMagicBook(IEquipableItem item){item.strongAttackTo(this.getOwner());}
   @Override
   public void getAttackedByAnimaMagicBook(IEquipableItem item){item.strongAttackTo(this.getOwner());}
-
-
-
   @Override
   public void weakAttackTo(IUnit unit){
-    if((this.getPower()-20)<0){
-    }
-    else{
-      if(unit.getCurrentHitPoints()-((this.getPower()-20))<=0) {
-        unit.setCurrentHitPoints(0);
-      }
-      else{
-        unit.setCurrentHitPoints(unit.getCurrentHitPoints() - (this.getPower()-20));
-      }
-    }
-  }
-
+    if((this.getPower()-20)>0){
+      unit.setCurrentHitPoints(Math.max(unit.getCurrentHitPoints()-((this.getPower()-20)),0)); } }
   @Override
   public void strongAttackTo(IUnit unit){
-    if((this.getPower())<0){
-    }
-    else{
-      if(unit.getCurrentHitPoints()-(this.getPower()*1.5)<=0) {
-        unit.setCurrentHitPoints(0);
-      }
-      else{
-        unit.setCurrentHitPoints((int)unit.getCurrentHitPoints() - (this.getPower()*(3/2)));
-      }
-    }
-  }
-
-
+    if((this.getPower())>0){ int value = (int) ((int) unit.getCurrentHitPoints() - (this.getPower()*1.5));
+    unit.setCurrentHitPoints(Math.max(value,0));
+      } }
   @Override
   public void normalAttackTo(IUnit unit){
-    if((this.getPower())<0){
-  }
-  else{
-    if(unit.getCurrentHitPoints()-(this.getPower())<=0) {
-      unit.setCurrentHitPoints(0);
-    }
-    else{
-      unit.setCurrentHitPoints((unit.getCurrentHitPoints() - (this.getPower())));
-    }
-  }
-  }
-}
+    if(this.getPower()>0){unit.setCurrentHitPoints(Math.max(unit.getCurrentHitPoints()-(this.getPower()),0));}}}

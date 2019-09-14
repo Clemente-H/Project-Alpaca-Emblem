@@ -26,22 +26,21 @@ public class ItemNull  extends AbstractItem{
          *     the maximum range of the ItemNull
          */
         public ItemNull(final String name, final int power, final int minRange, final int maxRange) {
-            super(name, 0, minRange, maxRange);
+            super(name, 0,0 , 0);
         }
+
     @Override
-    public void equipedAlpaca(Alpaca alpaca) {this.equipTo(alpaca);}
+    public void equippedHero(Hero hero) {this.equipTo(hero);};
     @Override
-    public void equipedHero(Hero hero) {this.equipTo(hero);};
+    public void equippedArcher(Archer archer){this.equipTo(archer);}
     @Override
-    public void equipedArcher(Archer archer){this.equipTo(archer);}
+    public void equippedCleric(Cleric cleric){this.equipTo(cleric);}
     @Override
-    public void equipedCleric(Cleric cleric){this.equipTo(cleric);}
+    public void equippedFighter(Fighter fighter){this.equipTo(fighter);}
     @Override
-    public void equipedFighter(Fighter fighter){this.equipTo(fighter);}
+    public void equippedSorcerer(Sorcerer sorcerer){this.equipTo(sorcerer);}
     @Override
-    public void equipedSorcerer(Sorcerer sorcerer){this.equipTo(sorcerer);}
-    @Override
-    public void equipedSwordMaster(SwordMaster swordMaster){this.equipTo(swordMaster);}
+    public void equippedSwordMaster(SwordMaster swordMaster){this.equipTo(swordMaster);}
 
     @Override
     public void getAttackedByMagicBook(IEquipableItem item){item.normalAttackTo(this.getOwner());}

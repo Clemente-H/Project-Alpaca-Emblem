@@ -85,7 +85,7 @@ public interface IUnit {
    * @author Clemente Henriquez
    * sets the current hitpoints
    */
-  void Combat(IUnit unit1,IUnit unit2);
+  void Combat(IUnit unit2);
   /*
     @author Clemente Henriquez
     combat is a method that given 2 units, sets the conditions for the combat to begin,
@@ -115,5 +115,5 @@ public interface IUnit {
   void setItems(IEquipableItem item);
   /*adds an item to the list of items from an Unit*/
 
-
+    void attackedAlpaca(IUnit unit);
 }

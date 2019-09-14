@@ -1,61 +1,81 @@
 package model.items;
-
 import model.map.Location;
-import model.units.Sorcerer;
 import model.units.IUnit;
+import model.units.Sorcerer;
+import org.junit.jupiter.api.Test;
 
-/**
- * Test set for LightMagicBooks
- *
- * @author Clemente Henriquez Muñoz
- * @since 1.0
- */
-class LightMagicBookTest extends AbstractTestItem {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+
+public class LightMagicBookTest extends AbstractTestItem {
     private LightMagicBook lightMagicBook;
     private LightMagicBook wrongLightMagicBook;
-    private Sorcerer sorcerer;
+    private Sorcerer sorcerer1;
+    private DarknessMagicBook darknessMagicBook1;
+    private AnimaMagicBook animaMagicBook1;
+    private Sorcerer darkSorcerer2;
+    private Sorcerer animaSorcerer2;
 
+
+    /**
+     * sets wich items is going to be tested
+     */
     @Override
-    public void setTestItem() {
-        expectedName = "Common LightMagicBook";
+    public void setTestItem(){
+        expectedName = "Common lightMagicBook";
         expectedPower = 10;
         expectedMinRange = 1;
         expectedMaxRange = 2;
-        LightMagicBook  lightMagicBook= new LightMagicBook(expectedName, expectedPower, expectedMinRange, expectedMaxRange);
+        lightMagicBook = new LightMagicBook(expectedName,expectedPower,expectedMinRange,expectedMaxRange);
+        animaMagicBook1 = new AnimaMagicBook("",30,1,2);
+        darknessMagicBook1 = new DarknessMagicBook("",30,1,2);
     }
-
     /**
-     * Sets up an item with wrong ranges setted.
+     * sets up an item with wrong ranges setted.
+     *
      */
     @Override
-    public void setWrongRangeItem() {
-        wrongLightMagicBook = new LightMagicBook("Wrong LightMagicBook", 0, -1, -2);
-    }
-
+    public void setWrongRangeItem() { wrongLightMagicBook = new LightMagicBook("Wrong lightMagicBook",0,-1,-2);}
     /**
-     * Sets the unit that will be equipped with the test item
+     * sets the unit that will be equipped with the test item
      */
     @Override
-    public void setTestUnit() {
-        Sorcerer sorcerer = new Sorcerer(10, 5, new Location(0, 0));
-    }
+    public void setTestUnit(){ sorcerer1 = new Sorcerer(10,5,new Location(0,0));}
 
     @Override
-    public IEquipableItem getWrongTestItem() {
-        return wrongLightMagicBook;
-    }
-
-    @Override
-    public IEquipableItem getTestItem() {
-        return lightMagicBook;
-    }
-
+    public IEquipableItem getWrongTestItem(){return wrongLightMagicBook;}
     /**
-     * @return a unit that can equip the item being tested
+     * @return the item being tested
      */
     @Override
-    public IUnit getTestUnit() {
-        return sorcerer ;
+    public IUnit getTestUnit(){return sorcerer1;}
+
+
+    @Override
+    public IEquipableItem getTestItem() {return lightMagicBook;}
+
+    @Test
+    public void equipDarkBookTest(){
+        sorcerer1.getItems().add(lightMagicBook);
+        lightMagicBook.equippedSorcerer(sorcerer1);
+        assertEquals(sorcerer1.getEquippedItem(),lightMagicBook);
     }
+
+
+    @Test
+    public void attacks2(){
+        animaSorcerer2 = new Sorcerer(100, 5, new Location(1, 0));
+        animaSorcerer2.getLocation().addNeighbour(sorcerer1.getLocation());
+        darkSorcerer2 = new Sorcerer(100,5,new Location(0,1));
+        darkSorcerer2.getLocation().addNeighbour(sorcerer1.getLocation());
+        sorcerer1.equipItem(lightMagicBook);
+        darkSorcerer2.equipItem(darknessMagicBook1);
+        lightMagicBook.getAttackedByAnimaMagicBook(animaMagicBook1);
+        assertEquals(sorcerer1.getCurrentHitPoints(),65);
+
+        lightMagicBook.getAttackedByDarknessMagicBook(darknessMagicBook1);
+        assertEquals(sorcerer1.getCurrentHitPoints(),55);
+    }
+
 }

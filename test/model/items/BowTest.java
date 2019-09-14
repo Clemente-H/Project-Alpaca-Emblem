@@ -1,11 +1,11 @@
 package model.items;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import model.map.Location;
 import model.units.Archer;
 import model.units.IUnit;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test set for bows
@@ -77,4 +77,10 @@ public class BowTest extends AbstractTestItem {
   public IUnit getTestUnit() {
     return archer;
   }
+  @Test
+  public void equipBowTest(){
+    bow.equippedArcher(archer);
+    assertEquals(archer.getEquippedItem(),bow);
+  }
+
 }

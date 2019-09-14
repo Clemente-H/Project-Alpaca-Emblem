@@ -29,7 +29,7 @@ public class Fighter extends AbstractUnit {
   public void equipItem(final IEquipableItem item) {
     if(this.items.contains(item)){
 
-      item.equipedFighter(this);
+      item.equippedFighter(this);
     }
   }
   public void attack(IUnit unit){

@@ -29,6 +29,6 @@ public class Staff extends AbstractItem {
   public Staff(final String name, final int power, final int minRange, final int maxRange) {
     super(name, power, minRange, maxRange);
   }
-  public void equipedCleric(Cleric cleric){this.equipTo(cleric);}
+  public void equippedCleric(Cleric cleric){this.equipTo(cleric);}
 
 }

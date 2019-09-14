@@ -109,6 +109,8 @@ public interface ITestUnit {
    */
   Alpaca getTargetAlpaca();
 
+  @Test
+  void invalidEquipSword();
 
-  void testExchange();
+
 }

@@ -2,6 +2,8 @@ package model.units;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+
+import model.map.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,5 +40,12 @@ public class ClericTest extends AbstractTestUnit {
     assertNull(cleric.getEquippedItem());
     cleric.equipItem(staff);
     assertEquals(staff, cleric.getEquippedItem());
+  }
+
+
+  @Test
+  public void healTest(){
+    Alpaca alpaca = new Alpaca(10,1,new Location(1,0));
+    cleric.heal(alpaca);
   }
 }
