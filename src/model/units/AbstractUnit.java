@@ -112,7 +112,6 @@ public abstract class AbstractUnit implements IUnit {
   public void attack(IUnit unit){};
   @Override
   public void attackedAlpaca(IUnit unit){};
-
   public void Combat(IUnit unit2) {
     if(unit2.getLocation().distanceTo(this.getLocation()) <=this.getEquippedItem().getMaxRange() && unit2.getLocation().distanceTo(this.getLocation())>=this.getEquippedItem().getMinRange()) {
         if(this.getCurrentHitPoints()>0 && unit2.getCurrentHitPoints()>0) {
@@ -127,21 +126,15 @@ public abstract class AbstractUnit implements IUnit {
             }
         }
     }
-
-
-
 @Override
   public void exchange(IEquipableItem item, IUnit unit2){
       if(unit2.getLocation().distanceTo(item.getOwner().getLocation())==1){
         if(unit2.getItems().size()<unit2.getMaxItems()){
-
           unit2.setItems(item);
           this.items.remove(item);
         }
       }
-    }
-
-
+  }
   @Override
   public void heal(IUnit unit){
   }

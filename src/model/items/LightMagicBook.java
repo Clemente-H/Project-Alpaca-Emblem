@@ -18,8 +18,6 @@ public class LightMagicBook extends AbstractItem{
         public LightMagicBook(final String name, final int power, final int minRange, final int maxRange) {
             super(name, power, minRange, maxRange);
         }
-
-
     public void getAttackedByDarknessMagicBook(IEquipableItem item){item.weakAttackTo(this.getOwner());}
     public void getAttackedByAnimaMagicBook(IEquipableItem item){item.strongAttackTo(this.getOwner());}
 }

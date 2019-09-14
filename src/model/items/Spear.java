@@ -9,7 +9,7 @@ import model.units.Hero;
  * Spears are strong against swords and weak against axes
  *
  * @author Ignacio Slater Muñoz
- * @subauthor Clemente Henriquez Muñoz
+ * @author Clemente Henriquez Muñoz
  * @since 1.0
  */
 public class Spear extends AbstractItem {
@@ -31,7 +31,4 @@ public class Spear extends AbstractItem {
   }
   public void equippedHero(Hero hero) {this.equipTo(hero);}
   public void getAttackedByAxe(IEquipableItem item){item.strongAttackTo(this.getOwner());}
-  public void getAttackedBySword(IEquipableItem item){item.weakAttackTo(this.getOwner());}
-
-
-}
+  public void getAttackedBySword(IEquipableItem item){item.weakAttackTo(this.getOwner());}}

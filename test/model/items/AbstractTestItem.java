@@ -27,6 +27,7 @@ public abstract class AbstractTestItem {
   protected SwordMaster swordMaster;
   protected Hero hero;
   protected Archer archer;
+  protected Sorcerer sorcerer;
 
   /**
    * Sets up the items to be tested
@@ -246,7 +247,6 @@ public abstract class AbstractTestItem {
   }
 
 
-//esta bien hasta aqui
 
   @Test
   public void equipAxeToSwordMaster(){
@@ -346,6 +346,169 @@ public abstract class AbstractTestItem {
     bow.weakAttackTo(cleric);
     assertEquals(cleric.getCurrentHitPoints(),0);
   }
+
+
+  @Test
+  public void SorcererAttackedByAxe(){
+    Axe axe=new Axe("Hacha de luna Creciente", 40, 1,2);
+    DarknessMagicBook dark = new DarknessMagicBook("",40,1,1);
+    sorcerer = new Sorcerer(1000,1,new Location(0,1));
+    sorcerer.equipItem(dark);
+    dark.getAttackedByAxe(axe);
+    assertEquals(sorcerer.getCurrentHitPoints(),940);
+  }
+
+  @Test
+  public void SwordMasterAttackedByAxe2(){
+    Sword sword = new Sword("",1,1,2);
+    swordMaster = new SwordMaster(1000,1,new Location(0,1));
+    swordMaster.equipItem(sword);
+    Axe axe=new Axe("", 40,1,2);
+    sword.getAttackedByAxe(axe);
+    assertEquals(swordMaster.getCurrentHitPoints(),980);
+  }
+
+  @Test void SwordMasterAttackedBySpear2(){
+    Sword sword = new Sword("",1,1,2);
+    swordMaster = new SwordMaster(1000,1,new Location(0,1));
+    swordMaster.equipItem(sword);
+    Spear spear=new Spear("", 40,1,2);
+    sword.getAttackedBySpear(spear);
+    assertEquals(swordMaster.getCurrentHitPoints(),940);
+  }
+
+  @Test
+  public void HeroAttackedByAxe2(){
+    Spear spear = new Spear("",1,1,2);
+    hero = new Hero(1000,1,new Location(0,1));
+    hero.equipItem(spear);
+    Axe axe=new Axe("", 40,1,2);
+    spear.getAttackedByAxe(axe);
+    assertEquals(hero.getCurrentHitPoints(),940);
+  }
+
+  @Test
+  public void HeroAttackedBySword2(){
+    Spear spear = new Spear("",1,1,2);
+    hero = new Hero(1000,1,new Location(0,1));
+    hero.equipItem(spear);
+    Sword sword = new Sword("", 40,1,2);
+    spear.getAttackedBySword(sword);
+    assertEquals(hero.getCurrentHitPoints(),980);
+  }
+
+  @Test
+  public void FighterAttackedBySword2(){
+    Axe axe = new Axe("",1,1,2);
+    fighter = new Fighter(1000,1,new Location(0,1));
+    fighter.equipItem(axe);
+    Sword sword = new Sword("", 40,1,2);
+    axe.getAttackedBySword(sword);
+    assertEquals(fighter.getCurrentHitPoints(),940);
+  }
+
+  @Test
+  public void FighterAttackedBySpear2(){
+    Axe axe = new Axe("",1,1,2);
+    fighter = new Fighter(1000,1,new Location(0,1));
+    fighter.equipItem(axe);
+    Spear spear=new Spear("", 40,1,2);
+    axe.getAttackedBySpear(spear);
+    assertEquals(fighter.getCurrentHitPoints(),960);
+  }
+
+  @Test
+  public void SorcererAttackedBySword(){
+    Sword sword = new Sword("Hacha de luna Creciente", 40, 1,2);
+    DarknessMagicBook dark = new DarknessMagicBook("",40,1,1);
+    sorcerer = new Sorcerer(1000,1,new Location(0,1));
+    sorcerer.equipItem(dark);
+    dark.getAttackedBySword(sword);
+    assertEquals(sorcerer.getCurrentHitPoints(),940);
+  }
+
+  @Test
+  public void SwordMasterAttackedByAnima(){
+    Sword sword =new Sword("", 40, 1,2);
+    swordMaster = new SwordMaster(1000,1,new Location(0,1));
+    swordMaster.equipItem(sword);
+    AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
+    sword.getAttackedByAnimaMagicBook(anima);
+    assertEquals(swordMaster.getCurrentHitPoints(),940);
+  }
+
+  @Test
+  public void LightSorcererAttackedByAnima(){
+    LightMagicBook light =new LightMagicBook("Spells for dummies", 40, 1,2);
+    sorcerer = new Sorcerer(1000,1,new Location(0,1));
+    sorcerer.equipItem(light);
+    AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
+    light.getAttackedByAnimaMagicBook(anima);
+    assertEquals(sorcerer.getCurrentHitPoints(),940);
+    }
+  @Test
+  public void LightSorcererAttackedByDarkness(){
+    LightMagicBook light =new LightMagicBook("Spells for dummies", 40, 1,2);
+    sorcerer = new Sorcerer(1000,1,new Location(0,1));
+    sorcerer.equipItem(light);
+    DarknessMagicBook darkness = new DarknessMagicBook("",40,1,1);
+    light.getAttackedByDarknessMagicBook(darkness);
+    assertEquals(sorcerer.getCurrentHitPoints(),980);
+  }
+
+  @Test
+  public void darkSorcererAttackedByAnima(){
+    DarknessMagicBook darkness =new DarknessMagicBook("How to act cold as Sasuke", 40, 1,2);
+    sorcerer = new Sorcerer(1000,1,new Location(0,1));
+    sorcerer.equipItem(darkness);
+    AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
+    darkness.getAttackedByAnimaMagicBook(anima);
+    assertEquals(sorcerer.getCurrentHitPoints(),980);
+  }
+
+  @Test
+  public void animaSorcererAttackedByLight(){
+    AnimaMagicBook anima =new AnimaMagicBook("Ayahuasca Style", 40, 1,2);
+    sorcerer = new Sorcerer(1000,1,new Location(0,1));
+    sorcerer.equipItem(anima);
+    LightMagicBook light = new LightMagicBook("",40,1,1);
+    anima.getAttackedByLightMagicBook(anima);
+    assertEquals(sorcerer.getCurrentHitPoints(),980);
+  }
+
+  @Test
+  public void animaSorcererAttackedByAnima(){
+    AnimaMagicBook anima =new AnimaMagicBook("Ayahuasca Style", 40, 1,2);
+    sorcerer = new Sorcerer(1000,1,new Location(0,1));
+    sorcerer.equipItem(anima);
+    AnimaMagicBook anima2 = new AnimaMagicBook("",40,1,1);
+    anima.getAttackedByAnimaMagicBook(anima2);
+    assertEquals(sorcerer.getCurrentHitPoints(),960);
+  }
+
+  @Test
+  public void darkSorcererAttackedByDarkness(){
+    DarknessMagicBook darkness =new DarknessMagicBook("How to act cold as Sasuke", 40, 1,2);
+    sorcerer = new Sorcerer(1000,1,new Location(0,1));
+    sorcerer.equipItem(darkness);
+    DarknessMagicBook dark2 = new DarknessMagicBook("",40,1,1);
+    darkness.getAttackedByDarknessMagicBook(dark2);
+    assertEquals(sorcerer.getCurrentHitPoints(),960);
+  }
+
+  @Test
+  public void LightSorcererAttackedByLight(){
+    LightMagicBook light =new LightMagicBook("Spells for dummies", 40, 1,2);
+    sorcerer = new Sorcerer(1000,1,new Location(0,1));
+    sorcerer.equipItem(light);
+    LightMagicBook light2 = new LightMagicBook("",40,1,1);
+    light.getAttackedByLightMagicBook(light2);
+    assertEquals(sorcerer.getCurrentHitPoints(),960);
+  }
+
+
+
+
 
 
 }

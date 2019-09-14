@@ -39,16 +39,10 @@ public class Cleric extends AbstractUnit {
   }
 
   public void heal(IUnit unit){
-      if(this.getLocation().distanceTo(unit.getLocation())>=this.getEquippedItem().getMinRange() && this.getLocation().distanceTo(unit.getLocation())>=this.getEquippedItem().getMaxRange()){
-        if(unit.getMaxHitPoints()<unit.getCurrentHitPoints()+this.getEquippedItem().getPower()){
-          unit.setCurrentHitPoints(unit.getMaxHitPoints());
-        }
-        else{
-          unit.setCurrentHitPoints(unit.getCurrentHitPoints()+ this.getEquippedItem().getPower());
-        }
+      if(this.getLocation().distanceTo(unit.getLocation())>=this.getEquippedItem().getMinRange() && this.getLocation().distanceTo(unit.getLocation())<=this.getEquippedItem().getMaxRange()){
+        unit.setCurrentHitPoints(Math.min(unit.getMaxHitPoints(),unit.getCurrentHitPoints()+this.getEquippedItem().getPower()));
       }
     }
-
   public void attack(IUnit unit){
   }
 }

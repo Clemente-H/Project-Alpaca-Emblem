@@ -54,9 +54,7 @@ public abstract class AbstractMagicBook extends AbstractItem{
     }
     @Override
     public void equippedSorcerer(Sorcerer sorcerer){this.equipTo(sorcerer);}
-/*
-    public void alpacaAttack(IUnit alpaca){this.normalAttackTo(alpaca);}
-**/
+
     @Override
     public void getAttackedByAxe(IEquipableItem item){item.strongAttackTo(this.getOwner());}
     @Override

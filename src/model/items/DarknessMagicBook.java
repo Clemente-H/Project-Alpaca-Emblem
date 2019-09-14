@@ -24,7 +24,3 @@ public class DarknessMagicBook extends AbstractItem{
     public void getAttackedByAnimaMagicBook(IEquipableItem item){item.weakAttackTo(this.getOwner());}
     public void getAttackedByLightMagicBook(IEquipableItem item){item.strongAttackTo(this.getOwner());}
 }
-
-
-
-

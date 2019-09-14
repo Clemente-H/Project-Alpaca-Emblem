@@ -35,6 +35,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
   protected DarknessMagicBook darkness;
   protected AnimaMagicBook anima;
   protected Alpaca alpaca;
+  protected Sorcerer sorcerer;
 
   @Override
   public void setTargetAlpaca() {
@@ -244,6 +245,201 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
     swordMaster.exchange(sword, alpaca);
     assertTrue(alpaca.items.contains(sword));
+  }
+
+  @Test
+  public void combatSwordMasterAnima(){
+    Sword sword =new Sword("", 40, 1,2);
+    swordMaster = new SwordMaster(1000,1,new Location(0,1));
+    swordMaster.equipItem(sword);
+    AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
+    sorcerer = new Sorcerer(1000,1,new Location(0,0) );
+    sorcerer.equipItem(anima);
+    swordMaster.getLocation().addNeighbour(sorcerer.getLocation());
+
+    swordMaster.Combat(sorcerer);
+    assertEquals(sorcerer.getCurrentHitPoints(),940);
+    assertEquals(swordMaster.getCurrentHitPoints(),940);
+  }
+
+  @Test
+    public void testingMovement(){
+    swordMaster = new SwordMaster(1000,1,new Location(0,1));
+    Location location2 = new Location(1,1);
+    location2.addNeighbour(swordMaster.getLocation());
+    swordMaster.moveTo(location2);
+    assertEquals(swordMaster.getLocation(),location2);}
+
+    @Test
+  public void testingMaxHitpoints(){
+      swordMaster = new SwordMaster(1000,1,new Location(0,1));
+      swordMaster.setCurrentHitPoints(800);
+      assertEquals(1000,swordMaster.getMaxHitPoints());
+    }
+
+    @Test
+  public void testingMaxIterms(){
+      swordMaster = new SwordMaster(1000,1,new Location(0,1));
+      assertEquals(swordMaster.getMaxItems(),3);
+    }
+
+    @Test
+  public void testingAddItemToUnit(){
+      swordMaster = new SwordMaster(1000,1,new Location(0,1));
+      bow = new Bow("",1,5,5);
+      swordMaster.setItems(bow);
+      assertTrue(swordMaster.items.contains(bow));
+    }
+    @Test
+  public void testingAttack(){
+      Sword sword =new Sword("", 40, 1,2);
+      swordMaster = new SwordMaster(1000,1,new Location(0,1));
+      swordMaster.equipItem(sword);
+      AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
+      sorcerer = new Sorcerer(1000,1,new Location(0,0) );
+      sorcerer.equipItem(anima);
+      swordMaster.attack(sorcerer);
+      assertEquals(sorcerer.getCurrentHitPoints(),940);
+
+    }
+    @Test
+  public void testingAttack2(){
+      swordMaster = new SwordMaster(1000,1,new Location(0,1));
+      AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
+      sorcerer = new Sorcerer(1000,1,new Location(0,0) );
+      sorcerer.equipItem(anima);
+      swordMaster.attack(sorcerer);
+      assertEquals(sorcerer.getCurrentHitPoints(),1000);
+
+    }
+    @Test
+  public void testingInvalidHeal(){
+      swordMaster = new SwordMaster(1000,1,new Location(0,1));
+      AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
+      sorcerer = new Sorcerer(1000,1,new Location(0,0) );
+      sorcerer.equipItem(anima);
+      swordMaster.heal(sorcerer);
+      assertEquals(sorcerer.getCurrentHitPoints(),1000);
+
+    }
+    public void testingValidHeal(){
+      swordMaster = new SwordMaster(1000,1,new Location(0,1));
+      Staff baculo = new Staff("",40,1,2);
+      cleric = new Cleric(1000,1,new Location(0,0) );
+      cleric.getLocation().addNeighbour(swordMaster.getLocation());
+      cleric.equipItem(baculo);
+      swordMaster.setCurrentHitPoints(500);
+      cleric.heal(swordMaster);
+      assertEquals(swordMaster.getCurrentHitPoints(),540);
+    }
+
+    @Test
+    public void testingValidExchange(){
+      swordMaster = new SwordMaster(1000,1,new Location(0,1));
+      sword = new Sword("",1,1,1);
+      swordMaster.items.add(sword);
+      alpaca = new Alpaca(1000,1,new Location(0,0) );
+      axe = new Axe("",1,1,1);
+      alpaca.items.add(axe);
+      alpaca.getLocation().addNeighbour(swordMaster.getLocation());
+      swordMaster.exchange(sword,alpaca);
+      assertEquals(swordMaster.items.contains(sword),false);
+      assertTrue(alpaca.items.contains(sword));
+    }
+  @Test
+  public void testingHittingAlpaca(){
+    swordMaster = new SwordMaster(1000,1,new Location(0,1));
+    sword = new Sword("",40,1,2);
+    swordMaster.equipItem(sword);
+    alpaca = new Alpaca(1000,1,new Location(0,0) );
+    alpaca.getLocation().addNeighbour(swordMaster.getLocation());
+    alpaca.attackedAlpaca(swordMaster);
+    assertEquals(alpaca.getCurrentHitPoints(),960);
+  }
+  @Test
+  public void alpacaTriesToHit(){
+    swordMaster = new SwordMaster(1000,1,new Location(0,1));
+    sword = new Sword("",40,1,2);
+    swordMaster.equipItem(sword);
+    alpaca = new Alpaca(1000,1,new Location(0,0) );
+    alpaca.getLocation().addNeighbour(swordMaster.getLocation());
+    alpaca.attack(swordMaster);
+    assertEquals(swordMaster.getCurrentHitPoints(),1000);
+
+  }
+@Test
+  public void equipArcher(){
+    bow = new Bow("",1,1,2);
+    archer = new Archer(1000,1, new Location(1,1));
+    archer.equipItem(bow);
+    assertEquals(archer.equippedItem,bow);
+}
+@Test
+  public void archerAttacking(){
+  bow = new Bow("",40,1,2);
+  archer = new Archer(1000,1, new Location(1,1));
+  archer.equipItem(bow);
+  swordMaster = new SwordMaster(1000,1,new Location(0,1));
+  sword = new Sword("",40,1,2);
+  swordMaster.equipItem(sword);
+  archer.getLocation().addNeighbour(swordMaster.getLocation());
+  archer.attack(swordMaster);
+  assertEquals(swordMaster.getCurrentHitPoints(),960);
+
+}
+  @Test
+  public void clericAttacking(){
+    baston = new Staff("",40,1,2);
+    cleric = new Cleric(1000,1, new Location(1,1));
+    cleric.equipItem(baston);
+    swordMaster = new SwordMaster(1000,1,new Location(0,1));
+    sword = new Sword("",40,1,2);
+    swordMaster.equipItem(sword);
+    cleric.getLocation().addNeighbour(swordMaster.getLocation());
+    cleric.attack(swordMaster);
+    assertEquals(swordMaster.getCurrentHitPoints(),1000);
+
+
+  }
+  @Test
+  public void heroAttacking(){
+    bow = new Bow("",40,1,2);
+    archer = new Archer(1000,1, new Location(1,1));
+    archer.equipItem(bow);
+    hero = new Hero(1000,1,new Location(0,1));
+    spear = new Spear("",40,1,2);
+    hero.equipItem(spear);
+    archer.getLocation().addNeighbour(hero.getLocation());
+    hero.attack(archer);
+    assertEquals(swordMaster.getCurrentHitPoints(),960);
+  }
+
+  @Test
+  public void equipFighter(){
+    axe = new Axe("",1,1,2);
+    fighter = new Fighter(1000,1, new Location(1,1));
+    fighter.equipItem(axe);
+    assertEquals(fighter.equippedItem,axe);
+  }
+    @Test
+    public void fighterAttacking(){
+      bow = new Bow("",40,1,2);
+      archer = new Archer(1000,1, new Location(1,1));
+      archer.equipItem(bow);
+      axe = new Axe("",40,1,2);
+      fighter = new Fighter(1000,1, new Location(0,1));
+      fighter.equipItem(axe);
+      archer.getLocation().addNeighbour(fighter.getLocation());
+      fighter.attack(archer);
+      assertEquals(archer.getCurrentHitPoints(),960);
+    }
+    @Test
+  public void alpacaTriesToEquipAnItem(){
+      sword = new Sword("",40,1,2);
+      alpaca = new Alpaca(1000,1,new Location(0,0) );
+      alpaca.equipItem(sword);
+      assertNull(alpaca.getEquippedItem());
+
     }
 
 }

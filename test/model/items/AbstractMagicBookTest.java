@@ -3,7 +3,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import model.map.Location;
+import model.units.Archer;
 import model.units.IUnit;
+import model.units.Sorcerer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +16,9 @@ public abstract class AbstractMagicBookTest extends AbstractTestItem {
     protected int expectedPower;
     protected short expectedMinRange;
     protected short expectedMaxRange;
+    protected Sorcerer sorcerer1;
+    protected Archer archer;
+    protected Sorcerer sorcerer2;
     /**
      * sets up the items to be tested
      */
@@ -116,5 +122,27 @@ public abstract class AbstractMagicBookTest extends AbstractTestItem {
     public void getUnitTest() {
 
     }
+
+
+    @Test
+    public void SorcererAttackedByBow(){
+        Bow bow = new Bow("", 40, 1,2);
+        DarknessMagicBook dark = new DarknessMagicBook("",40,1,1);
+        sorcerer1 = new Sorcerer(1000,1,new Location(0,1));
+        sorcerer1.equipItem(dark);
+        dark.getAttackedByBow(bow);
+        assertEquals(sorcerer1.getCurrentHitPoints(),940);
+    }
+
+    @Test
+    public void SorcererAttackedByAxe(){
+        Axe axe = new Axe("", 40, 1,2);
+        DarknessMagicBook dark = new DarknessMagicBook("",40,1,1);
+        sorcerer2 = new Sorcerer(1000,1,new Location(0,1));
+        sorcerer2.equipItem(dark);
+        dark.getAttackedByAxe(axe);
+        assertEquals(sorcerer2.getCurrentHitPoints(),940);
+    }
+
 
 }

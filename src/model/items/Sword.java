@@ -29,9 +29,6 @@ public class Sword extends AbstractItem {
     super(name, power, minRange, maxRange);
   }
   public void equippedSwordMaster(SwordMaster swordMaster){this.equipTo(swordMaster);}
-
-
-
   public void getAttackedByAxe(IEquipableItem item){item.weakAttackTo(this.getOwner());}
   public void getAttackedBySpear(IEquipableItem item){item.strongAttackTo(this.getOwner());}
 }

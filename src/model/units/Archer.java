@@ -44,9 +44,7 @@ public class Archer extends AbstractUnit {
   public void equipItem(final IEquipableItem item) {
       item.equippedArcher(this);
     }
-
-
-  public void attack(IUnit unit){
+    public void attack(IUnit unit){
     unit.getEquippedItem().getAttackedByBow(this.getEquippedItem());
   }
 }

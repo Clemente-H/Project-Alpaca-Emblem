@@ -41,5 +41,4 @@ public class Hero extends AbstractUnit {
   public void attack(IUnit unit){
     unit.getEquippedItem().getAttackedBySpear(this.getEquippedItem());
   }
-
 }
