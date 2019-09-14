@@ -9,7 +9,7 @@ import model.map.Location;
  * that it can receive attacks but can't counter attack any of those.
  *
  * @author Ignacio Slater Muñoz
- * @subauthor Clemente Henriquez Muñoz
+ * @author Clemente Henriquez Muñoz
  * @since 1.0
  */
 public class Cleric extends AbstractUnit {
@@ -39,9 +39,7 @@ public class Cleric extends AbstractUnit {
   }
 
   public void heal(IUnit unit){
-      if(this.getLocation().distanceTo(unit.getLocation())>=this.getEquippedItem().getMinRange() && this.getLocation().distanceTo(unit.getLocation())<=this.getEquippedItem().getMaxRange()){
         unit.setCurrentHitPoints(Math.min(unit.getMaxHitPoints(),unit.getCurrentHitPoints()+this.getEquippedItem().getPower()));
-      }
     }
   public void attack(IUnit unit){
   }

@@ -442,4 +442,28 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
     }
 
+    @Test
+  public void mulitpleCombats(){
+      axe = new Axe("",40,1,2);
+      fighter = new Fighter(1000,1, new Location(1,0));
+      fighter.equipItem(axe);
+      Location location2 = new Location(1,1);
+      Location location3 = new Location(1,2);
+
+      bow = new Bow("",40,1,10);
+      archer = new Archer(1000,1, new Location(1,3));
+      archer.equipItem(bow);
+      swordMaster = new SwordMaster(1000,1,new Location(0,0));
+      sword = new Sword("",40,1,2);
+      swordMaster.equipItem(sword);
+      swordMaster.getLocation().addNeighbour(fighter.getLocation());
+      fighter.getLocation().addNeighbour(location2);
+      location2.addNeighbour(location3);
+      location3.addNeighbour(archer.getLocation());
+      archer.Combat(swordMaster);
+      swordMaster.Combat(fighter);
+      assertEquals(swordMaster.getCurrentHitPoints(),940);
+      assertEquals(fighter.getCurrentHitPoints(),940);
+    }
+
 }
