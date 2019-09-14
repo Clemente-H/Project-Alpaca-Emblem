@@ -466,7 +466,7 @@ public abstract class AbstractTestItem {
     cleric.equipItem(baston);
     Bow bow=new Bow("", 40,1,2);
     bow.weakAttackTo(cleric);
-    assertEquals(cleric.getCurrentHitPoints(),0);
+    assertEquals(cleric.getCurrentHitPoints(),10);
   }
 
 
@@ -536,7 +536,7 @@ public abstract class AbstractTestItem {
     fighter.equipItem(axe);
     Spear spear=new Spear("", 40,1,2);
     axe.getAttackedBySpear(spear);
-    assertEquals(fighter.getCurrentHitPoints(),960);
+    assertEquals(fighter.getCurrentHitPoints(),980);
   }
 
   @Test
