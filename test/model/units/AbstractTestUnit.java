@@ -270,6 +270,24 @@ public abstract class AbstractTestUnit implements ITestUnit {
     swordMaster.moveTo(location2);
     assertEquals(swordMaster.getLocation(),location2);}
 
+
+  @Test
+  public void testingMovement2(){
+    sorcerer = new Sorcerer(1000,3,new Location(0,0));
+    Location location2 = new Location(0,1);
+    Location location3 = new Location(0,2);
+    Location location4 = new Location(0,3);
+    location2.addNeighbour(location3);
+    location3.addNeighbour(location4);
+    sorcerer.getLocation().addNeighbour(location2);
+    sorcerer.moveTo(location3);
+    assertEquals(sorcerer.getLocation(),location3);
+
+
+  }
+
+
+
     @Test
   public void testingMaxHitpoints(){
       swordMaster = new SwordMaster(1000,1,new Location(0,1));
@@ -324,13 +342,17 @@ public abstract class AbstractTestUnit implements ITestUnit {
     }
     public void testingValidHeal(){
       swordMaster = new SwordMaster(1000,1,new Location(0,1));
-      Staff baculo = new Staff("",40,1,2);
+      Staff baculo = new Staff("",100,1,2);
       cleric = new Cleric(1000,1,new Location(0,0) );
       cleric.getLocation().addNeighbour(swordMaster.getLocation());
       cleric.equipItem(baculo);
-      swordMaster.setCurrentHitPoints(500);
+      sword = new Sword("",1,1,2);
+      swordMaster.equipItem(sword);
+      bow = new Bow("",500,1,2);
+      archer = new Archer(1000,1,new Location(0,0) );
+      swordMaster.Combat(archer);
       cleric.heal(swordMaster);
-      assertEquals(swordMaster.getCurrentHitPoints(),540);
+      assertEquals(swordMaster.getCurrentHitPoints(),600);
     }
 
     @Test
@@ -338,13 +360,13 @@ public abstract class AbstractTestUnit implements ITestUnit {
       swordMaster = new SwordMaster(1000,1,new Location(0,1));
       sword = new Sword("",1,1,1);
       swordMaster.items.add(sword);
-      alpaca = new Alpaca(1000,1,new Location(0,0) );
+      archer = new Archer(1000,1,new Location(0,0) );
       axe = new Axe("",1,1,1);
-      alpaca.items.add(axe);
-      alpaca.getLocation().addNeighbour(swordMaster.getLocation());
-      swordMaster.exchange(sword,alpaca);
+      archer.items.add(axe);
+      archer.getLocation().addNeighbour(swordMaster.getLocation());
+      swordMaster.exchange(sword,archer);
       assertEquals(swordMaster.items.contains(sword),false);
-      assertTrue(alpaca.items.contains(sword));
+      assertTrue(archer.items.contains(sword));
     }
   @Test
   public void testingHittingAlpaca(){
@@ -462,8 +484,10 @@ public abstract class AbstractTestUnit implements ITestUnit {
       location3.addNeighbour(archer.getLocation());
       archer.Combat(swordMaster);
       swordMaster.Combat(fighter);
+      fighter.Combat(archer);
       assertEquals(swordMaster.getCurrentHitPoints(),940);
       assertEquals(fighter.getCurrentHitPoints(),940);
+      assertEquals(archer.getCurrentHitPoints(),1000);
     }
 
 }

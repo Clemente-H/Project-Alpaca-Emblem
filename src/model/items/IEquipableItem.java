@@ -141,7 +141,7 @@ public interface IEquipableItem {
   void getAttackedByDarknessMagicBook(IEquipableItem item);
   /*/*
   @author Clemente Henriquez
-  An unit is attacked by a darkmagicbook
+  An unit is attacked by a darkMagicbook
    */
   void getAttackedByLightMagicBook(IEquipableItem item);
   /*/*

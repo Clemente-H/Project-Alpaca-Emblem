@@ -39,7 +39,7 @@ public class Cleric extends AbstractUnit {
   }
 
   public void heal(IUnit unit){
-        unit.setCurrentHitPoints(Math.min(unit.getMaxHitPoints(),unit.getCurrentHitPoints()+this.getEquippedItem().getPower()));
+    unit.setCurrentHitPoints(Math.min(unit.getMaxHitPoints(),unit.getCurrentHitPoints()+this.getEquippedItem().getPower()));
     }
   public void attack(IUnit unit){
   }

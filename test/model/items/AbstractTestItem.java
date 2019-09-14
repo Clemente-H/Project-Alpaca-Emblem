@@ -28,6 +28,8 @@ public abstract class AbstractTestItem {
   protected Hero hero;
   protected Archer archer;
   protected Sorcerer sorcerer;
+  protected Sorcerer darksorcerer;
+  protected Sorcerer lightsorcerer;
 
   /**
    * Sets up the items to be tested
@@ -174,6 +176,111 @@ public abstract class AbstractTestItem {
 
 
   }
+
+  @Test
+  public void SwordMasterAttackedByLight(){
+    Sword sword = new Sword("Hacha de luna Creciente", 40, 1,2);
+    swordMaster = new SwordMaster(1000,1,new Location(0,1));
+    swordMaster.equipItem(sword);
+    LightMagicBook light = new LightMagicBook("",40,1,1);
+    sword.getAttackedByLightMagicBook(light);
+    assertEquals(swordMaster.getCurrentHitPoints(),940);
+
+  }
+  @Test
+  public void animaAttackedBySpear(){
+    Spear spear = new Spear("Hacha de luna Creciente", 40, 1,2);
+    hero = new Hero(1000,1,new Location(0,1));
+    hero.equipItem(spear);
+    sorcerer = new Sorcerer(1000,1,new Location(1,1));
+    AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
+    sorcerer.equipItem(anima);
+    anima.getAttackedBySpear(spear);
+    assertEquals(sorcerer.getCurrentHitPoints(),940);
+
+  }
+  @Test
+  public void darknessAttackedBySpear(){
+    Spear spear = new Spear("Hacha de luna Creciente", 40, 1,2);
+    hero = new Hero(1000,1,new Location(0,1));
+    hero.equipItem(spear);
+    sorcerer = new Sorcerer(1000,1,new Location(1,1));
+    DarknessMagicBook darkness = new DarknessMagicBook("",40,1,1);
+    sorcerer.equipItem(darkness);
+    darkness.getAttackedBySpear(spear);
+    assertEquals(sorcerer.getCurrentHitPoints(),940);
+
+  }
+  @Test
+  public void animaAttackedByAxe(){
+    Axe axe = new Axe("Hacha de luna Creciente", 40, 1,2);
+    fighter = new Fighter(1000,1,new Location(0,1));
+    fighter.equipItem(axe);
+    sorcerer = new Sorcerer(1000,1,new Location(1,1));
+    AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
+    sorcerer.equipItem(anima);
+    anima.getAttackedByAxe(axe);
+    assertEquals(sorcerer.getCurrentHitPoints(),940);
+
+  }
+  @Test
+  public void AnimaAttackedByBow(){
+   Bow bow =  new Bow("", 40, 1,2);
+    archer = new Archer(1000,1,new Location(0,1));
+    archer.equipItem(bow);
+    sorcerer = new Sorcerer(1000,1,new Location(1,1));
+    AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
+    sorcerer.equipItem(anima);
+    anima.getAttackedByBow(bow);
+    assertEquals(sorcerer.getCurrentHitPoints(),940);
+
+  }
+
+
+  @Test
+  public void darknessAttackedBydark(){
+    DarknessMagicBook dark = new DarknessMagicBook("Hacha de luna Creciente", 40, 1,2);
+    sorcerer = new Sorcerer(1000,1,new Location(1,1));
+    DarknessMagicBook darkness = new DarknessMagicBook("",40,1,1);
+    sorcerer.equipItem(darkness);
+    darksorcerer = new Sorcerer(1000,1,new Location(0,1));
+    darksorcerer.equipItem(dark);
+    dark.getAttackedByDarknessMagicBook(darkness);
+    darkness.getAttackedByDarknessMagicBook(dark);
+    assertEquals(darksorcerer.getCurrentHitPoints(),960);
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @Test
+  public void HeroAttackedByLight(){
+    Spear spear = new Spear("Hacha de luna Creciente", 40, 1,2);
+    hero = new Hero(1000,1,new Location(0,1));
+    hero.equipItem(spear);
+    LightMagicBook light = new LightMagicBook("",40,1,1);
+    spear.getAttackedByLightMagicBook(light);
+    assertEquals(hero.getCurrentHitPoints(),940);
+
+  }
+
+
+
+
+
+
+
   @Test
   public void FighterAttackedByDarkness(){
     Axe axe=new Axe("Hacha de luna Creciente", 40, 1,2);
@@ -236,6 +343,21 @@ public abstract class AbstractTestItem {
     axe.getAttackedByStaff(baston);
     assertEquals(fighter.getCurrentHitPoints(),1000);
   }
+
+  @Test
+  public void heroAttackedByStaff(){
+   Spear spear = new Spear("Hacha de luna Creciente", 40, 1,2);
+   hero = new Hero(1000,1,new Location(0,1));
+    hero.equipItem(spear);
+    Staff baston = new Staff("",40,1,1);
+    spear.getAttackedByStaff(baston);
+    assertEquals(hero.getCurrentHitPoints(),1000);
+  }
+
+
+
+
+
   @Test
   public void FighterAttackedByMagicBook(){
     Axe axe=new Axe("Hacha de luna Creciente", 40, 1,2);
@@ -494,6 +616,9 @@ public abstract class AbstractTestItem {
     DarknessMagicBook dark2 = new DarknessMagicBook("",40,1,1);
     darkness.getAttackedByDarknessMagicBook(dark2);
     assertEquals(sorcerer.getCurrentHitPoints(),960);
+    sorcerer.equipItem(dark2);
+    dark2.getAttackedByDarknessMagicBook(darkness);
+    assertEquals(sorcerer.getCurrentHitPoints(),920);
   }
 
   @Test

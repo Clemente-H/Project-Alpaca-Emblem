@@ -129,10 +129,8 @@ public abstract class AbstractUnit implements IUnit {
 @Override
   public void exchange(IEquipableItem item, IUnit unit2){
       if(unit2.getLocation().distanceTo(item.getOwner().getLocation())==1){
-        if(unit2.getItems().size()<unit2.getMaxItems()){
           unit2.setItems(item);
           this.items.remove(item);
-        }
       }
   }
   @Override

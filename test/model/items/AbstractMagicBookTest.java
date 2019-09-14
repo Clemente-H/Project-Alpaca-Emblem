@@ -135,6 +135,15 @@ public abstract class AbstractMagicBookTest extends AbstractTestItem {
     }
 
     @Test
+    public void lightAttackedByBow(){
+        Bow bow = new Bow("", 40, 1,2);
+        LightMagicBook light = new LightMagicBook("",40,1,2);
+        sorcerer1 = new Sorcerer(1000,1,new Location(0,1));
+        sorcerer1.equipItem(light);
+        light.getAttackedByBow(bow);
+        assertEquals(sorcerer1.getCurrentHitPoints(),940);
+    }
+    @Test
     public void SorcererAttackedByAxe(){
         Axe axe = new Axe("", 40, 1,2);
         DarknessMagicBook dark = new DarknessMagicBook("",40,1,1);

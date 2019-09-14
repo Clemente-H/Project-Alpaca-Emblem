@@ -40,9 +40,8 @@ public class Sorcerer  extends AbstractUnit {
     }
 
     /* sets the attack of the unit to other unit.
-     */
+    */
     public void attack(IUnit unit){
         unit.getEquippedItem().getAttackedByMagicBook(this.getEquippedItem());
     }
-
 }

@@ -4,7 +4,7 @@ Author Clemente Henriquez
 
 readme for AlpacaEmblem.
 
-the followind document explains the implementation of the code for a small game.
+the following document explains the implementation of the code for a small game, called Alpaca Emblem.
 
 combat(): it's an Unit's method, that given an Unit sets the conditions for a combat to begin. These are, units are in range of the equiped Item, and both units have positive currentHitpoins. After this this method calls a second method called attack.
 
@@ -20,3 +20,10 @@ Also some methods like getMaxHitPoints and setHitpoints were included to make th
 
 
 Besides the methods, it was implemented some new classes. These were lightMagicBook(equipableItem), Sorcerer(IUnit), animaMagicBooks(equipableItem) and DarknessMagicBook(equipableItem).
+
+
+To run the game it is needed to create a gameField. To make this it is needed to add locations and conect them (it it is the case)
+
+Then the units and the items must be created.
+
+In the near future, as the game gets developed, more instructions will be given.
