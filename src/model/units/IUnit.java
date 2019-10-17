@@ -96,6 +96,7 @@ public interface IUnit {
   /*
   @author Clemente Henriquez
    * Heal, is a method that given a unit restores hitpoints
+   this method will only work if it's called by a Cleric
    *
    * */
   void exchange(IEquipableItem item, IUnit unit2);

@@ -18,7 +18,12 @@ public class AnimaMagicBook extends AbstractMagicBook {
     public AnimaMagicBook(final String name, final int power, final int minRange, final int maxRange) {
         super(name, power, minRange, maxRange);
     }
-
+     /**
+      * Sets weakness and strength to this item
+      * in this case anima is strong against Light, and weak against Darkness
+      *
+      *
+      * */
     public void getAttackedByDarknessMagicBook(IEquipableItem item){item.strongAttackTo(this.getOwner());}
     public void getAttackedByLightMagicBook(IEquipableItem item){item.weakAttackTo(this.getOwner());}
 

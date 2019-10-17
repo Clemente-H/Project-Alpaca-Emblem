@@ -29,11 +29,12 @@ public class Axe extends AbstractItem {
     super(name, power, minRange, maxRange);
   }
   public void equippedFighter(Fighter fighter){this.equipTo(fighter);}
-  /*
-  public void spearAttack(Spear spear){this.strongAttackTo(spear.getOwner());}
-  public void swordAttack(Sword sword){this.weakAttackTo(sword.getOwner());}
-
-*/
+  /**
+   * Sets weakness and strength to this item
+   * in this case axe is strong against spears, and weak against swords
+   *
+   *
+   * */
   public void getAttackedBySword(IEquipableItem item){item.strongAttackTo(this.getOwner());}
   public void getAttackedBySpear(IEquipableItem item){item.weakAttackTo(this.getOwner());}
 

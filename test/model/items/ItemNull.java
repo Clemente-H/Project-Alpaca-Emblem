@@ -1,9 +1,5 @@
 package model.items;
-import model.map.Location;
-import model.units.ITestUnit;
 import model.units.IUnit;
-import model.units.Sorcerer;
-import model.units.SwordMaster;
 
 
 public class ItemNull extends AbstractTestItem {
