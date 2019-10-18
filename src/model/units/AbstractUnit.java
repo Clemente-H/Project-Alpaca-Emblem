@@ -5,6 +5,9 @@ import static java.lang.Math.min;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Observable;
+
+import model.Tactician.Tactician;
 import model.items.IEquipableItem;
 import model.map.Location;
 
@@ -19,7 +22,7 @@ import model.map.Location;
 
  * @since 1.0
  */
-public abstract class AbstractUnit implements IUnit {
+public abstract class AbstractUnit extends Observable implements IUnit{
 
   protected final List<IEquipableItem> items = new ArrayList<>();
   private int currentHitPoints;
@@ -28,6 +31,7 @@ public abstract class AbstractUnit implements IUnit {
   private Location location;
   private final int maxHitpoints;
   private final int maxItems;
+  private final Tactician tactician;
 
   /**
    * Creates a new Unit.
@@ -42,15 +46,17 @@ public abstract class AbstractUnit implements IUnit {
    *     maximum amount of items this unit can carry
    */
   protected AbstractUnit(final int hitPoints, final int movement,
-      final Location location, final int maxItems, final IEquipableItem... items) {
+                         final Location location, final int maxItems, Tactician tactician, final IEquipableItem... items) {
     this.currentHitPoints = hitPoints;
     this.movement = movement;
     this.location = location;
     this.items.addAll(Arrays.asList(items).subList(0, min(maxItems, items.length)));
     this.maxHitpoints= hitPoints;
     this.maxItems=maxItems;
+    this.tactician = tactician;
   }
-
+  @Override
+  public Tactician getTactician(){return tactician}
   @Override
   public int getCurrentHitPoints() {
     return currentHitPoints;

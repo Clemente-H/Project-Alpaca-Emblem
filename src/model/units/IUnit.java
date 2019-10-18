@@ -1,6 +1,8 @@
 package model.units;
 
 import java.util.List;
+
+import model.Tactician.Tactician;
 import model.items.IEquipableItem;
 import model.map.Location;
 
@@ -14,7 +16,7 @@ import model.map.Location;
  * @Subautor Clemente Henriquez Muñoz
  * @since 1.0
  */
-public interface IUnit {
+public interface IUnit{
 
   /**
    * Sets the currently equipped item of this unit.
@@ -37,6 +39,11 @@ public interface IUnit {
   /**
    * @return the maxHitpoints of this unit
    */
+
+  Tactician getTactician();
+    /**
+     * @return the tactician of this unit
+     */
 
 
   List<IEquipableItem> getItems();
@@ -117,4 +124,5 @@ public interface IUnit {
   /*adds an item to the list of items from an Unit*/
 
     void attackedAlpaca(IUnit unit);
+
 }
