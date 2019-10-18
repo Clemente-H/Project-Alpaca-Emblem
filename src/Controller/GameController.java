@@ -1,12 +1,13 @@
-package controller;
+package Controller;
 
-import model.Tactician.ITactician;
 import model.Tactician.Tactician;
 import model.items.IEquipableItem;
 import model.map.Field;
 import model.units.IUnit;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 /**
  * Controller of the game.
@@ -16,7 +17,16 @@ import java.util.List;
  * @version 2.0
  * @since 2.0
  */
-public class GameController {
+public class GameController implements Observer {
+  private int numberOfPlayers;
+  private int mapSize;
+  private Field field;
+  private ArrayList<Tactician> Tacticians = new ArrayList<>();
+  private int selectedTactician;
+  private int round=0;
+  private int maxRound;
+
+
 
   /**
    * Creates the controller for a new game.
@@ -27,6 +37,10 @@ public class GameController {
    *     the dimensions of the map, for simplicity, all maps are squares
    */
   public GameController(int numberOfPlayers, int mapSize) {
+    for(int i=0,i<=numberOfPlayers, i++){
+      //factory para crear un tactician;
+
+    }
 
   }
 
@@ -34,41 +48,47 @@ public class GameController {
    * @return the list of all the tacticians participating in the game.
    */
   public List<Tactician> getTacticians() {
-    return null;
+      return List.copyOf(Tacticians);
   }
 
   /**
    * @return the map of the current game
    */
   public Field getGameMap() {
-    return null;
+    return this.field;
   }
 
   /**
    * @return the tactician that's currently playing
    */
   public Tactician getTurnOwner() {
-    return null;
+    return Tacticians.get(selectedTactician);
   }
 
   /**
    * @return the number of rounds since the start of the game.
    */
   public int getRoundNumber() {
-    return 0;
+    return this.round;
   }
 
   /**
    * @return the maximum number of rounds a match can last
    */
   public int getMaxRounds() {
-    return 0;
+    return this.maxRound;
   }
 
   /**
    * Finishes the current player's turn.
    */
   public void endTurn() {
+    if(this.selectedTactician==Tacticians.size()){
+      this.selectedTactician=0;
+    }
+    else{
+    this.selectedTactician++;
+    }
 
   }
 
@@ -79,7 +99,7 @@ public class GameController {
    *     the player to be removed
    */
   public void removeTactician(String tactician) {
-
+    this.Tacticians.remove(tactician);
   }
 
   /**
@@ -102,14 +122,19 @@ public class GameController {
    * @return the winner of this game, if the match ends in a draw returns a list of all the winners
    */
   public List<String> getWinners() {
-    return null;
+    List<String> Winners;
+  }
+    if(this.round == this.maxRound){
+      for (Tactician i : Tacticians) {
+        return Winners.add(Tactician.getName());
+      }
   }
 
   /**
    * @return the current player's selected unit
    */
   public IUnit getSelectedUnit() {
-    return null;
+    return Tacticians.get(selectedUnit);
   }
 
   /**
@@ -128,7 +153,7 @@ public class GameController {
    * @return the inventory of the currently selected unit.
    */
   public List<IEquipableItem> getItems() {
-    return null;
+    return this.getSelectedUnit().getItems();
   }
 
   /**
@@ -138,6 +163,7 @@ public class GameController {
    *     the location of the item in the inventory.
    */
   public void equipItem(int index) {
+    getSelectedUnit().equipItem(getSelectedUnit().selectItem(index));
 
   }
 

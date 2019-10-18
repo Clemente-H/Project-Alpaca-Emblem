@@ -99,13 +99,26 @@ public interface IUnit{
     after this, it activates the attacks of the units(in case that each unit CAN attack)
 
      */
-  void heal(IUnit unit);
+
   /*
   @author Clemente Henriquez
    * Heal, is a method that given a unit restores hitpoints
    this method will only work if it's called by a Cleric
    *
    * */
+
+
+  void heal(IUnit unit);
+  /*
+    @author Clemente Henriquez
+    combat is a method that given 2 units, sets the conditions for the combat to begin,
+    after this, it activates the attacks of the units(in case that each unit CAN attack)
+
+     */
+
+  IEquipableItem selectItem(int i);
+
+
   void exchange(IEquipableItem item, IUnit unit2);
   /*
  @author Clemente Henriquez

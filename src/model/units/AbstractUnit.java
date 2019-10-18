@@ -24,7 +24,7 @@ import model.map.Location;
  */
 public abstract class AbstractUnit extends Observable implements IUnit{
 
-  protected final List<IEquipableItem> items = new ArrayList<>();
+  protected List<IEquipableItem> items = new ArrayList<>();
   private int currentHitPoints;
   private final int movement;
   protected IEquipableItem equippedItem;
@@ -114,6 +114,13 @@ public abstract class AbstractUnit extends Observable implements IUnit{
       setLocation(targetLocation);
     }
   }
+  @Override
+  public IEquipableItem selectItem(int i){
+    return this.items.get(i-1);
+
+  }
+
+
 @Override
   public void attack(IUnit unit){};
   @Override

@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 import model.Tactician;
 import model.map.Field;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,7 @@ class GameControllerTest {
     randomSeed = new Random().nextLong();
     controller = new GameController(4, 128);
     testTacticians = List.of("Player 0", "Player 1", "Player 2", "Player 3");
+
   }
 
   @Test
@@ -142,8 +144,13 @@ class GameControllerTest {
   }
 
   // Desde aquí en adelante, los tests deben definirlos completamente ustedes
+  @BeforeAll
+
+
+
   @Test
   void getSelectedUnit() {
+
 
   }
 
