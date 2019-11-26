@@ -56,7 +56,7 @@ public abstract class AbstractUnit extends Observable implements IUnit{
     this.tactician = tactician;
   }
   @Override
-  public Tactician getTactician(){return tactician}
+  public Tactician getTactician(){return tactician;}
   @Override
   public int getCurrentHitPoints() {
     return currentHitPoints;
@@ -140,10 +140,12 @@ public abstract class AbstractUnit extends Observable implements IUnit{
         }
     }
 @Override
-  public void exchange(IEquipableItem item, IUnit unit2){
+  public void trade(IEquipableItem item, IUnit unit2){
       if(unit2.getLocation().distanceTo(item.getOwner().getLocation())==1){
+        if(unit2.getMaxItems() <= unit2.getItems().size()+1) {
           unit2.setItems(item);
           this.items.remove(item);
+        }
       }
   }
   @Override

@@ -5,9 +5,8 @@ import model.items.IEquipableItem;
 import model.map.Field;
 import model.units.IUnit;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observer;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * Controller of the game.
@@ -21,10 +20,23 @@ public class GameController implements Observer {
   private int numberOfPlayers;
   private int mapSize;
   private Field field;
-  private ArrayList<Tactician> Tacticians = new ArrayList<>();
+  private ArrayList<Tactician> tacticians = new ArrayList<>();
   private int selectedTactician;
   private int round=0;
   private int maxRound;
+  private Tactician tacticianPlaying;
+
+  GameController(final int NumberOfPlayers, final int MapSize,
+                 final Field FIELD, final int SelectedTactician,final int Round,
+                 final int MaxRound, final Tactician... Tacticians){
+    this.numberOfPlayers = NumberOfPlayers;
+    this.mapSize = MapSize;
+    this.field = FIELD;
+    this.selectedTactician=SelectedTactician;
+    this.round=Round;
+    this.maxRound = MaxRound;
+    this.tacticians.addAll(Arrays.asList(Tacticians).subList(0,Tacticians.length));
+  }
 
 
 
@@ -37,10 +49,14 @@ public class GameController implements Observer {
    *     the dimensions of the map, for simplicity, all maps are squares
    */
   public GameController(int numberOfPlayers, int mapSize) {
-    for(int i=0,i<=numberOfPlayers, i++){
+    for(int i=1;i<=numberOfPlayers+1; i++){
+      Tactician tactician = new Tactician();
+      String name = "Player"+ Integer.toString(i);
+      tactician.setName(name);
+      tacticians.add(tactician);
       //factory para crear un tactician;
-
     }
+
 
   }
 
@@ -48,7 +64,7 @@ public class GameController implements Observer {
    * @return the list of all the tacticians participating in the game.
    */
   public List<Tactician> getTacticians() {
-      return List.copyOf(Tacticians);
+      return List.copyOf(tacticians);
   }
 
   /**
@@ -62,7 +78,7 @@ public class GameController implements Observer {
    * @return the tactician that's currently playing
    */
   public Tactician getTurnOwner() {
-    return Tacticians.get(selectedTactician);
+    return tacticians.get(selectedTactician);
   }
 
   /**
@@ -83,7 +99,7 @@ public class GameController implements Observer {
    * Finishes the current player's turn.
    */
   public void endTurn() {
-    if(this.selectedTactician==Tacticians.size()){
+    if(this.selectedTactician==tacticians.size()){
       this.selectedTactician=0;
     }
     else{
@@ -99,7 +115,7 @@ public class GameController implements Observer {
    *     the player to be removed
    */
   public void removeTactician(String tactician) {
-    this.Tacticians.remove(tactician);
+    this.tacticians.remove(tactician);
   }
 
   /**
@@ -108,6 +124,7 @@ public class GameController implements Observer {
    *  the maximum number of turns the game can last
    */
   public void initGame(final int maxTurns) {
+    maxRound=maxTurns;
 
   }
 
@@ -115,26 +132,29 @@ public class GameController implements Observer {
    * Starts a game without a limit of turns.
    */
   public void initEndlessGame() {
+    maxRound = -1;
 
   }
 
   /**
    * @return the winner of this game, if the match ends in a draw returns a list of all the winners
    */
+
+
   public List<String> getWinners() {
-    List<String> Winners;
-  }
-    if(this.round == this.maxRound){
-      for (Tactician i : Tacticians) {
-        return Winners.add(Tactician.getName());
-      }
+    List<String> winners = new ArrayList<>();
+    for(int i =0;i<this.tacticians.size();i++){
+      String n = this.tacticians.get(i).getName();
+      winners.add(n);
+    }
+    return winners;
   }
 
   /**
    * @return the current player's selected unit
    */
   public IUnit getSelectedUnit() {
-    return Tacticians.get(selectedUnit);
+    return tacticians.get(selectedTactician).getSelectedUnit();
   }
 
   /**
@@ -147,6 +167,7 @@ public class GameController implements Observer {
    */
   public void selectUnitIn(int x, int y) {
 
+
   }
 
   /**
@@ -155,6 +176,9 @@ public class GameController implements Observer {
   public List<IEquipableItem> getItems() {
     return this.getSelectedUnit().getItems();
   }
+
+
+
 
   /**
    * Equips an item from the inventory to the currently selected unit.
@@ -176,7 +200,8 @@ public class GameController implements Observer {
    *     vertical position of the target
    */
   public void useItemOn(int x, int y) {
-
+    this.getSelectedUnit().Combat(field.getCell(x,y).getUnit());
+    this.getSelectedUnit().heal(field.getCell(x,y).getUnit());
   }
 
   /**
@@ -186,8 +211,14 @@ public class GameController implements Observer {
    *     the location of the item in the inventory.
    */
   public void selectItem(int index) {
-
+    getSelectedUnit().selectItem(index);
   }
+
+  public IEquipableItem getSelectedItem(){
+    return this.getSelectedUnit().selectItem(0);
+  }
+
+
 
   /**
    * Gives the selected item to a target unit.
@@ -198,6 +229,12 @@ public class GameController implements Observer {
    *     vertical position of the target
    */
   public void giveItemTo(int x, int y) {
+    this.getSelectedUnit().trade(this.getSelectedItem(),field.getCell(x,y).getUnit());
+
+  }
+
+  @Override
+  public void update(Observable o, Object arg) {
 
   }
 }

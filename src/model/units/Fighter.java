@@ -1,5 +1,6 @@
 package model.units;
 
+import model.Tactician.Tactician;
 import model.items.Axe;
 import model.items.IEquipableItem;
 import model.map.Location;
@@ -14,9 +15,9 @@ import model.map.Location;
  */
 public class Fighter extends AbstractUnit {
 
-  public Fighter(final int hitPoints, final int movement, final Location location,
+  public Fighter(final int hitPoints, final int movement, final Location location,final Tactician tactician,
       IEquipableItem... items) {
-    super(hitPoints, movement, location, 3, items);
+    super(hitPoints, movement, location, 3,tactician, items);
   }
 
   /**

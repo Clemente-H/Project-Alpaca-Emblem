@@ -1,5 +1,6 @@
 package model.units;
 
+import model.Tactician.Tactician;
 import model.items.IEquipableItem;
 import model.items.Spear;
 import model.map.Location;
@@ -23,9 +24,9 @@ public class Hero extends AbstractUnit {
    * @param movement
    *     the number of panels a unit can move
    */
-  public Hero(final int hitPoints, final int movement, final Location location,
+  public Hero(final int hitPoints, final int movement, final Location location,final Tactician tactician,
       IEquipableItem... items) {
-    super(hitPoints, movement, location, 3, items);
+    super(hitPoints, movement, location, 3,tactician, items);
   }
 
   /**

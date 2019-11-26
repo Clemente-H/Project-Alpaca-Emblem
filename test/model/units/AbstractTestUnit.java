@@ -243,7 +243,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
    @Test
   public void testExchange() {
 
-    swordMaster.exchange(sword, alpaca);
+    swordMaster.trade(sword, alpaca);
     assertTrue(alpaca.items.contains(sword));
   }
 
@@ -296,7 +296,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
     }
 
     @Test
-  public void testingMaxIterms(){
+  public void testingMaxItems(){
       swordMaster = new SwordMaster(1000,1,new Location(0,1));
       assertEquals(swordMaster.getMaxItems(),3);
     }
@@ -364,7 +364,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
       axe = new Axe("",1,1,1);
       archer.items.add(axe);
       archer.getLocation().addNeighbour(swordMaster.getLocation());
-      swordMaster.exchange(sword,archer);
+      swordMaster.trade(sword,archer);
       assertEquals(swordMaster.items.contains(sword),false);
       assertTrue(archer.items.contains(sword));
     }

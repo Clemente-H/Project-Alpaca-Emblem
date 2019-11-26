@@ -1,5 +1,6 @@
 package model.units;
 
+import model.Tactician.Tactician;
 import model.items.*;
 import model.map.Location;
 /**
@@ -23,9 +24,9 @@ public class Sorcerer  extends AbstractUnit {
      * @param location
      *     current position of the unit
      */
-    public Sorcerer(final int hitPoints, final int movement, final Location location,
+    public Sorcerer(final int hitPoints, final int movement, final Location location,final Tactician tactician,
                    IEquipableItem... items) {
-        super(hitPoints, movement, location, 3, items);
+        super(hitPoints, movement, location, 3, tactician, items);
     }
 
     /**

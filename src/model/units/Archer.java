@@ -1,5 +1,6 @@
 package model.units;
 
+import model.Tactician.Tactician;
 import model.items.Bow;
 import model.items.IEquipableItem;
 import model.map.Location;
@@ -27,9 +28,9 @@ public class Archer extends AbstractUnit {
    * @param items
    *     the items carried by this unit
    */
-  public Archer(final int hitPoints, final int movement, final Location position,
+  public Archer(final int hitPoints, final int movement, final Location position,final Tactician tactician,
       final IEquipableItem... items) {
-    super(hitPoints, movement, position, 3, items);
+    super(hitPoints, movement, position, 3, tactician ,items);
   }
 
   /**

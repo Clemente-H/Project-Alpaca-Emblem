@@ -1,5 +1,6 @@
 package model.units;
 
+import model.Tactician.Tactician;
 import model.items.IEquipableItem;
 import model.map.Location;
 
@@ -25,9 +26,9 @@ public class Alpaca extends AbstractUnit {
    * @param location
    *     current position of the unit
    */
-  public Alpaca(final int hitPoints, final int movement, final Location location,
+  public Alpaca(final int hitPoints, final int movement, final Location location, final Tactician tactician,
       final IEquipableItem... items) {
-    super(hitPoints, movement, location, Integer.MAX_VALUE, items);
+    super(hitPoints, movement, location, Integer.MAX_VALUE, tactician ,items);
   }
 
   /**

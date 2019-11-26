@@ -119,10 +119,10 @@ public interface IUnit{
   IEquipableItem selectItem(int i);
 
 
-  void exchange(IEquipableItem item, IUnit unit2);
+  void trade(IEquipableItem item, IUnit unit2);
   /*
  @author Clemente Henriquez
- exchange is a method that given an units and a item, sets the conditions for an exchange of items to be accomplished.
+ trade is a method that given an units and a item, sets the conditions for an exchange of items to be accomplished.
 
   */
   void attack(IUnit unit);
