@@ -50,8 +50,8 @@ public class GameController implements Observer {
    */
   public GameController(int numberOfPlayers, int mapSize) {
     for(int i=1;i<=numberOfPlayers+1; i++){
-      Tactician tactician = new Tactician();
-      String name = "Player"+ Integer.toString(i);
+      Tactician tactician = new Tactician;
+      String name = "Player"+ i;
       tactician.setName(name);
       tacticians.add(tactician);
       //factory para crear un tactician;
@@ -124,7 +124,7 @@ public class GameController implements Observer {
    *  the maximum number of turns the game can last
    */
   public void initGame(final int maxTurns) {
-    maxRound=maxTurns;
+    this.maxRound=maxTurns;
 
   }
 
@@ -214,11 +214,6 @@ public class GameController implements Observer {
     getSelectedUnit().selectItem(index);
   }
 
-  public IEquipableItem getSelectedItem(){
-    return this.getSelectedUnit().selectItem(0);
-  }
-
-
 
   /**
    * Gives the selected item to a target unit.
@@ -229,7 +224,7 @@ public class GameController implements Observer {
    *     vertical position of the target
    */
   public void giveItemTo(int x, int y) {
-    this.getSelectedUnit().trade(this.getSelectedItem(),field.getCell(x,y).getUnit());
+    this.getSelectedUnit().trade(this.getSelectedUnit().getSelectedItem(),field.getCell(x,y).getUnit());
 
   }
 

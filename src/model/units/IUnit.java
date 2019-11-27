@@ -92,13 +92,16 @@ public interface IUnit{
    * @author Clemente Henriquez
    * sets the current hitpoints
    */
-  void Combat(IUnit unit2);
+
   /*
     @author Clemente Henriquez
     combat is a method that given 2 units, sets the conditions for the combat to begin,
     after this, it activates the attacks of the units(in case that each unit CAN attack)
 
      */
+
+  void Combat(IUnit unit2);
+
 
   /*
   @author Clemente Henriquez
@@ -111,20 +114,26 @@ public interface IUnit{
   void heal(IUnit unit);
   /*
     @author Clemente Henriquez
-    combat is a method that given 2 units, sets the conditions for the combat to begin,
-    after this, it activates the attacks of the units(in case that each unit CAN attack)
+    select an item from the list of items of the unit
 
      */
 
-  IEquipableItem selectItem(int i);
+  void selectItem(int i);
+    /*
+   @author Clemente Henriquez
+   trade is a method that given an units and a item, sets the conditions for an exchange of items to be accomplished.
 
+    */
 
   void trade(IEquipableItem item, IUnit unit2);
-  /*
- @author Clemente Henriquez
- trade is a method that given an units and a item, sets the conditions for an exchange of items to be accomplished.
 
-  */
+  IEquipableItem getSelectedItem();
+
+  /*
+   @author Clemente Henriquez
+   returns the item selected from the list of items
+
+    */
   void attack(IUnit unit);
  /*@author Clemente Henriquez
   attack is an abstract method that given a units, activates an attack in other unit.

@@ -32,6 +32,7 @@ public abstract class AbstractUnit extends Observable implements IUnit{
   private final int maxHitpoints;
   private final int maxItems;
   private final Tactician tactician;
+  private int selectedItem;
 
   /**
    * Creates a new Unit.
@@ -46,7 +47,7 @@ public abstract class AbstractUnit extends Observable implements IUnit{
    *     maximum amount of items this unit can carry
    */
   protected AbstractUnit(final int hitPoints, final int movement,
-                         final Location location, final int maxItems, Tactician tactician, final IEquipableItem... items) {
+                         final Location location, final int maxItems, Tactician tactician,final int selectedItem ,final IEquipableItem... items) {
     this.currentHitPoints = hitPoints;
     this.movement = movement;
     this.location = location;
@@ -54,6 +55,7 @@ public abstract class AbstractUnit extends Observable implements IUnit{
     this.maxHitpoints= hitPoints;
     this.maxItems=maxItems;
     this.tactician = tactician;
+    this.selectedItem = 0;
   }
   @Override
   public Tactician getTactician(){return tactician;}
@@ -115,9 +117,10 @@ public abstract class AbstractUnit extends Observable implements IUnit{
     }
   }
   @Override
-  public IEquipableItem selectItem(int i){
-    return this.items.get(i-1);
+  public void selectItem(int i){if(i<this.maxItems){this.selectedItem = i;}}
 
+  @Override
+  public IEquipableItem getSelectedItem(){return this.items.get(this.selectedItem);
   }
 
 
