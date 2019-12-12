@@ -116,7 +116,7 @@ class GameControllerTest {
     controller.endTurn();
 
 
-    Tactician secondPlayer = new Tactician();
+    Tactician secondPlayer = new Tactician("Player 2",controller.getGameMap(),controller);
     assertNotEquals(secondPlayer.getName(), firstPlayer.getName());
 
     assertNotEquals(firstPlayer.getName(), controller.getTurnOwner().getName());

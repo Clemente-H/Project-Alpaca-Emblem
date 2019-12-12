@@ -128,9 +128,18 @@ public class Tactician implements PropertyChangeListener {
 
     /**
      @author Clemente Henriquez
+     equips the selected Item to the selected Unit
+     */
+    public void equipSelectedItem(){this.getSelectedUnit().equipItem(this.getSelectedItem());}
+
+    /**
+     @author Clemente Henriquez
      sets the lifestate of a tactician
      */
-    public void killTactician(){this.LifeState = false;}
+
+    public void killTactician(){
+        Units.clear();
+        this.LifeState = false;}
 
 
     /**
@@ -169,6 +178,32 @@ public class Tactician implements PropertyChangeListener {
      */
 
     public void changeFactory(IFactory factory){this.factory = factory;}
+
+    /**
+     @author Clemente Henriquez
+     creates and adds an Item to the unit
+     @param unit
+     the unit that will get the item
+     @param name
+        the name of the weapon
+     @param power
+        the power of the weapon
+     @param max
+        the max range
+     @param min
+        the min range of the weapon
+         */
+
+    public void addItem(String name, int power, int min, int max, IUnit unit){
+
+    }
+    /**
+    @author Clemente Henriquez
+     adds an Item that is already created to the unit
+    **/
+    public void addItem(IEquipableItem item, IUnit unit){
+        unit.setItems(item);
+    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
