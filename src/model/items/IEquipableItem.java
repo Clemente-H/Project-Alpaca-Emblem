@@ -46,112 +46,159 @@ public interface IEquipableItem {
    * @return the maximum range of the item
    */
   int getMaxRange();
-  /*/*
+
+  /**
   @author Clemente Henriquez
-  gives an item to an Alpaca, in the future it wont do anything
+  equips an Item to a Hero Unit
+   @param hero
+   the hero that will equip a weapon
    */
 
   void equippedHero(Hero hero);
-  /*/*
-  @author Clemente Henriquez
-  equips an Item to a Hero Unit
-   */
-  void equippedArcher(Archer archer);
-  /*/*
+  /**
   @author Clemente Henriquez
   equips an Item to an Archer
+   @param archer
+   the archer that will get an item
    */
-  void equippedCleric(Cleric cleric);
-  /*/*
+  void equippedArcher(Archer archer);
+  /**
   @author Clemente Henriquez
   equips an item to a cleric
+   @param cleric
+   the cleric that will be equipped
    */
-
-
-  void equippedFighter(Fighter fighter);
-  /*/*
-  @author Clemente Henriquez
- equips an item to a Fighter
-   */
-  void equippedSorcerer(Sorcerer sorcerer);
-  /*/*
-  @author Clemente Henriquez
- equips an item to a Sorcerer
-   */
-  void equippedSwordMaster(SwordMaster swordMaster);
-  /*/*
-  @author Clemente Henriquez
- equips an item to a SwordMaster
-   */
-  void weakAttackTo(IUnit unit);
-  /*
-  @author Clemente Henriquez
-
-      makes the power of the item minus 20 points of damage to other Unit
-          */
-  void strongAttackTo(IUnit unit);
-  /*
-  @author Clemente Henriquez
-   makes 1.5 times the damage of the item to an Unit
-
-   */
-
-  void normalAttackTo(IUnit unit);
-  /*/*
-  @author Clemente Henriquez
-  this attack makes the damage of the weapon's power to an Unit.
-   */
-
+  void equippedCleric(Cleric cleric);
 
   /**
-  void alpacaAttack(Alpaca alpaca);
-   **/
-  void getAttackedByAxe(IEquipableItem item);
-  /*/*
   @author Clemente Henriquez
-  An unit is attacked by an axe
+ equips an item to a Fighter
+   @param fighter
+   the fighter that will be equipped
+   */
+  void equippedFighter(Fighter fighter);
+  /**
+  @author Clemente Henriquez
+  equips an item to a Sorcerer
+   @param sorcerer
+   the sorcerer that will be equipped
+   */
+  void equippedSorcerer(Sorcerer sorcerer);
+
+   /**
+  @author Clemente Henriquez
+ equips an item to a SwordMaster
+    @param swordMaster
+    the swordmaster that will be equipped
+   */
+
+  void equippedSwordMaster(SwordMaster swordMaster);
+
+  /**
+   @author Clemente Henriquez
+       makes the power of the item minus 20 points of damage to other Unit
+   @param unit
+   the unit that will be attacked
+           */
+  void weakAttackTo(IUnit unit);
+
+  /**
+  @author Clemente Henriquez
+   makes 1.5 times the damage of the item to an Unit
+  @param unit
+   the unit that will be attacked
+   */
+  void strongAttackTo(IUnit unit);
+
+  /**
+  @author Clemente Henriquez
+  this attack makes the damage of the weapon's power to an Unit.
+   @param unit
+   the unit that will be attacked
+   */
+  void normalAttackTo(IUnit unit);
+
+  /**
+    @author Clemente Henriquez
+    An unit is attacked by an axe
+   @param item
+   the item that an unit's has equipped, this is to check if the attack is strong weak or normal
+     */
+  void getAttackedByAxe(IEquipableItem item);
+
+  /**
+   @author Clemente Henriquez
+   An unit is attacked by an sword
+   @param item
+   the item that an unit's has equipped, this is to check if the attack is strong weak or normal
    */
 
   void getAttackedBySword(IEquipableItem item);
-  /*/*
-  @author Clemente Henriquez
-  An unit is attacked by a sword
-   */
 
+  /**
+   @author Clemente Henriquez
+   An unit is attacked by an bow
+   @param item
+   the item that an unit's has equipped, this is to check if the attack is strong weak or normal
+   */
   void getAttackedByBow(IEquipableItem item);
-  /*/*
-  @author Clemente Henriquez
-  An unit is attacked by a bow
+
+  /**
+   @author Clemente Henriquez
+   An unit is attacked by an spear
+   @param item
+   the item that an unit's has equipped, this is to check if the attack is strong weak or normal
    */
   void getAttackedBySpear(IEquipableItem item);
-  /*/*
-  @author Clemente Henriquez
-  An unit is attacked by a spear
+
+  /**
+   @author Clemente Henriquez
+   An unit is attacked by an staff, does nothing
+   @param item
+   the item that an unit's has equipped, this is to check if the attack is strong weak or normal
    */
   void getAttackedByStaff(IEquipableItem item);
-  /*/*
-  @author Clemente Henriquez
-  does nothing
+
+
+  /**
+   @author Clemente Henriquez
+   An unit is attacked by an magicBook
+   @param item
+   the item that an unit's has equipped, this is to check if the attack is strong weak or normal
    */
   void getAttackedByMagicBook(IEquipableItem item);
-  /*/*
-  @author Clemente Henriquez
-  An unit is attacked by a magicbook
+
+  /**
+   @author Clemente Henriquez
+   An unit is attacked by an DarknessMagicBook
+   @param item
+   the item that an unit's has equipped, this is to check if the attack is strong weak or normal
    */
   void getAttackedByDarknessMagicBook(IEquipableItem item);
-  /*/*
-  @author Clemente Henriquez
-  An unit is attacked by a darkMagicbook
+
+  /**
+   @author Clemente Henriquez
+   An unit is attacked by an light magic book
+   @param item
+   the item that an unit's has equipped, this is to check if the attack is strong weak or normal
    */
   void getAttackedByLightMagicBook(IEquipableItem item);
-  /*/*
-  @author Clemente Henriquez
-  An unit is attacked by a lighmagicbook
+
+
+  /**
+   @author Clemente Henriquez
+   An unit is attacked by an anima magic book
+   @param item
+   the item that an unit's has equipped, this is to check if the attack is strong weak or normal
    */
   void getAttackedByAnimaMagicBook(IEquipableItem item);
-  /*/*
-  @author Clemente Henriquez
-  An unit is attacked by an animaMagibook
+
+
+  /**
+   @author Clemente Henriquez
+   an alpaca is attacked
+   @param alpaca
+   the alpaca that will recieve the atack
    */
   void attackAlpaca(Alpaca alpaca);
 }
