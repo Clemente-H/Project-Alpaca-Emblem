@@ -24,9 +24,9 @@ public class Sorcerer  extends AbstractUnit {
      * @param location
      *     current position of the unit
      */
-    public Sorcerer(final int hitPoints, final int movement, final Location location,final Tactician tactician,
-                   IEquipableItem... items) {
-        super(hitPoints, movement, location, 3, tactician, items);
+    public Sorcerer(final int hitPoints, final int movement, final Location location,
+                    final IEquipableItem... items) {
+        super(hitPoints, movement, location, 3,items);
     }
 
     /**

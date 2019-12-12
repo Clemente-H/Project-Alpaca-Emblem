@@ -51,7 +51,15 @@ public abstract class AbstractTestUnit implements ITestUnit {
     targetAlpaca.setCurrentHitPoints(55);
     assertEquals(targetAlpaca.getCurrentHitPoints(),55);
   }
-
+  @Test
+  public void selectItemTest(){
+    fighter = new Fighter(50,2,field.getCell(1, 0));
+    axe = new Axe("",1,1,1);
+    sword = new Sword("",1,1,1);
+    fighter.items.add(0,axe);
+    fighter.items.add(1,sword);
+    assertEquals(axe,fighter.selectItem(0));
+  }
 
   /**
    * Set up the game field

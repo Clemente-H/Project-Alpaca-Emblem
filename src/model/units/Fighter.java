@@ -15,9 +15,9 @@ import model.map.Location;
  */
 public class Fighter extends AbstractUnit {
 
-  public Fighter(final int hitPoints, final int movement, final Location location,final Tactician tactician,
-      IEquipableItem... items) {
-    super(hitPoints, movement, location, 3,tactician, items);
+  public Fighter(final int hitPoints, final int movement, final Location location,
+                 final IEquipableItem... items) {
+    super(hitPoints, movement, location, 3, items);
   }
 
   /**

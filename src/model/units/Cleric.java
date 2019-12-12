@@ -17,15 +17,13 @@ public class Cleric extends AbstractUnit {
 
   /**
    * Creates a new Unit.
-   *
-   * @param hitPoints
+   *  @param hitPoints
    *     the maximum amount of damage a unit can sustain
    * @param movement
-   *     the number of panels a unit can move
    */
-  public Cleric(final int hitPoints, final int movement, final Location location,final Tactician tactician,
-      IEquipableItem... items) {
-    super(hitPoints, movement, location, 3,tactician, items);
+  public Cleric(final int hitPoints, final int movement, final Location location,
+                final IEquipableItem... items) {
+    super(hitPoints, movement, location, 3, items);
   }
 
   /**

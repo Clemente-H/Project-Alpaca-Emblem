@@ -40,11 +40,6 @@ public interface IUnit{
    * @return the maxHitpoints of this unit
    */
 
-  Tactician getTactician();
-    /**
-     * @return the tactician of this unit
-     */
-
 
   List<IEquipableItem> getItems();
 
@@ -118,7 +113,7 @@ public interface IUnit{
 
      */
 
-  void selectItem(int i);
+  IEquipableItem selectItem(int i);
     /*
    @author Clemente Henriquez
    trade is a method that given an units and a item, sets the conditions for an exchange of items to be accomplished.
@@ -127,7 +122,6 @@ public interface IUnit{
 
   void trade(IEquipableItem item, IUnit unit2);
 
-  IEquipableItem getSelectedItem();
 
   /*
    @author Clemente Henriquez

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -32,7 +33,10 @@ class GameControllerTest {
     // Se define la semilla como un número aleatorio para generar variedad en los tests
     randomSeed = new Random().nextLong();
     controller = new GameController(4, 128);
+    assertEquals(128, controller.getGameMap().getSize());
     testTacticians = List.of("Player 0", "Player 1", "Player 2", "Player 3");
+    assertEquals(controller.getTacticians(), testTacticians);
+
 
   }
 
@@ -51,6 +55,7 @@ class GameControllerTest {
     assertEquals(128, gameMap.getSize()); // getSize deben definirlo
     assertTrue(controller.getGameMap().isConnected());
     Random testRandom = new Random(randomSeed);
+    testRandom.setSeed(randomSeed);
     // Para testear funcionalidades que dependen de valores aleatorios se hacen 2 cosas:
     //  - Comprobar las invariantes de las estructuras que se crean (en este caso que el mapa tenga
     //    las dimensiones definidas y que sea conexo.
@@ -64,6 +69,20 @@ class GameControllerTest {
 
   @Test
   void getTurnOwner() {
+    Random testRandom2 = new Random(randomSeed);
+    controller.initRandomGame(new Random(randomSeed));
+    int j = testRandom2.nextInt(controller.getTacticians().size());
+    assertEquals(controller.getTurnOwner(),controller.getTacticians().get(j));
+
+
+
+
+
+
+
+
+
+
     //  En este caso deben hacer lo mismo que para el mapa
   }
 
@@ -91,12 +110,15 @@ class GameControllerTest {
 
   @Test
   void endTurn() {
+    Random random = new Random(randomSeed);
+    controller.initRandomGame(random);
     Tactician firstPlayer = controller.getTurnOwner();
-    // Nuevamente, para determinar el orden de los jugadores se debe usar una semilla
-    Tactician secondPlayer = new Tactician(); // <- Deben cambiar esto (!)
+    controller.endTurn();
+
+
+    Tactician secondPlayer = new Tactician();
     assertNotEquals(secondPlayer.getName(), firstPlayer.getName());
 
-    controller.endTurn();
     assertNotEquals(firstPlayer.getName(), controller.getTurnOwner().getName());
     assertEquals(secondPlayer.getName(), controller.getTurnOwner().getName());
   }
@@ -146,14 +168,13 @@ class GameControllerTest {
   }
 
   // Desde aquí en adelante, los tests deben definirlos completamente ustedes
-  @BeforeAll
-
-
-
-
 
     @Test
   void getSelectedUnit() {
+    assertEquals(controller.getSelectedUnit(),null);
+
+
+
 
 
 

@@ -18,19 +18,16 @@ public class Archer extends AbstractUnit {
 
   /**
    * Creates a new archer
-   *
-   * @param hitPoints
+   *  @param hitPoints
    *     maximum hit points of the unit
    * @param movement
    *     the amount of cells this unit can move
    * @param position
-   *     the initial position of this unit
-   * @param items
-   *     the items carried by this unit
+ *     the initial position of this unit
    */
-  public Archer(final int hitPoints, final int movement, final Location position,final Tactician tactician,
-      final IEquipableItem... items) {
-    super(hitPoints, movement, position, 3, tactician ,items);
+  public Archer(final int hitPoints, final int movement, final Location position,
+                final IEquipableItem... items) {
+    super(hitPoints, movement, position, 3, items);
   }
 
   /**

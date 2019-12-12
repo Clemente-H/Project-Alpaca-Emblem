@@ -3,8 +3,11 @@ package Controller;
 import model.Tactician.Tactician;
 import model.items.IEquipableItem;
 import model.map.Field;
+import model.map.Location;
 import model.units.IUnit;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -16,7 +19,7 @@ import java.util.*;
  * @version 2.0
  * @since 2.0
  */
-public class GameController implements Observer {
+public class GameController implements PropertyChangeListener {
   private int numberOfPlayers;
   private int mapSize;
   private Field field;
@@ -25,19 +28,6 @@ public class GameController implements Observer {
   private int round=0;
   private int maxRound;
   private Tactician tacticianPlaying;
-
-  GameController(final int NumberOfPlayers, final int MapSize,
-                 final Field FIELD, final int SelectedTactician,final int Round,
-                 final int MaxRound, final Tactician... Tacticians){
-    this.numberOfPlayers = NumberOfPlayers;
-    this.mapSize = MapSize;
-    this.field = FIELD;
-    this.selectedTactician=SelectedTactician;
-    this.round=Round;
-    this.maxRound = MaxRound;
-    this.tacticians.addAll(Arrays.asList(Tacticians).subList(0,Tacticians.length));
-  }
-
 
 
   /**
@@ -49,14 +39,21 @@ public class GameController implements Observer {
    *     the dimensions of the map, for simplicity, all maps are squares
    */
   public GameController(int numberOfPlayers, int mapSize) {
-    for(int i=1;i<=numberOfPlayers+1; i++){
-      Tactician tactician = new Tactician;
-      String name = "Player"+ i;
-      tactician.setName(name);
-      tacticians.add(tactician);
-      //factory para crear un tactician;
+    field = new Field();
+    for (int i = 0; i<mapSize;i++){
+      for (int j = 0; j<mapSize;j++){
+        this.field.addCells(false, new Location(i, j));
+      }
     }
 
+    for(int i=0;i<=numberOfPlayers-1; i++){
+      String name = "Player"+ i;
+      Tactician tactician = new Tactician(name,field,0,null,null);
+      tactician.setName(name);
+      tacticians.add(tactician);
+      field.addListener(tactician);
+    }
+    this.tacticianPlaying.equals(tacticians.get(0));
 
   }
 
@@ -95,6 +92,16 @@ public class GameController implements Observer {
     return this.maxRound;
   }
 
+
+
+
+
+
+
+
+
+
+
   /**
    * Finishes the current player's turn.
    */
@@ -125,6 +132,22 @@ public class GameController implements Observer {
    */
   public void initGame(final int maxTurns) {
     this.maxRound=maxTurns;
+
+  }
+    /**
+     * Starts the game.
+     * @param random
+     *  the order for the tacticians to play
+     */
+  public void initRandomGame(Random random){
+      maxRound = -1;
+      ArrayList<Tactician> Tacticians2 = new ArrayList<>();
+      for (int i = 0; i<tacticians.size();i++){
+          int j = random.nextInt(tacticians.size());
+          Tacticians2.add(tacticians.get(j));
+      }
+      this.tacticians.clear();
+      this.tacticians = Tacticians2;
 
   }
 
@@ -165,10 +188,9 @@ public class GameController implements Observer {
    * @param y
    *     vertical position of the unit
    */
-  public void selectUnitIn(int x, int y) {
+  public void selectUnitIn(int x, int y) { tacticianPlaying.setSelectedUnit(field.getCell(x,y));}/*arreglar esto, tiene que quedar guardado
+  la unidad seleccionada*/
 
-
-  }
 
   /**
    * @return the inventory of the currently selected unit.
@@ -187,8 +209,7 @@ public class GameController implements Observer {
    *     the location of the item in the inventory.
    */
   public void equipItem(int index) {
-    getSelectedUnit().equipItem(getSelectedUnit().selectItem(index));
-
+      this.getSelectedUnit().equipItem(this.getSelectedUnit().selectItem(index));
   }
 
   /**
@@ -211,7 +232,7 @@ public class GameController implements Observer {
    *     the location of the item in the inventory.
    */
   public void selectItem(int index) {
-    getSelectedUnit().selectItem(index);
+    this.getTurnOwner().setSelectedItem(this.getSelectedUnit().selectItem(index));
   }
 
 
@@ -224,12 +245,11 @@ public class GameController implements Observer {
    *     vertical position of the target
    */
   public void giveItemTo(int x, int y) {
-    this.getSelectedUnit().trade(this.getSelectedUnit().getSelectedItem(),field.getCell(x,y).getUnit());
-
+    this.getSelectedUnit().trade(this.getTurnOwner().getSelectedItem(),field.getCell(x,y).getUnit());
   }
 
-  @Override
-  public void update(Observable o, Object arg) {
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
 
-  }
+    }
 }
