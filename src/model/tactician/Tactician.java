@@ -59,47 +59,114 @@ public class Tactician implements PropertyChangeListener {
     }
 
 
-
+    /**
+     @author Clemente Henriquez
+     sets the name of a tactician
+     @param name1
+     the name that will be given
+     */
     public void setName(String name1){
         this.name = name1 ;
     }
 
+    /**
+     @author Clemente Henriquez
+     returns the name of a tactician
+     */
     public String getName(){
         return this.name;
     }
 
+    /**
+     @author Clemente Henriquez
+     returns the game map of a tactician
+     */
     public Field getMap(){return this.map;}
 
+    /**
+     @author Clemente Henriquez
+     returns a list of the units of an tactician
+     */
     public List<IUnit> getUnits(){return Units;}
 
+    /**
+     @author Clemente Henriquez
+     returns the selected Unit of the tactician
+     */
     public IUnit getSelectedUnit(){return this.Units.get(SelectedUnit);}
 
+
+    /**
+     @author Clemente Henriquez
+     changes the selected unit
+     @param unit
+     the unit that now is selected
+     */
     public void setSelectedUnit(IUnit unit){this.SelectedUnit = Units.indexOf(unit);}
 
+    /**
+     @author Clemente Henriquez
+     changes the selected unit
+     @param location
+     the location of the unit that now is selected
+     */
     public void setSelectedUnit(Location location){this.SelectedUnit = Units.indexOf(location.getUnit());}
 
+    /**
+     @author Clemente Henriquez
+     returns the selected Item
+     */
     public IEquipableItem getSelectedItem(){return this.selectedItem;}
 
+    /**
+     @author Clemente Henriquez
+     changes the selected Item
+     @param Item
+     the item that now is selected
+     */
     public void setSelectedItem(IEquipableItem Item){this.selectedItem.equals(Item);}
 
+    /**
+     @author Clemente Henriquez
+     sets the lifestate of a tactician
+     */
     public void killTactician(){this.LifeState = false;}
 
-    public boolean isHeroAlive(Hero hero){
-        if(hero.getCurrentHitPoints() <=0){
-            return false;}
-        return true;
-    }
 
+    /**
+     @author Clemente Henriquez
+     moves a unit to a location
+     @param location
+     the location where the unit will be
+     */
     public void moveUnit(Location location){
         this.getSelectedUnit().moveTo(location);
     }
 
-
+    /**
+     @author Clemente Henriquez
+     creates and adds a unit to the tactician
+     @param HitPoints
+     the hitpoints of the unit
+     @param movement
+     the movement of the unit
+     @param x
+     the horizontal coordinate
+     @param y
+     the vertical coordinate
+     */
     public void addUnit (int HitPoints, int movement, int x, int y ){
         IUnit unit = factory.create(HitPoints,movement,this.getMap(),x,y);
         this.Units.add(unit);
 
     }
+
+    /**
+     @author Clemente Henriquez
+     changes the tipe of unit that is in the factory
+     @param factory
+     the type of factory that is created
+     */
 
     public void changeFactory(IFactory factory){this.factory = factory;}
 
