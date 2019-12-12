@@ -1,8 +1,5 @@
 package model.units;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 
 import model.items.*;
@@ -11,6 +8,8 @@ import model.map.Field;
 import model.map.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Ignacio Slater Muñoz
@@ -239,11 +238,16 @@ public abstract class AbstractTestUnit implements ITestUnit {
   public void combatsTest(){
 
     hero.Combat(fighter);
+    assertTrue(hero.isHeroAlive());
     assertEquals(fighter.getCurrentHitPoints(),80);
+    assertTrue(fighter.isHeroAlive());
     assertEquals(hero.getCurrentHitPoints(),40);
     archer.Combat(swordMaster);
     assertEquals(swordMaster.getCurrentHitPoints(),60);
     assertEquals(archer.getCurrentHitPoints(),100);
+    archer.Combat(hero);
+    assertFalse(hero.isHeroAlive());
+
 
   }
 

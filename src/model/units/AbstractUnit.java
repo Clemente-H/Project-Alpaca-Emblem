@@ -146,5 +146,6 @@ public abstract class AbstractUnit extends Observable implements IUnit{
   @Override
   public void heal(IUnit unit){
   }
-
+  @Override
+  public boolean isHeroAlive(){return true;}
 }

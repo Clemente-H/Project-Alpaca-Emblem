@@ -4,6 +4,7 @@ import model.Tactician.Tactician;
 import model.items.IEquipableItem;
 import model.map.Field;
 import model.map.Location;
+import model.units.Hero;
 import model.units.IUnit;
 
 import java.beans.PropertyChangeEvent;
@@ -48,7 +49,7 @@ public class GameController implements PropertyChangeListener {
 
     for(int i=0;i<=numberOfPlayers-1; i++){
       String name = "Player"+ i;
-      Tactician tactician = new Tactician(name,field,0,null,null);
+      Tactician tactician = new Tactician(name,field,this);
       tactician.setName(name);
       tacticians.add(tactician);
       field.addListener(tactician);
@@ -106,6 +107,14 @@ public class GameController implements PropertyChangeListener {
    * Finishes the current player's turn.
    */
   public void endTurn() {
+    for(int i = 0; i<tacticianPlaying.getUnits().size();i++){
+      if (tacticianPlaying.getUnits().get(i).isHeroAlive() == false){
+        this.removeTactician(tacticianPlaying.getName());
+      }
+
+
+
+    }
     if(this.selectedTactician==tacticians.size()){
       this.selectedTactician=0;
     }

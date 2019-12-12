@@ -40,6 +40,7 @@ import static java.lang.Math.min;
  * the item from any of it's units that
      */
 public class Tactician implements PropertyChangeListener {
+    private GameController controller;
     private String name;
     private Field map;
     private final List<IUnit> Units = new ArrayList<>();
@@ -49,12 +50,10 @@ public class Tactician implements PropertyChangeListener {
     private boolean LifeState = true;
 
 
-    public Tactician(String name, Field map,  int SelectedUnit, IEquipableItem selectedItem,  IUnit... Units){
+    public Tactician(String name, Field map, GameController controller){
         this.name = name;
         this.map = map;
-        this.SelectedUnit = SelectedUnit;
-        this.selectedItem = selectedItem;
-        this.Units.addAll(Arrays.asList(Units).subList(0, Units.length));
+        this.controller = controller;
 
 
     }
@@ -71,6 +70,8 @@ public class Tactician implements PropertyChangeListener {
 
     public Field getMap(){return this.map;}
 
+    public List<IUnit> getUnits(){return Units;}
+
     public IUnit getSelectedUnit(){return this.Units.get(SelectedUnit);}
 
     public void setSelectedUnit(IUnit unit){this.SelectedUnit = Units.indexOf(unit);}
@@ -83,6 +84,12 @@ public class Tactician implements PropertyChangeListener {
 
     public void killTactician(){this.LifeState = false;}
 
+    public boolean isHeroAlive(Hero hero){
+        if(hero.getCurrentHitPoints() <=0){
+            return false;}
+        return true;
+    }
+
     public void moveUnit(Location location){
         this.getSelectedUnit().moveTo(location);
     }
@@ -94,17 +101,11 @@ public class Tactician implements PropertyChangeListener {
 
     }
 
-    public void changeFactor(IFactory factory){this.factory = factory;}
+    public void changeFactory(IFactory factory){this.factory = factory;}
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         evt.getNewValue();
     }
 
-
-    public void StillAlive(Hero Unit){
-        if (Unit.getCurrentHitPoints()==(0)){
-            this.killTactician();
-        }
-    }
 }

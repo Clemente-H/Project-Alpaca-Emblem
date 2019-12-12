@@ -40,4 +40,10 @@ public class Hero extends AbstractUnit {
   public void attack(IUnit unit){
     unit.getEquippedItem().getAttackedBySpear(this.getEquippedItem());
   }
+  @Override
+  public boolean isHeroAlive() {
+    if (this.getCurrentHitPoints() <= 0) {
+      return false;}
+    return true;
+  }
 }
