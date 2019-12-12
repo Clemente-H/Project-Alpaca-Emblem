@@ -109,6 +109,7 @@ public class GameController implements PropertyChangeListener {
   public void endTurn() {
     for(int i = 0; i<tacticianPlaying.getUnits().size();i++){
       if (tacticianPlaying.getUnits().get(i).isHeroAlive() == false){
+        tacticianPlaying.killTactician();
         this.removeTactician(tacticianPlaying.getName());
       }
 
