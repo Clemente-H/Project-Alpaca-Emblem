@@ -170,13 +170,31 @@ class AxeTest extends AbstractTestItem {
   @Test
   public void hittinFighters(){
 
+    animaMagicBook = new AnimaMagicBook("common animaBook",40,1,2);
+    lightMagicBook = new LightMagicBook("spellsfordummies",40,1,2);
+    darknessMagicBook = new DarknessMagicBook("howToActColdAsSasuke",40,1,2);
+    bow = new Bow("",40,2,4);
+    sword = new Sword("",40,1,2);
+    axe = new Axe("",40,1,5);
+    staff = new Staff("",40,1,1);
+
+
+
+
+    fighter = new Fighter(1000,4,new Location(1,0),axe);
+    fighter.equipItem(axe);
     axe.getAttackedByDarknessMagicBook(darknessMagicBook);
+    assertEquals(fighter.getCurrentHitPoints(),940);
     axe.getAttackedByLightMagicBook(lightMagicBook);
+    assertEquals(fighter.getCurrentHitPoints(),880);
     axe.getAttackedByAnimaMagicBook(animaMagicBook);
+    assertEquals(fighter.getCurrentHitPoints(),820);
     axe.getAttackedByBow(bow);
+    assertEquals(fighter.getCurrentHitPoints(),780);
     axe.getAttackedBySpear(spear);
     axe.getAttackedByStaff(staff);
     axe.getAttackedBySword(sword);
+    assertEquals(fighter.getCurrentHitPoints(),700);
 
 
   }

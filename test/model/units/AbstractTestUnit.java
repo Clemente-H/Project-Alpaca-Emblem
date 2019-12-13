@@ -9,6 +9,8 @@ import model.map.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -56,12 +58,12 @@ public abstract class AbstractTestUnit implements ITestUnit {
   }
   @Test
   public void selectItemTest(){
-    fighter = new Fighter(50,2,field.getCell(1, 0));
     axe = new Axe("",1,1,1);
     sword = new Sword("",1,1,1);
-    fighter.items.add(0,axe);
-    fighter.items.add(1,sword);
+    fighter = new Fighter(50,2,null,axe);
+    fighter.setItems(sword);
     assertEquals(axe,fighter.selectItem(0));
+    assertEquals(sword,fighter.selectItem(1));
   }
 
   /**
@@ -98,11 +100,14 @@ public abstract class AbstractTestUnit implements ITestUnit {
    */
   @Override
   @Test
+  /***//
   public void constructorTest() {
-    assertEquals(50, getTestUnit().getCurrentHitPoints());
-    assertEquals(2, getTestUnit().getMovement());
-    assertEquals(new Location(0, 0), getTestUnit().getLocation());
-    assertTrue(getTestUnit().getItems().isEmpty());
+    axe = new Axe("",1,1,1);
+    alpaca = new Alpaca(50,2,new Location(0,0), axe );
+    assertEquals(50, alpaca.getCurrentHitPoints());
+    assertEquals(2, alpaca.getMovement());
+    assertEquals(new Location(0, 0), alpaca.getLocation());
+    assertFalse(alpaca.getItems().isEmpty());
   }
 
   /**
@@ -117,8 +122,10 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   @Test
   public void equipAxeTest() {
-    assertNull(getTestUnit().getEquippedItem());
-    checkEquippedItem(getAxe());
+    axe = new Axe("",1,1,1);
+    fighter = new Fighter(1,1,null,staff);
+    fighter.equipItem(axe);
+    assertEquals(axe,fighter.getEquippedItem());
   }
 
   /**
@@ -145,7 +152,11 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   @Test
   public void equipSwordTest() {
-    checkEquippedItem(getSword());
+
+    sword = new Sword("",1,1,1);
+    swordMaster = new SwordMaster(1,1,null,staff);
+    swordMaster.equipItem(sword);
+    assertEquals(sword,swordMaster.getEquippedItem());
   }
 
   /**
@@ -159,7 +170,10 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   @Test
   public void equipSpearTest() {
-    checkEquippedItem(getSpear());
+    spear = new Spear("",1,1,1);
+    hero = new Hero(1,1,null,staff);
+    hero.equipItem(spear);
+    assertEquals(spear,hero.getEquippedItem());
   }
 
   /**
@@ -172,15 +186,20 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
   @Override
   @Test
-  public void invalidEquipSword(){archer = new Archer(100,2,new Location(1,3));
-  sword.equippedArcher(archer);
+  public void invalidEquipSword(){
+    sword = new Sword("",1,1,1);
+    archer = new Archer(100,2,null,sword);
+    archer.equipItem(sword);
     assertNull(archer.equippedItem);
   }
 
   @Override
   @Test
   public void equipStaffTest() {
-    checkEquippedItem(getStaff());
+    staff = new Staff("",1,1,1);
+    cleric = new Cleric(1,1,null,staff);
+    cleric.equipItem(staff);
+    assertEquals(staff,cleric.getEquippedItem());
   }
 
   /**
@@ -194,7 +213,10 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   @Test
   public void equipBowTest() {
-    checkEquippedItem(getBow());
+    bow= new Bow("",1,1,1);
+    archer = new Archer(1,1,null,staff);
+    archer.equipItem(bow);
+    assertEquals(bow,archer.getEquippedItem());
   }
 
   /**
@@ -211,15 +233,24 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   @Test
   public void testMovement() {
-    getTestUnit().moveTo(getField().getCell(2, 2));
-    assertEquals(new Location(0, 0), getTestUnit().getLocation());
+    field = new Field();
+    for (int i = 0; i<5;i++){
+      for (int j = 0; j<5;j++){
+        this.field.addCells(false, new Location(i, j));
+      }
+    }
+    axe = new Axe("",1,1,1);
+    alpaca = new Alpaca(1,10,field.getCell(0,0),axe);
 
-    getTestUnit().moveTo(getField().getCell(0, 2));
-    assertEquals(new Location(0, 2), getTestUnit().getLocation());
+    alpaca.moveTo(getField().getCell(2, 2));
+    assertEquals(field.getCell(2,2), alpaca.getLocation());
 
-    getField().getCell(0, 1).setUnit(getTargetAlpaca());
-    getTestUnit().moveTo(getField().getCell(0, 1));
-    assertEquals(new Location(0, 2), getTestUnit().getLocation());
+    alpaca.moveTo(getField().getCell(0, 2));
+    assertEquals(field.getCell(0,2), alpaca.getLocation());
+
+    getField().getCell(0, 1).setUnit(alpaca);
+    alpaca.moveTo(getField().getCell(0, 1));
+    assertEquals(field.getCell(0,2), alpaca.getLocation());
   }
 
   /**
@@ -281,8 +312,10 @@ public abstract class AbstractTestUnit implements ITestUnit {
          this.field.addCells(false, new Location(i, j));
        }
      }
-    swordMaster.moveTo(field.getCell(0,0));
-     alpaca.moveTo(field.getCell(1,0));
+     axe = new Axe("",1,1,1);
+     sword = new Sword("",1,1,1);
+    swordMaster = new SwordMaster(100,1,field.getCell(0,0),sword);
+    alpaca = new Alpaca(100,1,field.getCell(1,0),axe);
     swordMaster.trade(sword, alpaca);
     assertTrue(alpaca.items.contains(sword));
   }
@@ -362,12 +395,21 @@ public abstract class AbstractTestUnit implements ITestUnit {
     }
     @Test
   public void testingAttack2(){
-      swordMaster = new SwordMaster(1000,1,new Location(0,1));
-      AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
-      sorcerer = new Sorcerer(1000,1,new Location(0,0) );
+      field = new Field();
+      for (int i = 0; i<4;i++){
+        for (int j = 0; j<4;j++){
+          this.field.addCells(false, new Location(i, j));
+        }
+      }
+      sword = new Sword("",40,1,10);
+
+      swordMaster = new SwordMaster(1000,1,field.getCell(0,0),sword);
+      anima = new AnimaMagicBook("",40,1,1);
+      sorcerer = new Sorcerer(1000,1,field.getCell(2,2),anima);
       sorcerer.equipItem(anima);
+      swordMaster.equipItem(sword);
       swordMaster.attack(sorcerer);
-      assertEquals(sorcerer.getCurrentHitPoints(),1000);
+      assertEquals(sorcerer.getCurrentHitPoints(),940);
 
     }
     @Test

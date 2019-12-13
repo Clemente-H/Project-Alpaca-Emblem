@@ -3,6 +3,8 @@ package model.units;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import model.items.Staff;
+import model.map.Field;
 import model.map.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,6 +39,8 @@ public class ClericTest extends AbstractTestUnit {
   @Test
   @Override
   public void equipStaffTest() {
+    staff = new Staff("",1,1,2);
+    cleric = new Cleric(1,1,null,staff);
     assertNull(cleric.getEquippedItem());
     cleric.equipItem(staff);
     assertEquals(staff, cleric.getEquippedItem());
@@ -45,7 +49,19 @@ public class ClericTest extends AbstractTestUnit {
 
   @Test
   public void healTest(){
-    Alpaca alpaca = new Alpaca(10,1,new Location(1,0));
+    field = new Field();
+    for (int i = 0; i<5;i++){
+      for (int j = 0; j<5;j++){
+        this.field.addCells(false, new Location(i, j));
+      }
+    }
+    staff = new Staff("",1,1,2);
+    cleric = new Cleric(1,1,null,staff);
+    assertNull(cleric.getEquippedItem());
+    cleric.equipItem(staff);
+    alpaca = new Alpaca(100,1,new Location(1,0));
+    alpaca.setCurrentHitPoints(20);
     cleric.heal(alpaca);
+    assertEquals(alpaca.getCurrentHitPoints(),21);
   }
 }

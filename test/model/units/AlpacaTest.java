@@ -1,9 +1,12 @@
 package model.units;
 
+import model.items.Axe;
 import model.items.Spear;
 import model.map.Field;
 import model.map.Location;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test set for the alpaca unit
@@ -35,9 +38,12 @@ public class AlpacaTest extends AbstractTestUnit {
       }
     }
     spear = new Spear("",50,1,10);
-    hero = new Hero(10,1,field.getCell(0,0),null);
+    hero = new Hero(10,1,field.getCell(0,0),spear);
     hero.equipItem(spear);
-    alpaca = new Alpaca(100,2,field.getCell(2,2),null);
+    axe = new Axe("",1,1,1);
+    alpaca = new Alpaca(100,2,field.getCell(2,2),axe);
+    hero.equippedItem.normalAttackTo(alpaca);
+    assertEquals(alpaca.getCurrentHitPoints(),50);
 
   }
 }

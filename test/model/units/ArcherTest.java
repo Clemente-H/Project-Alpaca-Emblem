@@ -53,8 +53,9 @@ public class ArcherTest extends AbstractTestUnit {
 
   @Test
   public void equipInvalidItem(){
+    sword= new Sword("",1,1,1);
+    archer = new Archer(1,1,null,sword);
     assertNull(archer.getEquippedItem());
-    Sword sword= new Sword("",1,1,1);
     archer.equipItem(sword);
     assertNull(archer.getEquippedItem());
   }
@@ -63,6 +64,8 @@ public class ArcherTest extends AbstractTestUnit {
   @Test
   @Override
   public void equipBowTest() {
+    bow = new Bow("",1,1,1);
+    archer = new Archer(10,1,null,bow);
     assertNull(archer.getEquippedItem());
     archer.equipItem(bow);
     assertEquals(bow, archer.getEquippedItem());

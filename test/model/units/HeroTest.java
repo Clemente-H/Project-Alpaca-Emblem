@@ -3,6 +3,7 @@ package model.units;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import model.items.Spear;
 import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -33,6 +34,8 @@ public class HeroTest extends AbstractTestUnit {
   @Override
   @Test
   public void equipSpearTest() {
+    spear = new Spear("",1,1,1);
+    hero = new Hero(1,1,null,spear);
     assertNull(hero.getEquippedItem());
     hero.equipItem(spear);
     assertEquals(spear, hero.getEquippedItem());
