@@ -237,17 +237,17 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Test
   public void combatsTest(){
     field = new Field();
-    for (int i = 0; i<10;i++){
-      for (int j = 0; j<10;j++){
+    for (int i = 0; i<5;i++){
+      for (int j = 0; j<5;j++){
         this.field.addCells(false, new Location(i, j));
       }
     }
-    bow = new Bow("",20,1,100);
+    bow = new Bow("",20,0,150);
     spear = new Spear("",20,1,5);
     axe = new Axe("",20,1,5);
     hero = new Hero(100,5,field.getCell(0,0),spear);
     fighter = new Fighter(100,5,field.getCell(1,1),axe);
-    archer = new Archer(100,3,field.getCell(9,1),bow);
+    archer = new Archer(100,3,field.getCell(4,4),bow);
     hero.equipItem(spear);
     fighter.equipItem(axe);
     archer.equipItem(bow);
@@ -256,9 +256,12 @@ public abstract class AbstractTestUnit implements ITestUnit {
     assertEquals(fighter.getCurrentHitPoints(),100);
     assertTrue(fighter.isHeroAlive());
     assertEquals(hero.getCurrentHitPoints(),70);
-    archer.Combat(swordMaster);
-    assertEquals(swordMaster.getCurrentHitPoints(),60);
+    archer.Combat(hero);
+    assertEquals(hero.getCurrentHitPoints(),50);
     assertEquals(archer.getCurrentHitPoints(),100);
+    archer.Combat(hero);
+    assertEquals(hero.getCurrentHitPoints(),30);
+    archer.Combat(hero);
     archer.Combat(hero);
     assertFalse(hero.isHeroAlive());
 

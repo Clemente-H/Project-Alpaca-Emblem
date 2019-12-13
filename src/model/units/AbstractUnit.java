@@ -121,7 +121,8 @@ public abstract class AbstractUnit extends Observable implements IUnit{
   @Override
   public void attackedAlpaca(IUnit unit){};
   public void Combat(IUnit unit2) {
-    if(unit2.getLocation().distanceTo(this.getLocation()) <=this.getEquippedItem().getMaxRange() && unit2.getLocation().distanceTo(this.getLocation())>=this.getEquippedItem().getMinRange()) {
+    if(this.getLocation().distanceTo(unit2.getLocation()) <= this.getEquippedItem().getMaxRange() &&
+            this.getLocation().distanceTo(unit2.getLocation())>= this.getEquippedItem().getMinRange()) {
         if(this.getCurrentHitPoints()>0 && unit2.getCurrentHitPoints()>0) {
           this.attack(unit2);
           unit2.attackedAlpaca(this);
