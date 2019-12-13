@@ -27,3 +27,23 @@ To run the game it is needed to create a gameField. To make this it is needed to
 Then the units and the items must be created.
 
 In the near future, as the game gets developed, more instructions will be given.
+
+
+V2.0
+
+2 new classes were created.
+The first one is Tacttician.
+This class represents a player.
+this tactician, knows its units, the map and its current life state.
+Also for this class,  it should be easy to create units. This is because an Factory for each unit was created
+
+
+The second class is game controller.
+this class has to controll the game.
+the controller knows:
+the lifeState of each tactician.
+the units that are alive
+the map and where is each unit
+and a lot of stuff more.
+
+
