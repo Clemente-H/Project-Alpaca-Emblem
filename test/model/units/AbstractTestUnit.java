@@ -236,12 +236,26 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
   @Test
   public void combatsTest(){
-
+    field = new Field();
+    for (int i = 0; i<10;i++){
+      for (int j = 0; j<10;j++){
+        this.field.addCells(false, new Location(i, j));
+      }
+    }
+    bow = new Bow("",20,1,100);
+    spear = new Spear("",20,1,5);
+    axe = new Axe("",20,1,5);
+    hero = new Hero(100,5,field.getCell(0,0),spear);
+    fighter = new Fighter(100,5,field.getCell(1,1),axe);
+    archer = new Archer(100,3,field.getCell(9,1),bow);
+    hero.equipItem(spear);
+    fighter.equipItem(axe);
+    archer.equipItem(bow);
     hero.Combat(fighter);
     assertTrue(hero.isHeroAlive());
-    assertEquals(fighter.getCurrentHitPoints(),80);
+    assertEquals(fighter.getCurrentHitPoints(),100);
     assertTrue(fighter.isHeroAlive());
-    assertEquals(hero.getCurrentHitPoints(),40);
+    assertEquals(hero.getCurrentHitPoints(),70);
     archer.Combat(swordMaster);
     assertEquals(swordMaster.getCurrentHitPoints(),60);
     assertEquals(archer.getCurrentHitPoints(),100);
@@ -254,7 +268,14 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
    @Test
   public void testExchange() {
-
+     field = new Field();
+     for (int i = 0; i<4;i++){
+       for (int j = 0; j<4;j++){
+         this.field.addCells(false, new Location(i, j));
+       }
+     }
+    swordMaster.moveTo(field.getCell(0,0));
+     alpaca.moveTo(field.getCell(1,0));
     swordMaster.trade(sword, alpaca);
     assertTrue(alpaca.items.contains(sword));
   }
@@ -369,15 +390,22 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
     @Test
     public void testingValidExchange(){
-      swordMaster = new SwordMaster(1000,1,new Location(0,1));
+      field = new Field();
+      for (int i = 0; i<4;i++){
+        for (int j = 0; j<4;j++){
+          this.field.addCells(false, new Location(i, j));
+        }
+      }
+
+
+
+      swordMaster = new SwordMaster(1000,1,field.getCell(0,0));
       sword = new Sword("",1,1,1);
       swordMaster.items.add(sword);
-      archer = new Archer(1000,1,new Location(0,0) );
+      archer = new Archer(1000,1,field.getCell(1,0));
       axe = new Axe("",1,1,1);
-      archer.items.add(axe);
-      archer.getLocation().addNeighbour(swordMaster.getLocation());
       swordMaster.trade(sword,archer);
-      assertEquals(swordMaster.items.contains(sword),false);
+      assertFalse(swordMaster.items.contains(sword));
       assertTrue(archer.items.contains(sword));
     }
   @Test
@@ -445,7 +473,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
     hero.equipItem(spear);
     archer.getLocation().addNeighbour(hero.getLocation());
     hero.attack(archer);
-    assertEquals(swordMaster.getCurrentHitPoints(),960);
+    assertEquals(archer.getCurrentHitPoints(),960);
   }
 
   @Test

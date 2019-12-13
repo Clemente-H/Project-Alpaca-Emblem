@@ -136,12 +136,12 @@ public abstract class AbstractUnit extends Observable implements IUnit{
     }
 @Override
   public void trade(IEquipableItem item, IUnit unit2){
-      if(unit2.getLocation().distanceTo(item.getOwner().getLocation())==1){
-        if(unit2.getMaxItems() <= unit2.getItems().size()+1) {
-          unit2.setItems(item);
-          this.items.remove(item);
-        }
+    if(unit2.getMaxItems()>unit2.getItems().size()) {
+      if (this.getLocation().distanceTo(unit2.getLocation())==1) {
+        unit2.setItems(item);
+        this.items.remove(item);
       }
+    }
   }
   @Override
   public void heal(IUnit unit){

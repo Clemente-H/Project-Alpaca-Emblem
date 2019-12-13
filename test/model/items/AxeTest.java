@@ -149,19 +149,18 @@ class AxeTest extends AbstractTestItem {
     swordMaster.getLocation().addNeighbour(fighter.getLocation());
     hero = new Hero(100,5,new Location(0,1));
     hero.getLocation().addNeighbour(fighter.getLocation());
-    swordMaster.getItems().add(sword);
     swordMaster.equipItem(sword);
-    hero.getItems().add(spear);
     hero.equipItem(spear);
     fighter.equipItem(axe);
 
     axe.getAttackedBySword(sword);
     //sword makes an strongAttack to an axe
-    assertEquals(fighter.getCurrentHitPoints(),85);
+
+    assertEquals(fighter.getCurrentHitPoints(),40);
     fighter.Combat(hero);
-    assertEquals(hero.getCurrentHitPoints(),80);
+    assertEquals(hero.getCurrentHitPoints(),85);
     axe.getAttackedBySpear(spear);
-    assertEquals(fighter.getCurrentHitPoints(),75);
+    assertEquals(fighter.getCurrentHitPoints(),0);
 
 
 

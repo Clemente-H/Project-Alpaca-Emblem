@@ -33,7 +33,8 @@ public class TacticianTest {
     private long randomSeed;
     private List<String> testTacticians;
     protected Field field;
-    private IFactory factoryUnits;
+    private IFactory factory;
+    private HeroFactory heroFactory;
 
 
     @BeforeEach
@@ -78,9 +79,10 @@ public class TacticianTest {
 
     @Test
     public void addUnitTest(){
-        //tactician1.changeFactor(factory);
-        //tactician1.addUnit(100,50,1,1);
-        //assertEquals();
+        tactician1.changeFactory(heroFactory);
+        tactician1.addUnit(1000,1,1,1);
+        tactician1.setSelectedUnit(field.getCell(1,1).getUnit());
+        assertEquals(field.getCell(1,1).getUnit(),tactician1.getSelectedUnit());
     }
 
 }
