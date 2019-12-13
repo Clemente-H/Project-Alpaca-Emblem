@@ -47,6 +47,10 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
   @Test
   public void setHitpoints(){
+    field = new Field();
+    Location location = new Location(1,0);
+    field.addCells(false,location);
+    targetAlpaca = new Alpaca(50,2,field.getCell(1,0));
     targetAlpaca.setCurrentHitPoints(55);
     assertEquals(targetAlpaca.getCurrentHitPoints(),55);
   }

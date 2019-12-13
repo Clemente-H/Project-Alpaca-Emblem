@@ -169,6 +169,7 @@ class AxeTest extends AbstractTestItem {
 
   @Test
   public void hittinFighters(){
+
     axe.getAttackedByDarknessMagicBook(darknessMagicBook);
     axe.getAttackedByLightMagicBook(lightMagicBook);
     axe.getAttackedByAnimaMagicBook(animaMagicBook);
