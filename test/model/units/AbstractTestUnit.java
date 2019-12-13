@@ -100,7 +100,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
    */
   @Override
   @Test
-  /***//
+  /***/
   public void constructorTest() {
     axe = new Axe("",1,1,1);
     alpaca = new Alpaca(50,2,new Location(0,0), axe );
