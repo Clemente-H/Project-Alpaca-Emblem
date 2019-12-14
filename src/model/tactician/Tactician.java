@@ -43,6 +43,7 @@ public class Tactician implements PropertyChangeListener {
     private Field map;
     private List<IUnit> Units = new ArrayList<>();
     private List<IUnit> MovedUnits = new ArrayList<>();
+    private List<IUnit> ActingUnits = new ArrayList<>();
     private IUnit SelectedUnit;
     private IEquipableItem selectedItem;
     private IFactory factory;
@@ -302,5 +303,48 @@ public class Tactician implements PropertyChangeListener {
      **/
     public int maxRangeSelectedItem(){return this.selectedItem.getMaxRange();}
 
+
+    /**
+     @author Clemente Henriquez
+     @return
+     shows the units that already attacked or healed in a turn
+     **/
+    public List<IUnit> getActingUnitsUnits(){return ActingUnits;}
+
+    /**
+     @author Clemente Henriquez
+     When the turn is finished, the list of actingUnits gets cleared
+     **/
+    public void clearActingUnits(){ ActingUnits.clear();}
+
+
+    /**
+     @author Clemente Henriquez
+     the selected unit attacks an unit
+     this should not work with to units of the same tactician
+     **/
+    public void combatWithUnitIn(IUnit unit){
+        if (!this.getActingUnitsUnits().contains(getSelectedUnit())){
+            if(!this.getUnits().contains(unit)){
+                this.getSelectedUnit().Combat(unit);
+                this.getActingUnitsUnits().add(this.getSelectedUnit());
+            }
+        }
+    }
+
+    /**
+     @author Clemente Henriquez
+     the selected unit heals an Unit of its tactician
+     this method should only work if the units that will be healed , belongs
+     to the same tactician
+     **/
+    public void healUnitIn(IUnit unit){
+        if (!this.getActingUnitsUnits().contains(getSelectedUnit())){
+            if(this.getUnits().contains(unit)){
+                this.getSelectedUnit().heal(unit);
+                this.getActingUnitsUnits().add(this.getSelectedUnit());
+            }
+        }
+    }
 
 }

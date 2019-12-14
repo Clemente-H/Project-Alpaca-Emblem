@@ -302,7 +302,7 @@ public class TacticianTest {
 
     }
     @Test
-    public void testingCombat(){
+    public void testingCombatAndHeal(){
         field = new Field();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
@@ -310,20 +310,67 @@ public class TacticianTest {
             }
         }
         tactician1.setMap(field);
+        tactician2.setMap(field);
         Bow bow = new Bow("",20,0,150);
         Spear spear = new Spear("",20,1,20);
+        Staff staff = new Staff("",20,1,40);
         Hero hero = new Hero(100,5,field.getCell(0,0),spear);
+        Cleric cleric =new Cleric(100,5,field.getCell(1,4),staff);
         Archer archer = new Archer(100,3,field.getCell(4,4),bow);
+        field.getCell(4,4).setUnit(archer);
+        archer.setLocation(field.getCell(4,4));
+        cleric.setLocation(field.getCell(1,4));
+        cleric.equipItem(staff);
+        tactician2.getUnits().add(archer);
+        tactician2.getUnits().add(cleric);
+        tactician2.setSelectedUnit(cleric);
+        tactician2.setSelectedItem(staff);
         tactician1.getUnits().add(hero);
         tactician1.setSelectedUnit(hero);
         hero.setItems(spear);
+        tactician1.getSelectedUnit().equipItem(spear);
         archer.equipItem(bow);
         assertTrue(hero.isHeroAlive());
         tactician1.combatWithUnitIn(archer);
         assertEquals(tactician1.getSelectedUnit().getCurrentHitPoints(),80);
         assertEquals(archer.getCurrentHitPoints(),80);
+        tactician2.healUnitIn(archer);
+        assertEquals(archer.getCurrentHitPoints(),100);
 
     }
 
 
+    @Test
+    public void clearingListTest(){
+        field = new Field();
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                this.field.addCells(true, new Location(i, j));
+            }
+        }
+        ArrayList<Object> list = new ArrayList();
+        tactician1.setMap(field);
+        tactician1.clearActingUnits();
+        tactician1.clearMovedUnits();
+        assertEquals(tactician1.getActingUnitsUnits(),list);
+        assertEquals(tactician1.getMovedUnits(), list);
+    }
+
+    @Test
+    public void addItemTest(){
+        field = new Field();
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                this.field.addCells(true, new Location(i, j));
+            }
+        }
+        axe1 = new Axe("",1,1,1);
+        Sword sword = new Sword("",1,1,1);
+        tactician1.setMap(field);
+        heroFactory = new HeroFactory();
+        Hero hero = new Hero(100,1,field.getCell(0,0),axe1);
+        tactician1.getUnits().add(hero);
+        tactician1.addItem(sword,hero);
+        assertTrue(hero.getItems().contains(sword));
+    }
 }

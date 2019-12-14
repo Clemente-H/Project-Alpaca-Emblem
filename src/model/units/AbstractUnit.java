@@ -108,6 +108,7 @@ public abstract class AbstractUnit extends Observable implements IUnit{
   public void moveTo(final Location targetLocation) {
     if (getLocation().distanceTo(targetLocation) <= getMovement()
         && targetLocation.getUnit() == null) {targetLocation.setUnit(this);
+        this.setLocation(targetLocation);
         this.location = targetLocation;
 
     }
