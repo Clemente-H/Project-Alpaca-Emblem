@@ -36,18 +36,17 @@ class GameControllerTest {
     // Se define la semilla como un número aleatorio para generar variedad en los tests
     randomSeed = new Random().nextLong();
     controller = new GameController(4, 128);
-    assertEquals(128, controller.getGameMap().getSize());
     testTacticians = List.of("Player 0", "Player 1", "Player 2", "Player 3");
-    assertEquals(controller.getTacticians(), testTacticians);
-
 
   }
 
   @Test
   void getTacticiansTest() {
-    controller = new GameController(3,10);
-    testTacticians = List.of("Player 0", "Player 1", "Player 2");
-    assertEquals(controller.getTacticians(),testTacticians);
+    List<String> tacticianList = List.of();
+    for(int i = 0; i<controller.getTacticians().size();i++){
+      tacticianList.add(controller.getTacticians().get(i).getName());
+    }
+    assertEquals(testTacticians,controller.getTacticians());
   }
 
   @Test
@@ -217,7 +216,7 @@ class GameControllerTest {
     controller.selectItem(0);
     assertEquals(controller.getSelectedItem(), sword);
     controller.giveItemTo(2,2);
-    assertTrue();
+
 
 
   }

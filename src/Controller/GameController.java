@@ -51,12 +51,10 @@ public class GameController implements PropertyChangeListener {
     for(int i=0;i<=numberOfPlayers-1; i++){
       String name = "Player"+ i;
       Tactician tactician = new Tactician(name,field,this);
-      tactician.setName(name);
       tactician.setMap(field);
       tacticians.add(tactician);
       field.addListener(tactician);
     }
-    this.tacticianPlaying = tacticians.get(0);
 
   }
 
