@@ -46,4 +46,11 @@ public class AlpacaTest extends AbstractTestUnit {
     assertEquals(alpaca.getCurrentHitPoints(),50);
 
   }
+
+  @Test
+  public void testType(){
+    axe = new Axe("",1,1,1);
+    alpaca = new Alpaca(1,1,null,axe);
+    assertEquals(alpaca.type(),"Alpaca");
+  }
 }

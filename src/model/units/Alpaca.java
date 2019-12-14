@@ -42,4 +42,7 @@ public class Alpaca extends AbstractUnit {
   public void attackedAlpaca(IUnit unit){
     unit.getEquippedItem().attackAlpaca(this);
   }
+
+  @Override
+  public String type(){return "Alpaca";}
 }

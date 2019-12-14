@@ -3,6 +3,7 @@ package model.units;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import model.items.Axe;
 import model.items.Staff;
 import model.map.Field;
 import model.map.Location;
@@ -63,5 +64,12 @@ public class ClericTest extends AbstractTestUnit {
     alpaca.setCurrentHitPoints(20);
     cleric.heal(alpaca);
     assertEquals(alpaca.getCurrentHitPoints(),21);
+  }
+
+  @Test
+  public void testType(){
+    axe = new Axe("",1,1,1);
+    cleric = new Cleric(1,1,null,axe);
+    assertEquals(cleric.type(),"Cleric");
   }
 }

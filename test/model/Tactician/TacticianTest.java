@@ -162,5 +162,20 @@ public class TacticianTest {
 
 
     }
+    @Test
+    public void seeingAttributesOfTheSelectedUnitTest(){
+        field = new Field();
+        for (int i = 0; i<10;i++){
+            for (int j = 0; j<10;j++){
+                this.field.addCells(false, new Location(i, j));
+            }
+        }
+        tactician1 = new Tactician("player1",field,null);
+        heroFactory = new HeroFactory();
+        tactician1.changeFactory(heroFactory);
+        tactician1.addUnit(100,4,2,3);
+
+
+    }
 
 }

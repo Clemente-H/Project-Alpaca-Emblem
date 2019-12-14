@@ -172,4 +172,10 @@ public interface IUnit{
    */
  boolean isHeroAlive();
 
+  /**
+   @author Clemente Henriquez
+   checks the type of the unit, to make it easy for the Tactician to know the type of an Unit;
+   */
+ String type();
+
 }

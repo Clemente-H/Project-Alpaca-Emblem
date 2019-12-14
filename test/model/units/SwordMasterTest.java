@@ -3,7 +3,10 @@ package model.units;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import model.items.Axe;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 /**
  * @author Ignacio Slater Muñoz
  */
@@ -33,4 +36,12 @@ public class SwordMasterTest extends AbstractTestUnit {
     swordMaster.equipItem(sword);
     assertEquals(sword, swordMaster.getEquippedItem());
   }
+
+  @Test
+  public void testType(){
+    axe = new Axe("",1,1,1);
+    swordMaster = new SwordMaster(1,1,null,axe);
+    assertEquals(swordMaster.type(),"SwordMaster");
+  }
+
 }

@@ -137,4 +137,10 @@ public class ArcherTest extends AbstractTestUnit {
 //    assertEquals(archer.getCurrentHitPoints(),880);
 //    archer.Combat(sorcerer1);
 
+  @Test
+  public void testType(){
+    axe = new Axe("",1,1,1);
+    archer = new Archer(1,1,null,axe);
+    assertEquals(archer.type(),"Archer");
+  }
 }

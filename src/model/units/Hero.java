@@ -46,4 +46,7 @@ public class Hero extends AbstractUnit {
       return false;}
     return true;
   }
+
+  @Override
+  public String type(){return "Hero";}
 }

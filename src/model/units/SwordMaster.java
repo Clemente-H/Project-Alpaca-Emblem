@@ -33,4 +33,7 @@ public class SwordMaster extends AbstractUnit {
   public void attack(IUnit unit){
     unit.getEquippedItem().getAttackedBySword(this.getEquippedItem());
 }
+
+  @Override
+  public String type(){return "SwordMaster";}
 }

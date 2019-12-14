@@ -33,4 +33,7 @@ public class Fighter extends AbstractUnit {
   public void attack(IUnit unit){
     unit.getEquippedItem().getAttackedByAxe(this.getEquippedItem());
   }
+
+  @Override
+  public String type(){return "Fighter";}
 }

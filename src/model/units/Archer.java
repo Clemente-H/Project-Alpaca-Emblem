@@ -45,4 +45,7 @@ public class Archer extends AbstractUnit {
     public void attack(IUnit unit){
     unit.getEquippedItem().getAttackedByBow(this.getEquippedItem());
   }
+
+  @Override
+  public String type(){return "Archer";}
 }

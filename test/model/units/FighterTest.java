@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import model.items.Axe;
+import model.map.Field;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -47,5 +48,12 @@ public class FighterTest extends AbstractTestUnit {
     assertNull(fighter.getEquippedItem());
     fighter.equipItem(axe);
     assertEquals(axe, fighter.getEquippedItem());
+  }
+
+  @Test
+  public void testType(){
+    axe = new Axe("",1,1,1);
+    fighter = new Fighter(1,1,null,axe);
+    assertEquals(fighter.type(),"Fighter");
   }
 }

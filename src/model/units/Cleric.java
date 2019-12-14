@@ -41,4 +41,7 @@ public class Cleric extends AbstractUnit {
     unit.setCurrentHitPoints(Math.min(unit.getMaxHitPoints(),unit.getCurrentHitPoints()+this.getEquippedItem().getPower())); }
   public void attack(IUnit unit){
   }
+
+  @Override
+  public String type(){return "Cleric";}
 }

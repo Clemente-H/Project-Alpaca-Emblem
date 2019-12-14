@@ -33,12 +33,16 @@ import static java.lang.Math.min;
  * the unit that will do or receive an action
  * @Param SelectedItem
  * the item from any of it's units that
+ * @Param MovedUnits
+ * a list that shows the units that already move in a turn
+ *
      */
 public class Tactician implements PropertyChangeListener {
     private GameController controller;
     private String name;
     private Field map;
     private List<IUnit> Units = new ArrayList<>();
+    private List<IUnit> MovedUnits = new ArrayList<>();
     private int SelectedUnit;
     private IEquipableItem selectedItem;
     private IFactory factory;
@@ -152,7 +156,11 @@ public class Tactician implements PropertyChangeListener {
      the location where the unit will be
      */
     public void moveUnit(Location location){
-        this.getSelectedUnit().moveTo(location);
+        if(!MovedUnits.contains(this.getSelectedUnit()) ){
+            this.getSelectedUnit().moveTo(location);
+            MovedUnits.add(this.getSelectedUnit());
+        }
+
     }
 
     /**
@@ -220,5 +228,44 @@ public class Tactician implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         evt.getNewValue();
     }
+
+
+    /**
+     @author Clemente Henriquez
+     shows the units that were already moved in a turn
+     **/
+    public List<IUnit> getMovedUnits(){return MovedUnits;}
+
+    /**
+     @author Clemente Henriquez
+     When the turn is finished, the list of unitsMoveds gets cleared
+     **/
+    public void clearMovedUnits(){ MovedUnits.clear();}
+
+    /**
+     @author Clemente Henriquez
+     returns the current hitpoints of the selected Unit
+     **/
+    public int HitPoinsSelectedUnit(){ return this.getSelectedUnit().getCurrentHitPoints();}
+
+    /**
+     @author Clemente Henriquez
+     returns the current location of the selected Unit
+     **/
+    public Location locationSelectedUnit(){return this.getSelectedUnit().getLocation();}
+
+    /**
+     @author Clemente Henriquez
+     returns the current movement of the selected Unit
+     **/
+    public int movementSelectedUnit(){return this.getSelectedUnit().getMovement();}
+
+    /**
+     @author Clemente Henriquez
+     returns the current items of the selected Unit
+     **/
+    public List<IEquipableItem> ItemsSelectedUnit(){return this.getSelectedUnit().getItems();}
+
+
 
 }

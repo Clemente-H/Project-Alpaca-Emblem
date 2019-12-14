@@ -45,4 +45,8 @@ public class Sorcerer  extends AbstractUnit {
     public void attack(IUnit unit){
         unit.getEquippedItem().getAttackedByMagicBook(this.getEquippedItem());
     }
+
+
+    @Override
+    public String type(){return "Sorcerer";}
 }

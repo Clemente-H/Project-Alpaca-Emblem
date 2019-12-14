@@ -8,7 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import model.items.Axe;
 import model.units.AbstractTestUnit;
+import model.units.Alpaca;
 import model.units.IUnit;
 import model.units.Sorcerer;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,4 +63,11 @@ public class SorcererTest extends AbstractTestUnit {
         assertEquals(lightMagicBook, sorcerer.getEquippedItem());
     }
     */
+
+    @Test
+    public void testType(){
+        axe = new Axe("",1,1,1);
+        sorcerer = new Sorcerer(1,1,null,axe);
+        assertEquals(sorcerer.type(),"Sorcerer");
+    }
 }

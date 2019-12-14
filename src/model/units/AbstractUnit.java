@@ -149,4 +149,7 @@ public abstract class AbstractUnit extends Observable implements IUnit{
   }
   @Override
   public boolean isHeroAlive(){return true;}
+
+  @Override
+  public String type(){return "";}
 }
