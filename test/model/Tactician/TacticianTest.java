@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -170,12 +171,43 @@ public class TacticianTest {
                 this.field.addCells(false, new Location(i, j));
             }
         }
+        Spear javeline = new Spear("",10,1,1);
         tactician1 = new Tactician("player1",field,null);
         heroFactory = new HeroFactory();
         tactician1.changeFactory(heroFactory);
         tactician1.addUnit(100,4,2,3);
-
-
+        tactician1.getSelectedUnit().setItems(javeline);
+        assertEquals(tactician1.HitPoinsSelectedUnit(),100);
+        assertEquals(tactician1.movementSelectedUnit(),4);
+        assertEquals(tactician1.locationSelectedUnit(),field.getCell(2,3));
+        assertEquals(tactician1.typeSelectedUnit(),"Hero");
+        ArrayList<IEquipableItem> a = new ArrayList<>();
+        a.add(javeline);
+        assertEquals(tactician1.ItemsSelectedUnit(), a );
     }
+
+
+    @Test
+    public void seeingAttributesOfTheSelectedItemTest() {
+        //and checking is setSelectItem Works
+        field = new Field();
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 1; j++) {
+                this.field.addCells(false, new Location(i, j));
+            }
+        }
+        DarknessMagicBook dark = new DarknessMagicBook("HowToActColdAsSasuke", 100, 1, 10);
+        tactician1 = new Tactician("player1", field, null);
+        tactician1.setSelectedItem(dark);
+        assertEquals(tactician1.getSelectedItem(),dark);
+        assertEquals(tactician1.nameSelectedItem(), "HowToActColdAsSasuke");
+        assertEquals(tactician1.powerSelectedItem(), 100);
+        assertEquals(tactician1.minRangeSelectedItem(), 1);
+        assertEquals(tactician1.maxRangeSelectedItem(), 10);
+    }
+
+
+
+
 
 }
