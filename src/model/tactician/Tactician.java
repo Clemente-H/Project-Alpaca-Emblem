@@ -43,10 +43,11 @@ public class Tactician implements PropertyChangeListener {
     private Field map;
     private List<IUnit> Units = new ArrayList<>();
     private List<IUnit> MovedUnits = new ArrayList<>();
-    private int SelectedUnit;
+    private IUnit SelectedUnit;
     private IEquipableItem selectedItem;
     private IFactory factory;
     private boolean LifeState = true;
+    private Tactician tacticianPlaying ;
 
 
     public Tactician(String name, Field map, GameController controller){
@@ -84,6 +85,12 @@ public class Tactician implements PropertyChangeListener {
 
     /**
      @author Clemente Henriquez
+     sets the game map of a tactician
+     */
+    public void setMap(Field field){this.map= field;}
+
+    /**
+     @author Clemente Henriquez
      returns a list of the units of an tactician
      */
     public List<IUnit> getUnits(){return Units;}
@@ -92,8 +99,7 @@ public class Tactician implements PropertyChangeListener {
      @author Clemente Henriquez
      returns the selected Unit of the tactician
      */
-    public IUnit getSelectedUnit(){return this.Units.get(SelectedUnit);}
-
+    public IUnit getSelectedUnit(){return this.SelectedUnit;}
 
     /**
      @author Clemente Henriquez
@@ -101,15 +107,17 @@ public class Tactician implements PropertyChangeListener {
      @param unit
      the unit that now is selected
      */
-    public void setSelectedUnit(IUnit unit){this.SelectedUnit = Units.indexOf(unit);}
-
+    public void setSelectedUnit(IUnit unit){this.SelectedUnit = unit;}
     /**
      @author Clemente Henriquez
      changes the selected unit
      @param location
      the location of the unit that now is selected
      */
-    public void setSelectedUnit(Location location){this.SelectedUnit = Units.indexOf(location.getUnit());}
+    public void setSelectedUnit(Location location){
+        if(Units.contains(location.getUnit())==true){
+            this.SelectedUnit=location.getUnit();}
+    }
 
     /**
      @author Clemente Henriquez
@@ -123,14 +131,13 @@ public class Tactician implements PropertyChangeListener {
      @param Item
      the item that now is selected
      */
-    public void setSelectedItem(IEquipableItem Item){this.selectedItem.equals(Item);}
+    public void setSelectedItem(IEquipableItem Item){this.selectedItem = Item;}
 
     /**
      @author Clemente Henriquez
      equips the selected Item to the selected Unit
      */
     public void equipSelectedItem(){this.getSelectedUnit().equipItem(this.getSelectedItem());}
-
     /**
      @author Clemente Henriquez
      sets the lifestate of a tactician
@@ -156,11 +163,15 @@ public class Tactician implements PropertyChangeListener {
      the location where the unit will be
      */
     public void moveUnit(Location location){
-        if(!MovedUnits.contains(this.getSelectedUnit()) ){
-            this.getSelectedUnit().moveTo(location);
-            MovedUnits.add(this.getSelectedUnit());
-        }
+        if(!MovedUnits.contains(this.getSelectedUnit()) ) {
+            if(this.SelectedUnit.getLocation().distanceTo(location)<=this.SelectedUnit.getMovement()){
+                if (location.getUnit() ==null) {
+                    this.getSelectedUnit().moveTo(location);
+                    MovedUnits.add(this.getSelectedUnit());
 
+                }
+            }
+        }
     }
 
     /**
@@ -178,6 +189,7 @@ public class Tactician implements PropertyChangeListener {
     public void addUnit (int HitPoints, int movement, int x, int y ){
         IUnit unit = this.getFactory().create(HitPoints,movement,this.getMap(),x,y);
         this.Units.add(unit);
+        this.SelectedUnit = unit;
 
     }
 
@@ -193,29 +205,13 @@ public class Tactician implements PropertyChangeListener {
     /**
      @author Clemente Henriquez
      this methods is implemented for some tests
+     @return
      it should return the factory of the Tactician
      */
     public IFactory getFactory(){return this.factory;}
 
 
-    /**
-     @author Clemente Henriquez
-     creates and adds an Item to the unit
-     @param unit
-     the unit that will get the item
-     @param name
-        the name of the weapon
-     @param power
-        the power of the weapon
-     @param max
-        the max range
-     @param min
-        the min range of the weapon
-         */
 
-    public void addItem(String name, int power, int min, int max, IUnit unit){
-
-    }
     /**
     @author Clemente Henriquez
      adds an Item that is already created to the unit
@@ -232,6 +228,7 @@ public class Tactician implements PropertyChangeListener {
 
     /**
      @author Clemente Henriquez
+     @return
      shows the units that were already moved in a turn
      **/
     public List<IUnit> getMovedUnits(){return MovedUnits;}
@@ -244,28 +241,66 @@ public class Tactician implements PropertyChangeListener {
 
     /**
      @author Clemente Henriquez
-     returns the current hitpoints of the selected Unit
+     @return
+     the current hitpoints of the selected Unit
      **/
     public int HitPoinsSelectedUnit(){ return this.getSelectedUnit().getCurrentHitPoints();}
 
     /**
      @author Clemente Henriquez
-     returns the current location of the selected Unit
+     @return
+     the current location of the selected Unit
      **/
     public Location locationSelectedUnit(){return this.getSelectedUnit().getLocation();}
 
     /**
      @author Clemente Henriquez
-     returns the current movement of the selected Unit
+     @return
+     the current movement of the selected Unit
      **/
     public int movementSelectedUnit(){return this.getSelectedUnit().getMovement();}
 
     /**
      @author Clemente Henriquez
-     returns the current items of the selected Unit
+     @return
+     the current items of the selected Unit
      **/
     public List<IEquipableItem> ItemsSelectedUnit(){return this.getSelectedUnit().getItems();}
 
+    /**
+     @author Clemente Henriquez
+     @return an String that says the type of a unit.
+     This wont be used for ohters methods.
+     This is only used as a help, for the tactician to know better its units.
+     and to make it easier to play the game
+     **/
+    public String typeSelectedUnit(){return this.getSelectedUnit().type();}
+
+
+    /**
+     @author Clemente Henriquez
+     @return
+     the name of the selected item
+     **/
+    public String nameSelectedItem(){return this.selectedItem.getName();}
+    /**
+     @author Clemente Henriquez
+     @return
+     the power of the selected item
+     **/
+    public int powerSelectedItem(){return this.selectedItem.getPower(); }
+    /**
+     @author Clemente Henriquez
+     @return
+     the min Range of the selected item
+     **/
+    public int minRangeSelectedItem(){return this.selectedItem.getMinRange();}
+    /**
+     @author Clemente Henriquez
+     @return
+     the max Range of the selectedItem;
+     **/
+    public int maxRangeSelectedItem(){return this.selectedItem.getMaxRange();}
 
 
 }

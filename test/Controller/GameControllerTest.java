@@ -11,8 +11,11 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 import Controller.GameController;
+import model.Factories.Units.HeroFactory;
 import model.Tactician.Tactician;
+import model.items.Sword;
 import model.map.Field;
+import model.units.Alpaca;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,12 +44,10 @@ class GameControllerTest {
   }
 
   @Test
-  void getTacticians() {
-    List<Tactician> tacticians = controller.getTacticians();
-    assertEquals(4, tacticians.size());
-    for (int i = 0; i < tacticians.size(); i++) {
-      assertEquals("Player " + i, tacticians.get(i + 1).getName());
-    }
+  void getTacticiansTest() {
+    controller = new GameController(3,10);
+    testTacticians = List.of("Player 0", "Player 1", "Player 2");
+    assertEquals(controller.getTacticians(),testTacticians);
   }
 
   @Test
@@ -202,5 +203,22 @@ class GameControllerTest {
 
   @Test
   void giveItemTo() {
+    controller = new GameController(1,10);
+    Tactician tactican1 = new Tactician("",controller.getGameMap(),controller);
+    HeroFactory heroFactory = new HeroFactory();
+    tactican1.changeFactory(heroFactory);
+
+    tactican1.setMap(controller.getGameMap());
+    tactican1.addUnit(10,1,2,2);
+    Sword sword = new Sword("",1,1,1);
+    Alpaca alpaca = new Alpaca(10,10,controller.getGameMap().getCell(2,3),sword);
+    tactican1.getUnits().add(alpaca);
+    tactican1.setSelectedUnit(alpaca);
+    controller.selectItem(0);
+    assertEquals(controller.getSelectedItem(), sword);
+    controller.giveItemTo(2,2);
+    assertTrue();
+
+
   }
 }

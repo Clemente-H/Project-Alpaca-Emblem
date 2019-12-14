@@ -46,33 +46,10 @@ public class TacticianTest {
     @BeforeEach
     void setUp() {
         setTacticians();
-
         setField();
 
     }
 
-
-
-    private void setSwordMasterFactory() {this.factory = new SwordMasterFactory();
-    }
-
-    private void setSorcererFactory() {this.factory = new SorcererFactory();
-    }
-
-    private void setHeroFactory() {this.factory = new HeroFactory();
-    }
-
-    private void setFighterFactory() {this.factory = new FighterFactory();
-    }
-
-    private void setClericFactory() {this.factory = new ClericFactory();
-    }
-
-    private void setArcherFactory() {this.factory = new ArcherFactory();
-    }
-
-    private void setAlpacaFactory() {this.factory = new AlpacaFactory();
-    }
 
 
     public void setField(){
@@ -109,28 +86,31 @@ public class TacticianTest {
             }
         }
         tactician1 = new Tactician("",field,null);
+        tactician1.setMap(field);
         assertEquals(tactician1.getMap(), field);
     }
 
     @Test
     public void addUnitTest(){
-        this.setHeroFactory();
+        field = new Field();
+        Location location = new Location(1,1);
+        field.addCells(true,location);
+        heroFactory = new HeroFactory();
+        tactician1.setMap(field);
+        tactician1.changeFactory(heroFactory);
         tactician1.addUnit(1000,1,1,1);
-        tactician1.setSelectedUnit(field.getCell(1,1).getUnit());
         assertTrue(tactician1.getUnits().get(0) instanceof Hero);
     }
 
     @Test
     public void testChangeFactory(){
         heroFactory = new HeroFactory();
-        this.setAlpacaFactory();
         tactician1.changeFactory(heroFactory);
         assertTrue(tactician1.getFactory() instanceof HeroFactory );
     }
 
     @Test
     public void testGetFactory(){
-        this.setAlpacaFactory();
         heroFactory = new HeroFactory();
         tactician2.changeFactory(heroFactory);
         assertEquals(tactician2.getFactory(),heroFactory);
@@ -206,6 +186,121 @@ public class TacticianTest {
         assertEquals(tactician1.maxRangeSelectedItem(), 10);
     }
 
+
+
+    @Test
+    public  void equipSelectedItemTest(){
+        field = new Field();
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 2; j++) {
+                this.field.addCells(true, new Location(i, j));
+            }
+        }
+        spear1 = new Spear("",1,1,1);
+        tactician1 = new Tactician("",field,null);
+        tactician1.setMap(field);
+        heroFactory = new HeroFactory();
+        tactician1.changeFactory(heroFactory);
+        tactician1.addUnit(100,2,0,1);
+        tactician1.setSelectedItem(spear1);
+        tactician1.equipSelectedItem();
+        assertEquals(tactician1.getSelectedUnit().getEquippedItem(),spear1);
+
+    }
+
+    @Test
+    public void setSelectedUnitTest(){
+        field = new Field();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                this.field.addCells(true, new Location(i, j));
+            }
+        }
+        Hero hero = new Hero(100,1,field.getCell(0,0));
+        Alpaca alpaca = new Alpaca(100,1,field.getCell(1,1));
+        tactician1 = new Tactician("",field,null);
+        tactician1.getUnits().add(hero);
+        tactician1.getUnits().add(alpaca);
+        tactician1.setSelectedUnit(hero);
+        assertEquals(tactician1.getSelectedUnit(),hero);
+        tactician1.setSelectedUnit(alpaca);
+        assertEquals(tactician1.getSelectedUnit(),alpaca);
+
+
+
+    }
+    @Test
+    public void setSelectedUnitTest2(){
+        field = new Field();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                this.field.addCells(true, new Location(i, j));
+            }
+        }
+        Hero hero = new Hero(100,1,field.getCell(0,0));
+        Alpaca alpaca = new Alpaca(100,1,field.getCell(1,1));
+        tactician1.getUnits().add(hero);
+        tactician1.getUnits().add(alpaca);
+        tactician1.setSelectedUnit(alpaca);
+        tactician1.setSelectedUnit(field.getCell(0,0).getUnit());
+        assertEquals(tactician1.getSelectedUnit(),hero);
+
+    }
+
+    @Test
+    public void movingUnitsTest(){
+        field = new Field();
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                this.field.addCells(true, new Location(i, j));
+            }
+        }
+        axe1 = new Axe("",1,1,1);
+        tactician1.setMap(field);
+        heroFactory = new HeroFactory();
+        tactician1.changeFactory(heroFactory);
+        tactician1.addUnit(100,10,0,0);
+        tactician1.getSelectedUnit().moveTo(field.getCell(3,3));
+        assertEquals(tactician1.getSelectedUnit().getLocation(),field.getCell(3,3));
+         }
+
+
+
+
+
+
+
+
+
+
+
+
+    @Test
+    public void movingUnitsTest2(){
+        field = new Field();
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                this.field.addCells(true, new Location(i, j));
+            }
+        }
+        axe1 = new Axe("",1,1,1);
+        tactician1.setMap(field);
+        heroFactory = new HeroFactory();
+        tactician1.changeFactory(heroFactory);
+        tactician1.addUnit(100,10,0,0);
+        alpaca1 = new Alpaca(100,10,field.getCell(4,4),axe1);
+        tactician1.getSelectedUnit().moveTo(field.getCell(3,3));
+        assertEquals(tactician1.getSelectedUnit().getLocation(),field.getCell(3,3));
+        tactician1.getSelectedUnit().moveTo(field.getCell(4,4));
+        assertEquals(tactician1.getSelectedUnit().getLocation(),field.getCell(3,3));
+        alpacaFactory = new AlpacaFactory();
+        tactician1.changeFactory(alpacaFactory);
+        tactician1.addUnit(100,10,2,2);
+        assertTrue(tactician1.getSelectedUnit() instanceof Alpaca);
+        tactician1.getSelectedUnit().moveTo(field.getCell(4,4));
+        assertEquals(tactician1.getSelectedUnit().getLocation(),field.getCell(2,2));
+
+    }
 
 
 

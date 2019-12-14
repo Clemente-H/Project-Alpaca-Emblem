@@ -29,6 +29,7 @@ public class GameController implements PropertyChangeListener {
   private int round=0;
   private int maxRound;
   private Tactician tacticianPlaying;
+  private IEquipableItem selectedItem;
 
 
   /**
@@ -51,10 +52,11 @@ public class GameController implements PropertyChangeListener {
       String name = "Player"+ i;
       Tactician tactician = new Tactician(name,field,this);
       tactician.setName(name);
+      tactician.setMap(field);
       tacticians.add(tactician);
       field.addListener(tactician);
     }
-    this.tacticianPlaying.equals(tacticians.get(0));
+    this.tacticianPlaying = tacticians.get(0);
 
   }
 
@@ -62,7 +64,7 @@ public class GameController implements PropertyChangeListener {
    * @return the list of all the tacticians participating in the game.
    */
   public List<Tactician> getTacticians() {
-      return List.copyOf(tacticians);
+      return this.tacticians;
   }
 
   /**
@@ -96,7 +98,7 @@ public class GameController implements PropertyChangeListener {
 
 
 
-
+public IEquipableItem getSelectedItem(){return this.selectedItem;}
 
 
 
