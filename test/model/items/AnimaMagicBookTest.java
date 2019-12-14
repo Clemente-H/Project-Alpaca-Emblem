@@ -1,4 +1,5 @@
 package model.items;
+import model.map.Field;
 import model.map.Location;
 import model.units.*;
 import org.junit.jupiter.api.Test;
@@ -94,13 +95,31 @@ public class AnimaMagicBookTest extends AbstractTestItem {
     }
     @Test
     public void hittinAnimaSorcerer(){
+        field = new Field();
+        Location location = new Location(0,0);
+        field.addCells(true,location);
+        animaMagicBook = new AnimaMagicBook("",1,1,1);
+        sorcerer = new Sorcerer(1000,0,field.getCell(0,0),animaMagicBook);
+        sorcerer.equipItem(animaMagicBook);
+        darknessMagicBook = new DarknessMagicBook("",40,0,2);
+        lightMagicBook = new LightMagicBook("",40,0,2);
+        axe = new Axe("",40,0,2);
+        bow = new Bow("",40,0,2);
+        spear = new Spear("",40,0,2);
+        staff = new Staff("",40,0,2);
+        sword = new Sword("",40,0,2);
+
         animaMagicBook.getAttackedByDarknessMagicBook(darknessMagicBook);
+        assertEquals(sorcerer.getCurrentHitPoints(),940);
         animaMagicBook.getAttackedByLightMagicBook(lightMagicBook);
         animaMagicBook.getAttackedByAxe(axe);
         animaMagicBook.getAttackedByBow(bow);
+        assertEquals(sorcerer.getCurrentHitPoints(),800);
         animaMagicBook.getAttackedBySpear(spear);
         animaMagicBook.getAttackedByStaff(staff);
+        assertEquals(sorcerer.getCurrentHitPoints(),740);
         animaMagicBook.getAttackedBySword(sword);
+        assertEquals(sorcerer.getCurrentHitPoints(),680);
 
 
     }

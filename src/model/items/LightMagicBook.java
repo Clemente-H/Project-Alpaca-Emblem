@@ -2,7 +2,7 @@ package model.items;
 
 import model.units.Sorcerer;
 
-public class LightMagicBook extends AbstractItem{
+public class LightMagicBook extends AbstractMagicBook{
         /**
          * Creates a new LightMagicBook item
          *

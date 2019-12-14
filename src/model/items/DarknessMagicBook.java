@@ -2,7 +2,7 @@ package model.items;
 
 import model.units.Sorcerer;
 
-public class DarknessMagicBook extends AbstractItem{
+public class DarknessMagicBook extends AbstractMagicBook{
 
 
     /**

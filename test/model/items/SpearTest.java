@@ -112,13 +112,26 @@ public class SpearTest extends AbstractTestItem {
 
   @Test
   public void HeroesFighters(){
+    darknessMagicBook = new DarknessMagicBook("",40,0,1);
+    lightMagicBook = new LightMagicBook("",40,0,1);
+    animaMagicBook = new AnimaMagicBook("",40,0,1);
+    bow = new Bow("",40,0,1);
+    axe = new Axe("",40,0,1);
+    staff = new Staff("",40,0,1);
+    sword = new Sword("",40,0,1);
+    javelin = new Spear("",1,1,1);
+    hero = new Hero(1000,1,null,javelin);
+    hero.equipItem(javelin);
     javelin.getAttackedByDarknessMagicBook(darknessMagicBook);
     javelin.getAttackedByLightMagicBook(lightMagicBook);
     javelin.getAttackedByAnimaMagicBook(animaMagicBook);
+    assertEquals(hero.getCurrentHitPoints(),820);
     javelin.getAttackedByBow(bow);
     javelin.getAttackedBySpear(axe);
     javelin.getAttackedByStaff(staff);
+    assertEquals(hero.getCurrentHitPoints(),740);
     javelin.getAttackedBySword(sword);
+    assertEquals(hero.getCurrentHitPoints(),720);
 
 
   }

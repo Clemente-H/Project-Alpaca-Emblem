@@ -475,20 +475,20 @@ public abstract class AbstractTestItem {
   @Test
   public void SorcererAttackedByAxe(){
     field = new Field();
-    for (int i = 0; i<10;i++){
-      for (int j = 0; j<10;j++){
-        this.field.addCells(false, new Location(i, j));
+    for (int i = 0; i<3;i++){
+      for (int j = 0; j<3;j++){
+        this.field.addCells(true, new Location(i, j));
       }
     }
 
 
-    Axe axe=new Axe("Hacha de luna Creciente", 40, 1,5);
-    fighter = new Fighter(100,4,field.getCell(2,2),axe);
+    Axe axe=new Axe("Hacha de luna Creciente", 40, 0,3);
+    fighter = new Fighter(100,4,field.getCell(0,1),axe);
     fighter.equipItem(axe);
-    DarknessMagicBook dark = new DarknessMagicBook("",40,1,1);
+    DarknessMagicBook dark = new DarknessMagicBook("",40,0,3);
     sorcerer = new Sorcerer(1000,1,field.getCell(0,0),dark);
     sorcerer.equipItem(dark);
-    sorcerer.Combat(fighter);
+    fighter.Combat(sorcerer);
     assertEquals(sorcerer.getCurrentHitPoints(),940);
   }
 

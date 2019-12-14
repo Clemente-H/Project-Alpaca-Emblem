@@ -57,9 +57,10 @@ public class LightMagicBookTest extends AbstractTestItem {
 
     @Test
     public void equipDarkBookTest(){
-        sorcerer1.getItems().add(lightMagicBook);
-        lightMagicBook.equippedSorcerer(sorcerer1);
-        assertEquals(sorcerer1.getEquippedItem(),lightMagicBook);
+        darknessMagicBook1 = new DarknessMagicBook("",1,1,1);
+        sorcerer = new Sorcerer(100,1,null,darknessMagicBook1);
+        sorcerer.equipItem(darknessMagicBook1);
+        assertEquals(sorcerer.getEquippedItem(),darknessMagicBook1);
     }
 
 
@@ -72,10 +73,10 @@ public class LightMagicBookTest extends AbstractTestItem {
         sorcerer1.equipItem(lightMagicBook);
         darkSorcerer2.equipItem(darknessMagicBook1);
         lightMagicBook.getAttackedByAnimaMagicBook(animaMagicBook1);
-        assertEquals(sorcerer1.getCurrentHitPoints(),65);
+        assertEquals(sorcerer1.getCurrentHitPoints(),0);
 
         lightMagicBook.getAttackedByDarknessMagicBook(darknessMagicBook1);
-        assertEquals(sorcerer1.getCurrentHitPoints(),55);
+        assertEquals(sorcerer1.getCurrentHitPoints(),0);
     }
 
 }

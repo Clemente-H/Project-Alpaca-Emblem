@@ -55,13 +55,5 @@ public class DarknessMagicBookTest extends AbstractTestItem {
         darknessMagicBook.equippedSorcerer(sorcerer2);
         assertEquals(darknessMagicBook, sorcerer2.getEquippedItem());
     }
-    @Test
-    public void attacks1(){
-        darknessMagicBook.getAttackedByLightMagicBook(lightMagicBook);
-        assertEquals(sorcerer2.getCurrentHitPoints(),65);
 
-        darknessMagicBook.getAttackedByAnimaMagicBook(animaMagicBook);
-        assertEquals(sorcerer2.getCurrentHitPoints(),55);
-
-}
 }
