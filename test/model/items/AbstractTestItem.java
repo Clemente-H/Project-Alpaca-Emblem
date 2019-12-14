@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import model.map.Field;
 import model.map.Location;
 import model.units.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +31,7 @@ public abstract class AbstractTestItem {
   protected Sorcerer sorcerer;
   protected Sorcerer darksorcerer;
   protected Sorcerer lightsorcerer;
+  protected Field field;
 
   /**
    * Sets up the items to be tested
@@ -561,15 +563,26 @@ public abstract class AbstractTestItem {
 
   @Test
   public void LightSorcererAttackedByAnima(){
-    LightMagicBook light =new LightMagicBook("Spells for dummies", 40, 1,2);
-    sorcerer = new Sorcerer(1000,1,new Location(0,1));
+    field = new Field();
+    for (int i = 0; i<2;i++){
+      for (int j = 0; j<2;j++){
+        this.field.addCells(false, new Location(i, j));
+      }
+    }
+    LightMagicBook light =new LightMagicBook("Spells for dummies", 40, 1,4);
+    sorcerer = new Sorcerer(1000,1,field.getCell(0,0),light);
     sorcerer.equipItem(light);
-    AnimaMagicBook anima = new AnimaMagicBook("",40,1,1);
-    light.getAttackedByAnimaMagicBook(anima);
+
+    AnimaMagicBook anima = new AnimaMagicBook("",40,1,4);
+    Sorcerer sorcerer1 = new Sorcerer(1000,1,field.getCell(1,1),anima);
+    sorcerer1.equipItem(anima);
+    sorcerer.Combat(sorcerer1);
     assertEquals(sorcerer.getCurrentHitPoints(),940);
     }
   @Test
   public void LightSorcererAttackedByDarkness(){
+    field = new Field();
+
     LightMagicBook light =new LightMagicBook("Spells for dummies", 40, 1,2);
     sorcerer = new Sorcerer(1000,1,new Location(0,1));
     sorcerer.equipItem(light);

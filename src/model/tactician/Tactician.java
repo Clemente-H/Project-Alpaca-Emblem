@@ -10,13 +10,8 @@ import model.Factories.Units.*;
 
 import model.items.IEquipableItem;
 import model.map.Location;
-import model.units.AbstractUnit;
 import model.map.Field;
-import model.units.Hero;
 import model.units.IUnit;
-
-import javax.lang.model.element.Name;
-import javax.swing.*;
 
 import static java.lang.Math.min;
 
@@ -43,7 +38,7 @@ public class Tactician implements PropertyChangeListener {
     private GameController controller;
     private String name;
     private Field map;
-    private final List<IUnit> Units = new ArrayList<>();
+    private List<IUnit> Units = new ArrayList<>();
     private int SelectedUnit;
     private IEquipableItem selectedItem;
     private IFactory factory;
@@ -141,6 +136,14 @@ public class Tactician implements PropertyChangeListener {
         Units.clear();
         this.LifeState = false;}
 
+    /**
+     @author Clemente Henriquez
+     gets the lifestate of a tactician
+     */
+    public Boolean getLifeStateTactician(){
+        return this.LifeState;
+    }
+
 
     /**
      @author Clemente Henriquez
@@ -165,7 +168,7 @@ public class Tactician implements PropertyChangeListener {
      the vertical coordinate
      */
     public void addUnit (int HitPoints, int movement, int x, int y ){
-        IUnit unit = factory.create(HitPoints,movement,this.getMap(),x,y);
+        IUnit unit = this.getFactory().create(HitPoints,movement,this.getMap(),x,y);
         this.Units.add(unit);
 
     }
@@ -178,6 +181,14 @@ public class Tactician implements PropertyChangeListener {
      */
 
     public void changeFactory(IFactory factory){this.factory = factory;}
+
+    /**
+     @author Clemente Henriquez
+     this methods is implemented for some tests
+     it should return the factory of the Tactician
+     */
+    public IFactory getFactory(){return this.factory;}
+
 
     /**
      @author Clemente Henriquez
