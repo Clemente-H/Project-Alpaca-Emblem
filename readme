@@ -36,7 +36,23 @@ The first one is Tacttician.
 This class represents a player.
 this tactician, knows its units, the map and its current life state.
 Also for this class,  it should be easy to create units. This is because an Factory for each unit was created
+Some method's will be explain. the methods set(), gets the variable and the methods get(), returns the variable
+SetName() and getName(), with a string, sets the tacticians name.
+setMap() and getMap(), the map where the tactician is gonna place its units.
+getUnits(), returns the tacticians unit.
+setSelectedUnit(), saves a unit, to do some stuff with it.
+setSelectedItem() and getSelectedItem(), saves an Item to do Actions (like attack, trade or heal) with it.
+KillTactician(), changes the lifestate of a Tactician, setting its life in False and deletes its units from the fieldMap.
+MoveUnit(), moves a unit to a certain location:
+addUnit(), calls a certain type of factory and creates a unit.
+getFactory(), returns its factory
+changeFactory(), changes the type of the factory to create a certain type of unit.
 
+and there are five gets more, each one of this are for knowing the attributes of a unit.
+Works like getCurrentHitpoints, or getMovement.
+The same goes for knowing the attributes of an Item. 5 gets, to know the item's attributes.
+
+and finally, there is a combat and a heal, to make it easy for the tacticians to play.
 
 The second class is game controller.
 this class has to controll the game.
@@ -44,6 +60,45 @@ the controller knows:
 the lifeState of each tactician.
 the units that are alive
 the map and where is each unit
-and a lot of stuff more.
+how many players are
+the items of each tactician.
+Bassicly knows all.
 
 
+know for the methods and constructors.
+
+first when a gamecontroller is created, a certain number of tactician are created aswell.
+Each tactician gets an Deafult Hero, with an defaul Spear equipped.
+Before this, the game Map is created. And each  tactician "listens" to the map.
+
+getTacticians() returns the tacticians
+getGameMap(), returns the map.
+getTurnOwner(), returns the tactician that is PLaying at the moment.
+getRoundNumber(), returns the round number
+getMaxRounds(), returns the maximum number of rounds.
+
+get and setTacticianPlaying, sets the playing tactician from the list of tacticians
+
+endTurn(), this is a huge method. First checks if the tactician that ended its turn is still alive.
+after this, if it isnt alive, calls killtactician, to delete the units of the map.
+if it is alive and it's not the last tatician, passes the turn to the next tactician in the list.
+and if its the last tactician, sets the turn for the first tactician to play.
+The method random for the turn of the unit is used when the game starts. A new list is created and
+each tactician is added, depending on how they are called.(random, gets a tactician, this tactician is added
+to the new list, until there are no more tactician left, and at the end the list of tactician of the
+game controller is replaced with this new list.
+
+removeTactician(), removes a tactician from the list, and calls the method kill tactician.
+
+there are 3 ways of starting the game, an there is a method for each one:
+initGame, starts and sets a certain number of maxRounds.
+initEndlessGame, starts a game without maxRounds number.
+initRandomGame, starts a game with a random way for the tacticians to play.
+
+GetWinners(), returns the winners of the game.
+
+getSelectedUnit(), returns the selected unit
+
+useItemOn(), attacks or heals a unit, depeding on who starts the action.
+
+giveItemTo(), adds an Item to a unit.

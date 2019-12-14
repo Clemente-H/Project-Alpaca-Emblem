@@ -213,8 +213,10 @@ public Tactician getTacticianPlaying(){return this.tacticianPlaying;}
   public List<String> getWinners() {
     List<String> winners = new ArrayList<>();
     for (int i = 0; i < this.tacticians.size(); i++) {
-      String n = this.tacticians.get(i).getName();
-      winners.add(n);
+      if(tacticians.get(i).getLifeStateTactician() == true) {
+        String n = this.tacticians.get(i).getName();
+        winners.add(n);
+      }
       }
     if(this.round != this.maxRound){winners.clear();}
     return winners;
