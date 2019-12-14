@@ -52,9 +52,21 @@ public abstract class AbstractMagicBook extends AbstractItem{
     public int getMaxRange() {
         return maxRange;
     }
+
+
+
+    @Override
+    public void equippedHero(Hero hero){};
+    @Override
+    public void equippedArcher(Archer archer){}
+    @Override
+    public void equippedCleric(Cleric cleric){}
+    @Override
+    public void equippedFighter(Fighter fighter){};
+    @Override
+    public void equippedSwordMaster(SwordMaster swordMaster){};
     @Override
     public void equippedSorcerer(Sorcerer sorcerer){this.equipTo(sorcerer);}
-
     @Override
     public void getAttackedByAxe(IEquipableItem item){item.strongAttackTo(this.getOwner());}
     @Override
