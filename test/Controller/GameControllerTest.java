@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -25,7 +27,7 @@ import org.junit.jupiter.api.Test;
  * @author Ignacio Slater Muñoz
  * @since v2.0
  */
-class GameControllerTest {
+class GameControllerTest implements PropertyChangeListener {
 
   private GameController controller;
   private long randomSeed;
@@ -42,11 +44,11 @@ class GameControllerTest {
 
   @Test
   void getTacticiansTest() {
-    List<String> tacticianList = List.of();
-    for(int i = 0; i<controller.getTacticians().size();i++){
-      tacticianList.add(controller.getTacticians().get(i).getName());
-    }
-    assertEquals(testTacticians,controller.getTacticians());
+      List<Tactician> tacticians = controller.getTacticians();
+      assertEquals(4, tacticians.size());
+      for (int i = 0; i < tacticians.size(); i++) {
+          assertEquals(testTacticians.get(i), tacticians.get(i).getName());
+      }
   }
 
   @Test
@@ -70,20 +72,17 @@ class GameControllerTest {
   @Test
   void getTurnOwner() {
     Random testRandom2 = new Random(randomSeed);
+    Tactician tactician = controller.getTacticians().get(testRandom2.nextInt(controller.getTacticians().size()));
     controller.initRandomGame(new Random(randomSeed));
-    int j = testRandom2.nextInt(controller.getTacticians().size());
-    assertEquals(controller.getTurnOwner(),controller.getTacticians().get(j));
-
-
-
-
-
-
-
-
-
-
-    //  En este caso deben hacer lo mismo que para el mapa
+    List<Tactician> tacticians = controller.getTacticians();
+    assertEquals(controller.getTacticians().size(),4);
+    for(int i = 0;i<controller.getTacticians().size();i++){
+        assertTrue(testTacticians.contains(tacticians.get(i).getName()));
+      }
+    assertEquals(controller.getTurnOwner(),tactician);
+    controller.endTurn();
+    controller.endTurn();
+    assertEquals(controller.getTurnOwner(),controller.getTacticians().get(2));
   }
 
   @Test
@@ -220,4 +219,9 @@ class GameControllerTest {
 
 
   }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+    }
 }

@@ -337,9 +337,10 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
   @Test
     public void testingMovement(){
-    swordMaster = new SwordMaster(1000,1,new Location(0,1));
+    Location location1 = new Location(0,1);
+    swordMaster = new SwordMaster(1000,2,location1);
     Location location2 = new Location(1,1);
-    location2.addNeighbour(swordMaster.getLocation());
+    location2.addNeighbour(location1);
     swordMaster.moveTo(location2);
     assertEquals(swordMaster.getLocation(),location2);}
 

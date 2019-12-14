@@ -1,5 +1,6 @@
 package model.map;
 
+import Controller.GameController;
 import model.Tactician.Tactician;
 
 import java.beans.PropertyChangeListener;
@@ -146,12 +147,15 @@ public class Field {
   /**
    * gets the size of the map
    */
-    public int getSize() { return map.size();}
+    public int getSize() { return (int) Math.sqrt(map.size());}
 
     public void addListener(Tactician tactician){
       Listened.addPropertyChangeListener(tactician);
 
     }
+  public void addObserver(GameController gameController) {
+    Listened.addPropertyChangeListener(gameController);
+  }
 
 
 }

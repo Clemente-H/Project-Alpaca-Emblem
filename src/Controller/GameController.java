@@ -1,5 +1,6 @@
 package Controller;
 
+import model.Factories.Units.HeroFactory;
 import model.Tactician.Tactician;
 import model.items.IEquipableItem;
 import model.map.Field;
@@ -47,11 +48,20 @@ public class GameController implements PropertyChangeListener {
         this.field.addCells(false, new Location(i, j));
       }
     }
+    field.addObserver(this);
+    int B = mapSize/numberOfPlayers;
 
-    for(int i=0;i<=numberOfPlayers-1; i++){
-      String name = "Player"+ i;
+    for(int k=0;k<=numberOfPlayers-1; k++){
+      String name = "Player "+ k;
       Tactician tactician = new Tactician(name,field,this);
       tactician.setMap(field);
+      //when a tactician is created, an hero is asignated, in
+      //a position of the map
+      Random random = new Random();
+      int a =  random.nextInt(tacticians.size());
+      HeroFactory heroFactory = new HeroFactory();
+      tactician.changeFactory(heroFactory);
+      tactician.addUnit(100,5,B*k,a);
       tacticians.add(tactician);
       field.addListener(tactician);
     }
@@ -76,14 +86,14 @@ public class GameController implements PropertyChangeListener {
    * @return the tactician that's currently playing
    */
   public Tactician getTurnOwner() {
-    return tacticians.get(selectedTactician);
+    return tacticianPlaying;
   }
 
   /**
    * @return the number of rounds since the start of the game.
    */
   public int getRoundNumber() {
-    return this.round;
+    return this.round + 1;
   }
 
   /**
@@ -98,7 +108,7 @@ public class GameController implements PropertyChangeListener {
 
 public IEquipableItem getSelectedItem(){return this.selectedItem;}
 
-
+public void setTacticianPlaying(Tactician tactician){this.tacticianPlaying = tactician;}
 
 
 
@@ -108,19 +118,21 @@ public IEquipableItem getSelectedItem(){return this.selectedItem;}
    */
   public void endTurn() {
     for(int i = 0; i<tacticianPlaying.getUnits().size();i++){
-      if (tacticianPlaying.getUnits().get(i).isHeroAlive() == false){
+      if (!tacticianPlaying.getUnits().get(i).isHeroAlive()){
+        int a = tacticians.indexOf(tacticianPlaying);
+        int b = tacticians.size();
         tacticianPlaying.killTactician();
         this.removeTactician(tacticianPlaying.getName());
+        if (a==b){this.setTacticianPlaying(tacticians.get(0));}
+        else{this.setTacticianPlaying(tacticians.get(a));}
       }
-
-
-
     }
-    if(this.selectedTactician==tacticians.size()){
-      this.selectedTactician=0;
+    if(tacticians.indexOf(tacticianPlaying)==tacticians.size()){
+      this.setTacticianPlaying(tacticians.get(0));
     }
     else{
-    this.selectedTactician++;
+      int a = tacticians.indexOf(tacticianPlaying);
+    this.setTacticianPlaying(tacticians.get(a+1));
     }
 
   }
@@ -152,12 +164,14 @@ public IEquipableItem getSelectedItem(){return this.selectedItem;}
   public void initRandomGame(Random random){
       maxRound = -1;
       ArrayList<Tactician> Tacticians2 = new ArrayList<>();
-      for (int i = 0; i<tacticians.size();i++){
+      while(this.tacticians.size()>0){
           int j = random.nextInt(tacticians.size());
           Tacticians2.add(tacticians.get(j));
+          tacticians.remove(tacticians.get(j));
       }
       this.tacticians.clear();
       this.tacticians = Tacticians2;
+      this.setTacticianPlaying(tacticians.get(0));
 
   }
 

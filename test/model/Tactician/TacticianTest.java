@@ -1,9 +1,7 @@
 package model.Tactician;
 
 import model.Factories.Units.*;
-import model.units.Alpaca;
-import model.units.Hero;
-import model.units.IUnit;
+import model.units.*;
 import org.junit.jupiter.api.BeforeEach;
 
 import model.items.*;
@@ -242,7 +240,8 @@ public class TacticianTest {
         tactician1.getUnits().add(hero);
         tactician1.getUnits().add(alpaca);
         tactician1.setSelectedUnit(alpaca);
-        tactician1.setSelectedUnit(field.getCell(0,0).getUnit());
+        field.getCell(0,0).setUnit(hero);
+        tactician1.setSelectedUnit(hero.getLocation());
         assertEquals(tactician1.getSelectedUnit(),hero);
 
     }
@@ -289,6 +288,7 @@ public class TacticianTest {
         tactician1.changeFactory(heroFactory);
         tactician1.addUnit(100,10,0,0);
         alpaca1 = new Alpaca(100,10,field.getCell(4,4),axe1);
+        field.getCell(4,4).setUnit(alpaca1);
         tactician1.getSelectedUnit().moveTo(field.getCell(3,3));
         assertEquals(tactician1.getSelectedUnit().getLocation(),field.getCell(3,3));
         tactician1.getSelectedUnit().moveTo(field.getCell(4,4));
@@ -301,8 +301,29 @@ public class TacticianTest {
         assertEquals(tactician1.getSelectedUnit().getLocation(),field.getCell(2,2));
 
     }
+    @Test
+    public void testingCombat(){
+        field = new Field();
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                this.field.addCells(true, new Location(i, j));
+            }
+        }
+        tactician1.setMap(field);
+        Bow bow = new Bow("",20,0,150);
+        Spear spear = new Spear("",20,1,20);
+        Hero hero = new Hero(100,5,field.getCell(0,0),spear);
+        Archer archer = new Archer(100,3,field.getCell(4,4),bow);
+        tactician1.getUnits().add(hero);
+        tactician1.setSelectedUnit(hero);
+        hero.setItems(spear);
+        archer.equipItem(bow);
+        assertTrue(hero.isHeroAlive());
+        tactician1.combatWithUnitIn(archer);
+        assertEquals(tactician1.getSelectedUnit().getCurrentHitPoints(),80);
+        assertEquals(archer.getCurrentHitPoints(),80);
 
-
+    }
 
 
 }
