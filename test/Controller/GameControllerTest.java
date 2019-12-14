@@ -15,9 +15,13 @@ import java.util.stream.IntStream;
 import Controller.GameController;
 import model.Factories.Units.HeroFactory;
 import model.Tactician.Tactician;
+import model.items.Axe;
+import model.items.IEquipableItem;
 import model.items.Sword;
 import model.map.Field;
 import model.units.Alpaca;
+import model.units.Fighter;
+import model.units.Hero;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -99,9 +103,10 @@ class GameControllerTest implements PropertyChangeListener {
   @Test
   void getMaxRounds() {
     Random randomTurnSequence = new Random();
+    int a = randomTurnSequence.nextInt();
     IntStream.range(0, 50).forEach(i -> {
-      controller.initGame(randomTurnSequence.nextInt());
-      assertEquals(randomTurnSequence.nextInt(), controller.getMaxRounds());
+      controller.initGame(a);
+      assertEquals(a, controller.getMaxRounds());
     });
     controller.initEndlessGame();
     assertEquals(-1, controller.getMaxRounds());
@@ -116,6 +121,7 @@ class GameControllerTest implements PropertyChangeListener {
 
 
     Tactician secondPlayer = new Tactician("Player 2",controller.getGameMap(),controller);
+    controller.setTacticianPlaying(secondPlayer);
     assertNotEquals(secondPlayer.getName(), firstPlayer.getName());
 
     assertNotEquals(firstPlayer.getName(), controller.getTurnOwner().getName());
@@ -147,7 +153,7 @@ class GameControllerTest implements PropertyChangeListener {
     assertEquals(4, controller.getWinners().size());
     controller.getWinners()
         .forEach(player -> Assertions.assertTrue(testTacticians.contains(player)));
-
+    controller.getWinners().clear();
     controller.initGame(2);
     IntStream.range(0, 4).forEach(i -> controller.endTurn());
     assertNull(controller.getWinners());
@@ -172,27 +178,69 @@ class GameControllerTest implements PropertyChangeListener {
   void getSelectedUnit() {
     assertEquals(controller.getSelectedUnit(),null);
 
-
-
-
-
+    controller = new GameController(1,10);
+    controller.setTacticianPlaying(controller.getTacticians().get(0));
+    assertEquals(controller.getTacticians().get(0),controller.getTacticianPlaying());
+    controller.getTacticianPlaying().setSelectedUnit(controller.getTacticianPlaying().getUnits().get(0));
+    assertTrue(controller.getSelectedUnit() instanceof Hero);
 
   }
 
   @Test
   void selectUnitIn() {
+      controller = new GameController(1,10);
+      controller.setTacticianPlaying(controller.getTacticians().get(0));
+      Axe axe = new Axe("",1,1,1);
+      Alpaca alpaca = new Alpaca(100,1,controller.getGameMap().getCell(5,5),axe);
+      controller.getTacticianPlaying().getUnits().add(alpaca);
+      controller.getGameMap().getCell(5,5).setUnit(alpaca);
+      controller.selectUnitIn(5,5);
+      assertEquals(controller.getSelectedUnit(),alpaca);
   }
 
   @Test
   void getItems() {
+      controller = new GameController(1,10);
+      controller.setTacticianPlaying(controller.getTacticians().get(0));
+      Axe axe = new Axe("",1,1,1);
+      Alpaca alpaca = new Alpaca(100,1,controller.getGameMap().getCell(5,5),axe);
+      controller.selectUnitIn(5,5);
+      controller.getTacticianPlaying().getUnits().add(alpaca);
+      controller.getGameMap().getCell(5,5).setUnit(alpaca);
+      controller.selectUnitIn(5,5);
+      ArrayList<IEquipableItem> list = new ArrayList<>();
+      list.add(axe);
+      assertEquals(controller.getItems(),list);
+
+
   }
 
   @Test
   void equipItem() {
+      controller = new GameController(1,10);
+      controller.setTacticianPlaying(controller.getTacticians().get(0));
+      Axe axe = new Axe("",1,1,1);
+      Fighter fighter = new Fighter(100,1,controller.getGameMap().getCell(5,5),axe);
+      controller.selectUnitIn(5,5);
+      controller.getTacticianPlaying().getUnits().add(fighter);
+      controller.getGameMap().getCell(5,5).setUnit(fighter);
+      controller.selectUnitIn(5,5);
+      ArrayList<IEquipableItem> list = new ArrayList<>();
+      controller.equipItem(0);
+      assertEquals(controller.getSelectedUnit().getEquippedItem(),axe);
+
   }
 
   @Test
   void useItemOn() {
+      controller = new GameController(1,10);
+      controller.setTacticianPlaying(controller.getTacticians().get(0));
+      Axe axe = new Axe("",1,1,1);
+      Fighter fighter = new Fighter(100,1,controller.getGameMap().getCell(2,5),axe);
+      fighter.equipItem(axe);
+      controller.getGameMap().getCell(2,5).setUnit(fighter);
+      //controller.useItemOn(2,5);
+      //assertEquals(fighter.getCurrentHitPoints(),85);
   }
 
   @Test

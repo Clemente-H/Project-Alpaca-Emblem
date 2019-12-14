@@ -259,7 +259,7 @@ public class TacticianTest {
         heroFactory = new HeroFactory();
         tactician1.changeFactory(heroFactory);
         tactician1.addUnit(100,10,0,0);
-        tactician1.getSelectedUnit().moveTo(field.getCell(3,3));
+        tactician1.moveUnit(field.getCell(3,3));
         assertEquals(tactician1.getSelectedUnit().getLocation(),field.getCell(3,3));
          }
 
@@ -289,9 +289,9 @@ public class TacticianTest {
         tactician1.addUnit(100,10,0,0);
         alpaca1 = new Alpaca(100,10,field.getCell(4,4),axe1);
         field.getCell(4,4).setUnit(alpaca1);
-        tactician1.getSelectedUnit().moveTo(field.getCell(3,3));
+        tactician1.moveUnit(field.getCell(3,3));
         assertEquals(tactician1.getSelectedUnit().getLocation(),field.getCell(3,3));
-        tactician1.getSelectedUnit().moveTo(field.getCell(4,4));
+        tactician1.moveUnit(field.getCell(4,4));
         assertEquals(tactician1.getSelectedUnit().getLocation(),field.getCell(3,3));
         alpacaFactory = new AlpacaFactory();
         tactician1.changeFactory(alpacaFactory);
@@ -372,5 +372,6 @@ public class TacticianTest {
         tactician1.getUnits().add(hero);
         tactician1.addItem(sword,hero);
         assertTrue(hero.getItems().contains(sword));
+        assertEquals(tactician1.numberOfUnits(),1);
     }
 }

@@ -3,6 +3,7 @@ package Controller;
 import model.Factories.Units.HeroFactory;
 import model.Tactician.Tactician;
 import model.items.IEquipableItem;
+import model.items.Spear;
 import model.map.Field;
 import model.map.Location;
 import model.units.Hero;
@@ -27,10 +28,11 @@ public class GameController implements PropertyChangeListener {
   private Field field;
   private ArrayList<Tactician> tacticians = new ArrayList<>();
   private int selectedTactician;
-  private int round=0;
-  private int maxRound;
+  private int round=1;
+  protected int maxRound;
   private Tactician tacticianPlaying;
   private IEquipableItem selectedItem;
+
 
 
   /**
@@ -55,13 +57,15 @@ public class GameController implements PropertyChangeListener {
       String name = "Player "+ k;
       Tactician tactician = new Tactician(name,field,this);
       tactician.setMap(field);
-      //when a tactician is created, an hero is asignated, in
+      //when a tactician is created, an hero, equipped
+      // with an basic spear is asignated, in
       //a position of the map
       Random random = new Random();
-      int a =  random.nextInt(tacticians.size());
-      HeroFactory heroFactory = new HeroFactory();
-      tactician.changeFactory(heroFactory);
-      tactician.addUnit(100,5,B*k,a);
+      int a =  random.nextInt(numberOfPlayers);
+      Spear spear = new Spear("BasicSpear",10,1,5);
+      Hero hero = new Hero(100,5,field.getCell(B*k,a),spear);
+      hero.equipItem(spear);
+      tactician.getUnits().add(hero);
       tacticians.add(tactician);
       field.addListener(tactician);
     }
@@ -93,7 +97,7 @@ public class GameController implements PropertyChangeListener {
    * @return the number of rounds since the start of the game.
    */
   public int getRoundNumber() {
-    return this.round + 1;
+    return this.round;
   }
 
   /**
@@ -108,30 +112,40 @@ public class GameController implements PropertyChangeListener {
 
 public IEquipableItem getSelectedItem(){return this.selectedItem;}
 
+  /**
+   * @Param the tactician that will be playing
+   */
 public void setTacticianPlaying(Tactician tactician){this.tacticianPlaying = tactician;}
 
+/**
+   * @return  the tactician that will be playing
+   */
 
+public Tactician getTacticianPlaying(){return this.tacticianPlaying;}
 
 
   /**
    * Finishes the current player's turn.
    */
   public void endTurn() {
-    for(int i = 0; i<tacticianPlaying.getUnits().size();i++){
+    int a = tacticians.indexOf(tacticianPlaying);
+    int b = tacticians.size();
+    int c = this.tacticianPlaying.numberOfUnits();
+    for(int i = 0; i<c;i++){
       if (!tacticianPlaying.getUnits().get(i).isHeroAlive()){
-        int a = tacticians.indexOf(tacticianPlaying);
-        int b = tacticians.size();
         tacticianPlaying.killTactician();
         this.removeTactician(tacticianPlaying.getName());
-        if (a==b){this.setTacticianPlaying(tacticians.get(0));}
+        if (a==b){this.setTacticianPlaying(tacticians.get(0));
+          this.round= round+1;
+        }
         else{this.setTacticianPlaying(tacticians.get(a));}
       }
     }
-    if(tacticians.indexOf(tacticianPlaying)==tacticians.size()){
+    if(tacticians.indexOf(tacticianPlaying)+1==tacticians.size()){
       this.setTacticianPlaying(tacticians.get(0));
+      this.round = round+1;
     }
     else{
-      int a = tacticians.indexOf(tacticianPlaying);
     this.setTacticianPlaying(tacticians.get(a+1));
     }
 
@@ -144,7 +158,15 @@ public void setTacticianPlaying(Tactician tactician){this.tacticianPlaying = tac
    *     the player to be removed
    */
   public void removeTactician(String tactician) {
-    this.tacticians.remove(tactician);
+    int i = 0;
+    while(i <tacticians.size()){
+      if(tactician.equals(tacticians.get(i).getName())){
+        tacticians.remove(tacticians.get(i));
+        this.tacticians = tacticians;
+        break;
+      }
+      i++;
+    }
   }
 
   /**
@@ -154,6 +176,7 @@ public void setTacticianPlaying(Tactician tactician){this.tacticianPlaying = tac
    */
   public void initGame(final int maxTurns) {
     this.maxRound=maxTurns;
+    this.setTacticianPlaying(tacticians.get(0));
 
   }
     /**
@@ -187,14 +210,15 @@ public void setTacticianPlaying(Tactician tactician){this.tacticianPlaying = tac
    * @return the winner of this game, if the match ends in a draw returns a list of all the winners
    */
 
-
   public List<String> getWinners() {
     List<String> winners = new ArrayList<>();
-    for(int i =0;i<this.tacticians.size();i++){
+    for (int i = 0; i < this.tacticians.size(); i++) {
       String n = this.tacticians.get(i).getName();
       winners.add(n);
-    }
+      }
+    if(this.round != this.maxRound){winners.clear();}
     return winners;
+
   }
 
   /**
@@ -212,7 +236,8 @@ public void setTacticianPlaying(Tactician tactician){this.tacticianPlaying = tac
    * @param y
    *     vertical position of the unit
    */
-  public void selectUnitIn(int x, int y) { tacticianPlaying.setSelectedUnit(field.getCell(x,y));}/*arreglar esto, tiene que quedar guardado
+  public void selectUnitIn(int x, int y) {
+    tacticianPlaying.setSelectedUnit(this.getGameMap().getCell(x,y).getUnit());}/*arreglar esto, tiene que quedar guardado
   la unidad seleccionada*/
 
 
@@ -256,7 +281,7 @@ public void setTacticianPlaying(Tactician tactician){this.tacticianPlaying = tac
    *     the location of the item in the inventory.
    */
   public void selectItem(int index) {
-    this.getTurnOwner().setSelectedItem(this.getSelectedUnit().selectItem(index));
+    tacticianPlaying.setSelectedItem(this.getSelectedUnit().selectItem(index));
   }
 
 
