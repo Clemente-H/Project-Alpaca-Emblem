@@ -165,12 +165,9 @@ public class Tactician implements PropertyChangeListener {
      */
     public void moveUnit(Location location){
         if(!MovedUnits.contains(this.getSelectedUnit()) ) {
-            if(this.SelectedUnit.getLocation().distanceTo(location)<=this.SelectedUnit.getMovement()){
-                if (location.getUnit() ==null) {
-                    this.getSelectedUnit().moveTo(location);
-                    MovedUnits.add(this.getSelectedUnit());
-
-                }
+            if (location.getUnit()==null){
+                this.getSelectedUnit().moveTo(location);
+                MovedUnits.add(this.getSelectedUnit());
             }
         }
     }
@@ -345,6 +342,13 @@ public class Tactician implements PropertyChangeListener {
                 this.getActingUnitsUnits().add(this.getSelectedUnit());
             }
         }
+    }
+    /**
+     @author Clemente Henriquez
+     returns the number of units, that the tactician has
+     **/
+    public int numberOfUnits(){
+        return this.getUnits().size();
     }
 
 }

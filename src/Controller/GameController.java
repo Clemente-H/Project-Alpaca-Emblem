@@ -270,8 +270,8 @@ public Tactician getTacticianPlaying(){return this.tacticianPlaying;}
    *     vertical position of the target
    */
   public void useItemOn(int x, int y) {
-    this.getSelectedUnit().Combat(field.getCell(x,y).getUnit());
-    this.getSelectedUnit().heal(field.getCell(x,y).getUnit());
+    this.getSelectedUnit().Combat(this.getGameMap().getCell(x,y).getUnit());
+    this.getSelectedUnit().heal(this.getGameMap().getCell(x,y).getUnit());
   }
 
   /**
@@ -281,6 +281,7 @@ public Tactician getTacticianPlaying(){return this.tacticianPlaying;}
    *     the location of the item in the inventory.
    */
   public void selectItem(int index) {
+    this.selectedItem = this.getSelectedUnit().getItems().get(index);
     tacticianPlaying.setSelectedItem(this.getSelectedUnit().selectItem(index));
   }
 
