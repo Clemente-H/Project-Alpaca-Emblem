@@ -218,7 +218,6 @@ public Tactician getTacticianPlaying(){return this.tacticianPlaying;}
         winners.add(n);
       }
       }
-    if(this.round != this.maxRound){winners.clear();}
     return winners;
 
   }
@@ -272,8 +271,8 @@ public Tactician getTacticianPlaying(){return this.tacticianPlaying;}
    *     vertical position of the target
    */
   public void useItemOn(int x, int y) {
-    this.getSelectedUnit().Combat(this.getGameMap().getCell(x,y).getUnit());
-    this.getSelectedUnit().heal(this.getGameMap().getCell(x,y).getUnit());
+    this.getTacticianPlaying().combatWithUnitIn(this.getGameMap().getCell(x,y).getUnit());
+    this.getTacticianPlaying().healUnitIn(this.getGameMap().getCell(x,y).getUnit());
   }
 
   /**
@@ -297,11 +296,9 @@ public Tactician getTacticianPlaying(){return this.tacticianPlaying;}
    *     vertical position of the target
    */
   public void giveItemTo(int x, int y) {
-    this.getSelectedUnit().trade(this.getTurnOwner().getSelectedItem(),field.getCell(x,y).getUnit());
+    this.getSelectedUnit().trade(this.getSelectedItem(),field.getCell(x,y).getUnit());
   }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
-    }
+    public void propertyChange(PropertyChangeEvent evt) {evt.getNewValue();}
 }

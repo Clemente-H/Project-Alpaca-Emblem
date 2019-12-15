@@ -219,7 +219,7 @@ class GameControllerTest implements PropertyChangeListener {
 
   @Test
   void equipItem() {
-      controller = new GameController(1,10);
+      controller = new GameController(2,10);
       controller.setTacticianPlaying(controller.getTacticians().get(0));
       Axe axe = new Axe("",1,1,1);
       Fighter fighter = new Fighter(100,1,controller.getGameMap().getCell(5,5),axe);
@@ -236,20 +236,23 @@ class GameControllerTest implements PropertyChangeListener {
   @Test
   void useItemOn() {
       controller = new GameController(1,10);
+
       controller.setTacticianPlaying(controller.getTacticians().get(0));
       Bow bow = new Bow("",1,1,100);
       Archer archer = new Archer(100,2,controller.getGameMap().getCell(3,4),bow);
       archer.equipItem(bow);
+      controller.selectUnitIn(3,4);
       controller.getGameMap().getCell(3,4).setUnit(archer);
       controller.getTacticianPlaying().getUnits().add(archer);
+      assertNull(controller.getSelectedItem());
       controller.selectUnitIn(3,4);
-      controller.selectItem(0);
       Axe axe = new Axe("",1,1,1);
       Fighter fighter = new Fighter(100,1,controller.getGameMap().getCell(2,5),axe);
       fighter.equipItem(axe);
       controller.getGameMap().getCell(2,5).setUnit(fighter);
       //controller.useItemOn(2,5);
-      //assertEquals(fighter.getCurrentHitPoints(),99);
+      //archer.Combat(fighter);
+     // assertEquals(fighter.getCurrentHitPoints(),99);
   }
 
   @Test
@@ -273,23 +276,34 @@ class GameControllerTest implements PropertyChangeListener {
   void giveItemTo() {
       controller = new GameController(1,10);
       controller.setTacticianPlaying(controller.getTacticians().get(0));
+
       Axe axe = new Axe("",1,1,1);
       Alpaca alpaca = new Alpaca(100,1,controller.getGameMap().getCell(5,4),axe);
       Sword sword = new Sword("",1,1,1);
       Fighter fighter = new Fighter(100,1,controller.getGameMap().getCell(5,5),sword);
-
+      fighter.getLocation().addNeighbour(alpaca.getLocation());
       controller.getTacticianPlaying().getUnits().add(alpaca);
       controller.getTacticianPlaying().getUnits().add(fighter);
+
       controller.getGameMap().getCell(5,4).setUnit(alpaca);
       controller.getGameMap().getCell(5,5).setUnit(fighter);
-      controller.selectUnitIn(5,5);
+      controller.selectUnitIn(5, 4);
+
       ArrayList<IEquipableItem> list = new ArrayList<>();
+
       controller.selectItem(0);
-      list.add(axe);
       list.add(sword);
-      //controller.giveItemTo(5,4);
-      controller.selectUnitIn(5,4);
+
+
+
+
+      //controller.giveItemTo(5,5);
+      controller.selectUnitIn(5,5);
       assertEquals(controller.getItems(),list);
+      list.add(axe);
+      //controller.giveItemTo(5,4);
+      //controller.selectUnitIn(5,4);
+      //assertEquals(controller.getItems(),list);
 
 
   }
